@@ -1,3 +1,4 @@
+package com.utbm.smallWorld;
 
 public class Partie {
 
