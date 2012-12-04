@@ -68,19 +68,19 @@ public class Peuple {
 		
 		/* Recherche dans les bonus s'il faut défausser une unité ou non */
 		if (unite > 1) {
-    		boolean defausseUnite = true;
-    		
-    		Iterator<Bonus> it = this.bonus.iterator();
-    		
-    		while (defausseUnite && it.hasNext()) {
-    			Bonus b = it.next();
-    			
-    			defausseUnite = b.defausseUnite();
-    		}
-    		
-    		if (defausseUnite) {
-    			unite--;
-    		}
+			boolean defausseUnite = true;
+			
+			Iterator<Bonus> it = this.bonus.iterator();
+			
+			while (defausseUnite && it.hasNext()) {
+				Bonus b = it.next();
+				
+				defausseUnite = b.defausseUnite();
+			}
+			
+			if (defausseUnite) {
+				unite--;
+			}
 		}
 		
 		this.nbUniteEnMain += unite;
