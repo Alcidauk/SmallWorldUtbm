@@ -11,5 +11,10 @@ public class Bonus {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	public int bonusDefense(Territoire t, Peuple attaquant) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

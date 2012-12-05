@@ -190,6 +190,27 @@ public class Peuple {
 		return gains;
 	}
 	
+	/**
+	 * Calcule les éventuels bonus de défense accordé par les bonus du peuple
+	 * @param t Territoire du peuple se faisant attaquer
+	 * @param attaquant Peuple essayant de conquérir le territoire
+	 * @return bonus d'unité de défense (Integer.MAX_VALUE si imprennable)
+	 */
+	public int bonusDefense(Territoire t, Peuple attaquant) {
+		int bonus = 0;
+		
+		Iterator<Bonus> itBonus = this.bonus.iterator();
+		
+		// Application des possibles bonus
+		while (itBonus.hasNext()) {
+			Bonus b = itBonus.next();
+			
+			bonus += b.bonusDefense(t, attaquant);
+		}
+		
+		return bonus;
+	}
+	
 	/* *** GETTERS *** */
 	
 	/**
