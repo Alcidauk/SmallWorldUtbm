@@ -87,6 +87,7 @@ public class Peuple {
 		this.territoiresOccupes.remove(t);
 		
 		if (this.enDeclin && this.territoiresOccupes.size() == 0) {
+			joueur.pertePeuple(this);
 			Partie.remettreBoite(this);
 		}
 	}
@@ -247,6 +248,18 @@ public class Peuple {
 		}
 		
 		return sansLimite;
+	}
+	
+	/**
+	 * Passe le peuple en déclin
+	 */
+	public void decliner() {
+		this.enDeclin = true;
+		
+		if (this.territoiresOccupes.size() == 0) {
+			joueur.pertePeuple(this);
+			Partie.remettreBoite(this);
+		}
 	}
 	
 	/* *** GETTERS *** */
