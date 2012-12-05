@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Je sais, il n'y a pas de commentaire dans le code.
- * seulement je suis entrain de travailler dessus, et quand je travaille dessus,
- * je ne mets que les commentaires qui me sont importants.
- * Je commit juste pour sauvegarder mon travail
- * Je mettrai les commentaires ensuite, promis :)
+ * Représentation d'un Peuple
+ * Gestion des territoires, des bonus, du pouvoir spécial, etc.
+ * 
+ * @author LONGO Michael
+ * @version 1.0
  */
 public class Peuple {
 	/** Nombre d'unité pouvant au maximum être présentes en jeu */
@@ -142,8 +142,8 @@ public class Peuple {
 	 * @param nbUnite Nombre d'unité ayant pris le territoire
 	 */
 	public int priseTerritoire(Territoire t, int nbUnite) {
+		// Utilisation prioritaire des unités bonus
 		if (this.nbUniteBonus >= nbUnite - 1) {
-			
 			this.nbUniteBonus -= nbUnite - 1;
 			
 			nbUnite = 1;
@@ -161,6 +161,34 @@ public class Peuple {
 		return nbUnite;
 	}
 	
+	/**
+	 * Calcule les gains en $ du peuple en fonction
+	 * des territoires qu'il possède et des bonus
+	 * @return Gain pour le peuple pour le tour en cours
+	 */
+	public int calculerGain() {
+		int gains = 0;
+		
+		Iterator<Territoire> it = this.territoiresOccupes.iterator();
+		
+		// Calcul des gains pour chaque territoire
+		while (it.hasNext()) {
+			Territoire t = it.next();
+			
+			gains += 1;
+			
+			Iterator<Bonus> itBonus = this.bonus.iterator();
+			
+			// Application des possibles bonus
+			while (itBonus.hasNext()) {
+				Bonus b = itBonus.next();
+				
+				gains += b.bonusGain(t);
+			}
+		}
+		
+		return gains;
+	}
 	
 	/* *** GETTERS *** */
 	

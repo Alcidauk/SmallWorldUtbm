@@ -1,6 +1,5 @@
 package com.utbm.smallWorld;
 
-import java.util.Collection;
 import java.util.List;
 
 public class PouvoirSpecial {
