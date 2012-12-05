@@ -21,5 +21,10 @@ public class Bonus {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	public boolean sansLimite() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

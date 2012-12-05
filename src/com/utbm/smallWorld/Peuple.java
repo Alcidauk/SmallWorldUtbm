@@ -231,6 +231,24 @@ public class Peuple {
 		return bonus;
 	}
 	
+	/**
+	 * @return si le peuple peut outre-passer les règles de déplacement standards
+	 */
+	public boolean estSansLimite() {
+		boolean sansLimite = false;
+
+		Iterator<Bonus> itBonus = this.bonus.iterator();
+		
+		// Application des possibles bonus
+		while (! sansLimite && itBonus.hasNext()) {
+			Bonus b = itBonus.next();
+			
+			sansLimite = b.sansLimite();
+		}
+		
+		return sansLimite;
+	}
+	
 	/* *** GETTERS *** */
 	
 	/**
