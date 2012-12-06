@@ -29,18 +29,13 @@ public abstract class Peuple {
 	protected boolean enDeclin = false;
 	
 	/** Ensemble des territoires occupées par ce peuple */
-	private List<Territoire> territoiresOccupes;
-	/** Différents bonus possédant l'espèce nativement */
-	private List<Bonus> bonusInitial;
-	/** Ensemble total des bonus de l'espèce à l'instant t (initial + ceux de pouvoirSpecial) */
-	private List<Bonus> bonus;
-	//private Bonus bonus;
+	protected List<Territoire> territoiresOccupes;
 	
 	/** Pouvoir special associé -temporairement- au peuple */
-	private PouvoirSpecial pouvoirSpecial = null;
+	protected PouvoirSpecial pouvoirSpecial = null;
 	
 	/** Joueur possédant actuellement le peuple */
-	private Joueur joueur = null;
+	protected Joueur joueur = null;
 
 	/* ***  *** */
 	
@@ -50,7 +45,6 @@ public abstract class Peuple {
 	 */
 	public Peuple() {
 		territoiresOccupes = new LinkedList<Territoire>();
-		bonusInitial = new LinkedList<Bonus>();
 	}
 	
 	
@@ -73,7 +67,6 @@ public abstract class Peuple {
 	 */
 	public Peuple(String nom, List<Bonus> bonus) {
 		this.territoiresOccupes = new LinkedList<Territoire>();
-		this.bonusInitial = bonus;
 		this.nom = nom;
 	}
 	
@@ -83,7 +76,7 @@ public abstract class Peuple {
 	 * Qu'il l'abandonne ou qu'il se fasse attaquer
 	 * @param t Territoire perdu
 	 */
-	private void quitterTerritoire(Territoire t) {
+	protected void quitterTerritoire(Territoire t) {
 		this.territoiresOccupes.remove(t);
 		
 		if (this.enDeclin && this.territoiresOccupes.size() == 0) {
@@ -113,6 +106,7 @@ public abstract class Peuple {
 		int unite = t.getNbUnite();
 		
 		/* Recherche dans les bonus s'il faut défausser une unité ou non */
+		/* TODO: REFAIRE
 		if (unite > 1) {
 			boolean defausseUnite = true;
 			
@@ -127,7 +121,7 @@ public abstract class Peuple {
 			if (defausseUnite) {
 				unite--;
 			}
-		}
+		}*/
 		
 		this.nbUniteEnMain += unite;
 
@@ -166,7 +160,7 @@ public abstract class Peuple {
 	 * Calcule les gains en $ du peuple en fonction
 	 * des territoires qu'il possède et des bonus
 	 * @return Gain pour le peuple pour le tour en cours
-	 */
+	 *//* TODO: REFAIRE
 	public int calculerGain() {
 		int gains = 0;
 		
@@ -189,14 +183,14 @@ public abstract class Peuple {
 		}
 		
 		return gains;
-	}
+	}*/
 	
 	/**
 	 * Calcule les éventuels bonus de défense accordés par les bonus du peuple
 	 * @param t Territoire du peuple se faisant attaquer
 	 * @param attaquant Peuple essayant de conquérir le territoire
 	 * @return bonus d'unité de défense (Integer.MAX_VALUE si imprennable)
-	 */
+	 *//* TODO: REFAIRE
 	public int bonusDefense(Territoire t, Peuple attaquant) {
 		int bonus = 0;
 		
@@ -210,13 +204,13 @@ public abstract class Peuple {
 		}
 		
 		return bonus;
-	}
+	}*/
 	
 	/**
 	 * Calcule les éventuels bonus d'attaque accordés par les bonus du peuple
 	 * @param t Territoire se faisant attaquer
 	 * @return bonus d'unité d'attaque (Integer.MAX_VALUE si prise "gratuite" (1 unité))
-	 */
+	 *//* TODO: REFAIRE
 	public int bonusAttaque(Territoire t) {
 		int bonus = 0;
 		
@@ -230,11 +224,11 @@ public abstract class Peuple {
 		}
 		
 		return bonus;
-	}
+	}*/
 	
 	/**
 	 * @return si le peuple peut outre-passer les règles de déplacement standards
-	 */
+	 *//* TODO: REFAIRE
 	public boolean estSansLimite() {
 		boolean sansLimite = false;
 
@@ -248,7 +242,7 @@ public abstract class Peuple {
 		}
 		
 		return sansLimite;
-	}
+	}*/
 	
 	/**
 	 * Passe le peuple en déclin
@@ -261,6 +255,36 @@ public abstract class Peuple {
 			Partie.remettreBoite(this);
 		}
 	}
+	
+	/* *** BONUS *** */
+	public int bonusUnite() {
+		return 0;
+	}
+	
+	public int bonusUniteAttaque() {
+		return 0;
+	}
+	
+	public int bonusAttaque(Territoire t) {
+		return 0;
+	}
+	
+	public int bonusDefense(Territoire t, Peuple attaquant) {
+		return 0;
+	}
+	
+	public int bonusGain(Territoire t) {
+		return 0;
+	}
+	
+	public boolean bonusSansLimite() {
+		return false;
+	}
+	
+	public boolean bonusDefausseUnite() {
+		return true;
+	}
+	
 	
 	/* *** GETTERS *** */
 	
@@ -318,20 +342,6 @@ public abstract class Peuple {
 	 */
 	public List<Territoire> getTerritoiresOccupes() {
 		return territoiresOccupes;
-	}
-
-	/**
-	 * @return the bonus
-	 */
-	public List<Bonus> getBonuses() {
-		return bonus;
-	}
-
-	/**
-	 * @return the bonus
-	 */
-	public List<Bonus> getBonus() {
-		return bonusInitial;
 	}
 
 	/**
@@ -412,20 +422,10 @@ public abstract class Peuple {
 	}
 
 	/**
-	 * @param bonus the bonus to set
-	 */
-	public void setBonus(List<Bonus> bonus) {
-		this.bonusInitial = bonus;
-	}
-
-	/**
 	 * @param pouvoirSpecial the pouvoirSpecial to set
 	 */
 	public void setPouvoirSpecial(PouvoirSpecial pouvoirSpecial) {
 		this.pouvoirSpecial = pouvoirSpecial;
-		
-		this.bonus = new LinkedList<Bonus>(this.bonusInitial);
-		this.bonus.addAll(pouvoirSpecial.getBonus());
 	}
 
 	/**
