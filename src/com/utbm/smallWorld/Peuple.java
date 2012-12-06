@@ -11,22 +11,22 @@ import java.util.List;
  * @author LONGO Michael
  * @version 1.0
  */
-public class Peuple {
+public abstract class Peuple {
 	/** Nombre d'unité pouvant au maximum être présentes en jeu */
-	private int nbUniteMax = 0;
+	protected int nbUniteMax = 0;
 	/** Nombre d'unité conférées au joueur par défaut pour ce peuple - sans bonus du pouvoir special */
-	private int nbUniteDepart = 0;
+	protected int nbUniteDepart = 0;
 	/** Nombre d'unité actuellement possédées par le joueur sur le plateau */
-	private int nbUnite = 0;
+	protected int nbUnite = 0;
 	/** Nombre d'unité en jeu, mais ne se trouvant pas sur un territoire */
-	private int nbUniteEnMain = 0;
+	protected int nbUniteEnMain = 0;
 	/** Nombre d'unité bonus servant à augmenter notre attaque, mais qui ne peuvent pas être déployées */
-	private int nbUniteBonus = 0;
+	protected int nbUniteBonus = 0;
 	
 	/** Nom du peuple */
-	private String nom;
+	protected String nom;
 	/** Définit si le peuple est en déclin ou non */
-	private boolean enDeclin = false;
+	protected boolean enDeclin = false;
 	
 	/** Ensemble des territoires occupées par ce peuple */
 	private List<Territoire> territoiresOccupes;

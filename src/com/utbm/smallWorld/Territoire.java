@@ -33,6 +33,8 @@ public class Territoire {
 	public int coutAttaque() {
 		int cout = this.nbUnite;
 		
+		
+		
 		return 0;
 	}
 	
