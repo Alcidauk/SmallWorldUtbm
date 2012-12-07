@@ -16,7 +16,7 @@ import com.utbm.smallWorld.interfaces.Bonusable;
 public abstract class Peuple implements Bonusable {
 	/** Nombre d'unité pouvant au maximum être présentes en jeu */
 	protected int nbUniteMax = 0;
-	/** Nombre d'unité conférées au joueur par défaut pour ce peuple - sans bonus du pouvoir special */
+	/** Nombre d'unité conférées au joueur par défaut pour ce peuple - sans bonus du pouvoir  */
 	protected int nbUniteDepart = 0;
 	/** Nombre d'unité actuellement possédées par le joueur sur le plateau */
 	protected int nbUnite = 0;
@@ -33,7 +33,7 @@ public abstract class Peuple implements Bonusable {
 	/** Ensemble des territoires occupées par ce peuple */
 	protected List<Territoire> territoiresOccupes;
 	
-	/** Pouvoir special associé -temporairement- au peuple */
+	/** Pouvoir associé -temporairement- au peuple */
 	protected Pouvoir pouvoir = null;
 	
 	/** Joueur possédant actuellement le peuple */
@@ -296,9 +296,9 @@ public abstract class Peuple implements Bonusable {
 	}
 
 	/**
-	 * @return the pouvoirSpecial
+	 * @return the pouvoir
 	 */
-	public Pouvoir getPouvoirSpecial() {
+	public Pouvoir getPouvoir() {
 		return pouvoir;
 	}
 
@@ -373,10 +373,10 @@ public abstract class Peuple implements Bonusable {
 	}
 
 	/**
-	 * @param pouvoirSpecial the pouvoirSpecial to set
+	 * @param pouvoir the pouvoir to set
 	 */
-	public void setPouvoirSpecial(Pouvoir pouvoirSpecial) {
-		this.pouvoir = pouvoirSpecial;
+	public void setPouvoir(Pouvoir pouvoir) {
+		this.pouvoir = pouvoir;
 	}
 
 	/**
