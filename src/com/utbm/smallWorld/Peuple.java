@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.utbm.smallWorld.interfaces.Bonusable;
+
 /**
  * Représentation d'un Peuple
  * Gestion des territoires, des bonus, du pouvoir spécial, etc.
@@ -11,7 +13,7 @@ import java.util.List;
  * @author LONGO Michael
  * @version 1.0
  */
-public abstract class Peuple {
+public abstract class Peuple implements Bonusable {
 	/** Nombre d'unité pouvant au maximum être présentes en jeu */
 	protected int nbUniteMax = 0;
 	/** Nombre d'unité conférées au joueur par défaut pour ce peuple - sans bonus du pouvoir special */
@@ -32,12 +34,11 @@ public abstract class Peuple {
 	protected List<Territoire> territoiresOccupes;
 	
 	/** Pouvoir special associé -temporairement- au peuple */
-	protected PouvoirSpecial pouvoirSpecial = null;
+	protected Pouvoir pouvoir = null;
 	
 	/** Joueur possédant actuellement le peuple */
 	protected Joueur joueur = null;
 
-	/* ***  *** */
 	
 	/**
 	 * Constructeur par défaut
@@ -69,6 +70,15 @@ public abstract class Peuple {
 		this.territoiresOccupes = new LinkedList<Territoire>();
 		this.nom = nom;
 	}
+
+	
+	
+	/**
+	 * @return true si le peuple possède un pouvoir associé
+	 */
+	public boolean hasPower() {
+		return this.pouvoir != null;
+	}
 	
 	
 	/**
@@ -81,6 +91,7 @@ public abstract class Peuple {
 		
 		if (this.enDeclin && this.territoiresOccupes.size() == 0) {
 			joueur.pertePeuple(this);
+			
 			Partie.remettreBoite(this);
 		}
 	}
@@ -106,28 +117,18 @@ public abstract class Peuple {
 		int unite = t.getNbUnite();
 		
 		/* Recherche dans les bonus s'il faut défausser une unité ou non */
-		/* TODO: REFAIRE
 		if (unite > 1) {
-			boolean defausseUnite = true;
-			
-			Iterator<Bonus> it = this.bonus.iterator();
-			
-			while (defausseUnite && it.hasNext()) {
-				Bonus b = it.next();
-				
-				defausseUnite = b.defausseUnite();
-			}
-			
-			if (defausseUnite) {
+			if (this.bonusDefausseUnite() || (hasPower() && pouvoir.bonusDefausseUnite())) {
 				unite--;
 			}
-		}*/
+		}
 		
 		this.nbUniteEnMain += unite;
 
 		quitterTerritoire(t);
 	}
-	
+
+
 	/**
 	 * Capture d'un territoire lors d'une attaque
 	 * Soustrait les unités utilisées de la main,
@@ -156,11 +157,12 @@ public abstract class Peuple {
 		return nbUnite;
 	}
 	
+	
 	/**
 	 * Calcule les gains en $ du peuple en fonction
 	 * des territoires qu'il possède et des bonus
 	 * @return Gain pour le peuple pour le tour en cours
-	 *//* TODO: REFAIRE
+	 */
 	public int calculerGain() {
 		int gains = 0;
 		
@@ -170,79 +172,57 @@ public abstract class Peuple {
 		while (it.hasNext()) {
 			Territoire t = it.next();
 			
-			gains += 1;
+			gains += 1 + this.bonusGain(t);
 			
-			Iterator<Bonus> itBonus = this.bonus.iterator();
-			
-			// Application des possibles bonus
-			while (itBonus.hasNext()) {
-				Bonus b = itBonus.next();
-				
-				gains += b.bonusGain(t);
+			if (hasPower()) {
+				gains += this.pouvoir.bonusGain(t);
 			}
 		}
 		
 		return gains;
-	}*/
+	}
+	
 	
 	/**
 	 * Calcule les éventuels bonus de défense accordés par les bonus du peuple
 	 * @param t Territoire du peuple se faisant attaquer
 	 * @param attaquant Peuple essayant de conquérir le territoire
 	 * @return bonus d'unité de défense (Integer.MAX_VALUE si imprennable)
-	 *//* TODO: REFAIRE
+	 */
 	public int bonusDefense(Territoire t, Peuple attaquant) {
-		int bonus = 0;
+		int bonus = this.bonusDefense(t, attaquant);
 		
-		Iterator<Bonus> itBonus = this.bonus.iterator();
-		
-		// Application des possibles bonus
-		while (itBonus.hasNext()) {
-			Bonus b = itBonus.next();
-			
-			bonus += b.bonusDefense(t, attaquant);
+		if (hasPower()) {
+			bonus += this.pouvoir.bonusDefense(t, attaquant);
 		}
 		
 		return bonus;
-	}*/
+	}
+	
 	
 	/**
 	 * Calcule les éventuels bonus d'attaque accordés par les bonus du peuple
 	 * @param t Territoire se faisant attaquer
 	 * @return bonus d'unité d'attaque (Integer.MAX_VALUE si prise "gratuite" (1 unité))
-	 *//* TODO: REFAIRE
+	 */
 	public int bonusAttaque(Territoire t) {
-		int bonus = 0;
+		int bonus = this.bonusAttaque(t);
 		
-		Iterator<Bonus> itBonus = this.bonus.iterator();
-		
-		// Application des possibles bonus
-		while (itBonus.hasNext()) {
-			Bonus b = itBonus.next();
-			
-			bonus += b.bonusAttaque(t);
+		if (hasPower()) {
+			bonus += this.pouvoir.bonusAttaque(t);
 		}
 		
 		return bonus;
-	}*/
+	}
+	
 	
 	/**
 	 * @return si le peuple peut outre-passer les règles de déplacement standards
-	 *//* TODO: REFAIRE
+	 */
 	public boolean estSansLimite() {
-		boolean sansLimite = false;
-
-		Iterator<Bonus> itBonus = this.bonus.iterator();
-		
-		// Application des possibles bonus
-		while (! sansLimite && itBonus.hasNext()) {
-			Bonus b = itBonus.next();
-			
-			sansLimite = b.sansLimite();
-		}
-		
-		return sansLimite;
-	}*/
+		return this.bonusSansLimite() || (hasPower() && this.pouvoir.bonusSansLimite());
+	}
+	
 	
 	/**
 	 * Passe le peuple en déclin
@@ -254,35 +234,6 @@ public abstract class Peuple {
 			joueur.pertePeuple(this);
 			Partie.remettreBoite(this);
 		}
-	}
-	
-	/* *** BONUS *** */
-	public int bonusUnite() {
-		return 0;
-	}
-	
-	public int bonusUniteAttaque() {
-		return 0;
-	}
-	
-	public int bonusAttaque(Territoire t) {
-		return 0;
-	}
-	
-	public int bonusDefense(Territoire t, Peuple attaquant) {
-		return 0;
-	}
-	
-	public int bonusGain(Territoire t) {
-		return 0;
-	}
-	
-	public boolean bonusSansLimite() {
-		return false;
-	}
-	
-	public boolean bonusDefausseUnite() {
-		return true;
 	}
 	
 	
@@ -347,8 +298,8 @@ public abstract class Peuple {
 	/**
 	 * @return the pouvoirSpecial
 	 */
-	public PouvoirSpecial getPouvoirSpecial() {
-		return pouvoirSpecial;
+	public Pouvoir getPouvoirSpecial() {
+		return pouvoir;
 	}
 
 	/**
@@ -424,8 +375,8 @@ public abstract class Peuple {
 	/**
 	 * @param pouvoirSpecial the pouvoirSpecial to set
 	 */
-	public void setPouvoirSpecial(PouvoirSpecial pouvoirSpecial) {
-		this.pouvoirSpecial = pouvoirSpecial;
+	public void setPouvoirSpecial(Pouvoir pouvoirSpecial) {
+		this.pouvoir = pouvoirSpecial;
 	}
 
 	/**
