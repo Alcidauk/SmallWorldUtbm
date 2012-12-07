@@ -1,11 +1,5 @@
 package com.utbm.smallWorld;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import com.utbm.smallWorld.interfaces.Bonusable;
-
 /**
  * Représentation d'un Peuple
  * Gestion des territoires, des bonus, du pouvoir spécial, etc.

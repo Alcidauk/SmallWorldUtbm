@@ -1,7 +1,5 @@
 package com.utbm.smallWorld;
 
-import java.util.List;
-
 import com.utbm.smallWorld.interfaces.Bonusable;
 
 public class Pouvoir implements Bonusable {
