@@ -132,4 +132,34 @@ public class Territoire {
 		this.elements = elements;
 	}
 	
+	public boolean hasSalleInfo(){
+		// TODO parcourir la liste pour voir si il y a une salle info sur la territoire.
+		return false;
+	}
+	
+	public boolean hasMachineACafe(){
+		// TODO parcourir la liste pour voir si il y a une machine à café sur le territoire.
+		return false;
+	}
+	
+	public boolean hasPhotocopieuse(){
+		// TODO parcourir la liste pour voir si il y a une photocopieuse sur le territoire.
+		return false;
+	}
+	
+	public boolean hasNourriture(){
+		// TODO parcourir la liste pour voir si il y a de la nourriture sur le territoire.
+		return false;
+	}
+	
+	public boolean hasSallePartiel(){
+		// TODO parcourir la liste pour voir si il y a une salle de partiel sur le territoire.
+		return false;
+	}
+	
+	public boolean hasEspacePleinAir(){
+		// TODO parcourir la liste pour voir si il y a une salle de partiel sur le territoire.
+		return false;
+	}
+	
 }
