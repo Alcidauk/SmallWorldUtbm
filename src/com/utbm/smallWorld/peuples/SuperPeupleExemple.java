@@ -3,12 +3,12 @@
  */
 package com.utbm.smallWorld.peuples;
 
-import com.utbm.smallWorld.PeupleAvecBonus;
+import com.utbm.smallWorld.Peuple;
 
 /**
  * @author Administrateur
  *
  */
-public class SuperPeupleExemple extends PeupleAvecBonus {
+public class SuperPeupleExemple extends Peuple {
 	
 }

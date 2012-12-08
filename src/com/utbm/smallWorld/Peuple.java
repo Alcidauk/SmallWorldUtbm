@@ -189,7 +189,7 @@ public abstract class Peuple implements Bonusable {
 	 * @param attaquant Peuple essayant de conquérir le territoire
 	 * @return bonus d'unité de défense (Integer.MAX_VALUE si imprennable)
 	 */
-	public int bonusDefense(Territoire t, Peuple attaquant) {
+	public int calcBonusDefense(Territoire t, Peuple attaquant) {
 		int bonus = this.bonusDefense(t, attaquant);
 		
 		if (hasPower()) {
@@ -205,7 +205,7 @@ public abstract class Peuple implements Bonusable {
 	 * @param t Territoire se faisant attaquer
 	 * @return bonus d'unité d'attaque (Integer.MAX_VALUE si prise "gratuite" (1 unité))
 	 */
-	public int bonusAttaque(Territoire t) {
+	public int calcBonusAttaque(Territoire t) {
 		int bonus = this.bonusAttaque(t);
 		
 		if (hasPower()) {
@@ -384,6 +384,56 @@ public abstract class Peuple implements Bonusable {
 	 */
 	public void setJoueur(Joueur joueur) {
 		this.joueur = joueur;
+	}
+	
+	/* *** BONUS *** */
+	/**
+	 * @return
+	 */
+	public int bonusUnite() {
+		return 0;
+	}
+
+	/**
+	 * @return
+	 */
+	public int bonusUniteAttaque() {
+		return 0;
+	}
+
+	/**
+	 * @return
+	 */
+	public int bonusAttaque(Territoire t) {
+		return 0;
+	}
+
+	/**
+	 * @return
+	 */
+	public int bonusDefense(Territoire t, Peuple attaquant) {
+		return 0;
+	}
+
+	/**
+	 * @return
+	 */
+	public int bonusGain(Territoire t) {
+		return 0;
+	}
+
+	/**
+	 * @return
+	 */
+	public boolean bonusSansLimite() {
+		return false;
+	}
+
+	/**
+	 * @return
+	 */
+	public boolean bonusDefausseUnite() {
+		return false;
 	}
 }
 
