@@ -4,22 +4,19 @@ import com.utbm.smallWorld.Peuple;
 import com.utbm.smallWorld.Pouvoir;
 import com.utbm.smallWorld.Territoire;
 
-public class PouvoirTest extends Pouvoir {
+public class PouvoirGeek extends Pouvoir {
 
-	public PouvoirTest(int nbUnite, boolean actifDeclin) {
+	public PouvoirGeek(int nbUnite, boolean actifDeclin) {
 		super(nbUnite, actifDeclin);
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public int bonusGain(Territoire t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public int bonusDefense(Territoire t, Peuple attaquant) {
-		// TODO Auto-generated method stub
+		if( t.hasSalleInfo() ){
+			return 1;
+		}
 		return 0;
 	}
 
