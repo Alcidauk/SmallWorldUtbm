@@ -1,7 +1,10 @@
 package com.utbm.smallWorld;
 
+import java.util.Iterator;
 import java.util.LinkedList;
+
 import java.util.List;
+
 
 /**
  * Représentation d'un Territoire
@@ -132,34 +135,23 @@ public class Territoire {
 		this.elements = elements;
 	}
 	
-	public boolean hasSalleInfo(){
-		// TODO parcourir la liste pour voir si il y a une salle info sur la territoire.
+	/**
+	 * 
+	 * @param type le type d'élément dont on veut savoir s'il est sur le territoire
+	 * @return boolean si l'élément est dessus
+	 */
+	public boolean has(Class<? extends Element> type ){
+		Iterator<Element> it = this.elements.iterator();
+		
+		while( it.hasNext() ){
+			Element ele = it.next();
+			
+			// TODO if(  ele.isInstance(type) )
+				return true;
+		}
+		
 		return false;
 	}
-	
-	public boolean hasMachineACafe(){
-		// TODO parcourir la liste pour voir si il y a une machine à café sur le territoire.
-		return false;
-	}
-	
-	public boolean hasPhotocopieuse(){
-		// TODO parcourir la liste pour voir si il y a une photocopieuse sur le territoire.
-		return false;
-	}
-	
-	public boolean hasNourriture(){
-		// TODO parcourir la liste pour voir si il y a de la nourriture sur le territoire.
-		return false;
-	}
-	
-	public boolean hasSallePartiel(){
-		// TODO parcourir la liste pour voir si il y a une salle de partiel sur le territoire.
-		return false;
-	}
-	
-	public boolean hasEspacePleinAir(){
-		// TODO parcourir la liste pour voir si il y a une salle de partiel sur le territoire.
-		return false;
-	}
+
 	
 }

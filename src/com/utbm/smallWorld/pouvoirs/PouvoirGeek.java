@@ -8,34 +8,21 @@ public class PouvoirGeek extends Pouvoir {
 
 	public PouvoirGeek(int nbUnite, boolean actifDeclin) {
 		super(nbUnite, actifDeclin);
-		// TODO Auto-generated constructor stub
 	}
 
 
 	@Override
 	public int bonusDefense(Territoire t, Peuple attaquant) {
-		if( t.hasSalleInfo() ){
+		// TODO if( t.has(SalleInfo.class) )
 			return 1;
-		}
-		return 0;
+		//return 0;
 	}
 
 	@Override
 	public int bonusAttaque(Territoire t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean bonusSansLimite() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean bonusDefausseUnite() {
-		// TODO Auto-generated method stub
-		return false;
+		// TODO if( t.has(SalleInfo.class) )
+			return 2;
+		//return 0;
 	}
 
 }
