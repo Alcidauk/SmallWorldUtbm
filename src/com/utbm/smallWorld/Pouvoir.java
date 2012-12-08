@@ -54,33 +54,18 @@ public abstract class Pouvoir implements Bonusable {
 	
 	
 	@Override
-	public int bonusGain(Territoire t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public abstract int bonusGain(Territoire t); 
 
 	@Override
-	public int bonusDefense(Territoire t, Peuple attaquant) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public abstract int bonusDefense(Territoire t, Peuple attaquant);
 
 	@Override
-	public int bonusAttaque(Territoire t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public abstract int bonusAttaque(Territoire t); 
 
 	@Override
-	public boolean bonusSansLimite() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public abstract boolean bonusSansLimite();
 
 	@Override
-	public boolean bonusDefausseUnite() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public abstract boolean bonusDefausseUnite();
 	
 }
