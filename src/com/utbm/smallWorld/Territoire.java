@@ -146,7 +146,7 @@ public class Territoire {
 		while( it.hasNext() ){
 			Element ele = it.next();
 			
-			// TODO if(  ele.isInstance(type) )
+			if(  type.isInstance(ele) )
 				return true;
 		}
 		
