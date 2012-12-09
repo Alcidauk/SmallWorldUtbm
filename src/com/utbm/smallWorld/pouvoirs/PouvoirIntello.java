@@ -3,7 +3,6 @@ package com.utbm.smallWorld.pouvoirs;
 import com.utbm.smallWorld.Peuple;
 import com.utbm.smallWorld.Pouvoir;
 import com.utbm.smallWorld.Territoire;
-import com.utbm.smallWorld.elements.SalleInfo;
 import com.utbm.smallWorld.elements.SallePartiel;
 
 public class PouvoirIntello extends Pouvoir {
