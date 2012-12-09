@@ -9,13 +9,8 @@ public class PouvoirGeek extends Pouvoir {
 	
 	static{ nbUniteApporte = 5; }
 
-	public PouvoirGeek(int nbUnite, boolean actifDeclin) {
-		super(nbUnite, actifDeclin);
-	}
-
-
 	@Override
-	public int bonusDefense(Territoire t, Peuple attaquant) {
+	public int bonusDefense(Territoire t, Peuple attaquant){
 		if( t.has(SalleInfo.class) )
 			return 1;
 		return 0;

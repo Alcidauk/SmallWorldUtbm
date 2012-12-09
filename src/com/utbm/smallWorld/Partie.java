@@ -4,6 +4,8 @@ package com.utbm.smallWorld;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.utbm.smallWorld.peuples.*;
+import com.utbm.smallWorld.pouvoirs.*;
 
 
 public class Partie {
@@ -54,10 +56,40 @@ public class Partie {
 	
 	public void initPeuples(){
 		
+		peuplesDispo.add(new PeupleAdministration());
+
+		peuplesDispo.add(new PeupleAlternance());
+
+		peuplesDispo.add(new PeupleChercheur());
+		
+		peuplesDispo.add(new PeupleCRI());
+		
+		peuplesDispo.add(new PeupleDirecteur());
+		
+		peuplesDispo.add(new PeupleEtudiantBranche());
+		
+		peuplesDispo.add(new PeupleEtudiantTC());
+		
+		peuplesDispo.add(new PeupleProfHumanite());
+		
+		peuplesDispo.add(new PeupleProfScience());
+		
+		peuplesDispo.add(new PeupleRats());
+	
+		peuplesDispo.add(new PeupleServiceTechnique());
 	}
 	
 	public void initPouvoirs(){
 		
+		pouvoirsDispo.add(new PouvoirAvare());
+		
+		pouvoirsDispo.add(new PouvoirGeek());
+		
+		pouvoirsDispo.add(new PouvoirParesseux());
+		
+		pouvoirsDispo.add(new PouvoirIntello());
+		
+		pouvoirsDispo.add(new PouvoirFetard());
 	}
 	
 	

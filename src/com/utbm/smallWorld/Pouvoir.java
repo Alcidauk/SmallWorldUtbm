@@ -12,17 +12,10 @@ public abstract class Pouvoir implements Bonusable {
 	
 	protected boolean actifEnDeclin = false;
 
-	
-	/**
-	 * constructeur
-	 * permet d'instancier les pouvoirs au début.
-	 * @param nbUnite nombre d'unités qu'apporte le pouvoir
-	 */
-	public Pouvoir(int nbUnite, boolean actifDeclin){
-		this.nbUniteApporte = nbUnite;
-		this.actifEnDeclin = actifDeclin;
+	public Pouvoir(){
+		
 	}
-	
+
 	/* accesseurs peupleLie */
 	
 	/**
