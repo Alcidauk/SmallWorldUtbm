@@ -10,6 +10,10 @@ public interface Bonusable {
 
 	public int bonusAttaque(Territoire t);
 
+	public int bonusValeurDe();
+
+	public boolean bonusLanceDe();
+
 	public boolean bonusSansLimite();
 
 	public boolean bonusDefausseUnite();

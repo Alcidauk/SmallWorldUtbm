@@ -10,5 +10,11 @@ import com.utbm.smallWorld.Peuple;
  *
  */
 public class PeupleProfScience extends Peuple {
+	static {
+		nom = "Professeur scientifique";
+		nbUniteDepart = 15;
+		nbUniteMax = 20;
+	}
+	
 	
 }

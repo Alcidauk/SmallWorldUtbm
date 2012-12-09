@@ -10,5 +10,13 @@ import com.utbm.smallWorld.Peuple;
  *
  */
 public class PeupleEtudiantBranche extends Peuple {
+	static {
+		nom = "Etudiant branche";
+		nbUniteDepart = 15;
+		nbUniteMax = 20;
+	}
 	
+	public boolean bonusDefausseUnite() {
+		return true;
+	}
 }

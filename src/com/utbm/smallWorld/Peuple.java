@@ -414,6 +414,20 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @return
 	 */
+	public int bonusValeurDe() {
+		return 0;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean bonusLanceDe() {
+		return false;
+	}
+	
+	/**
+	 * @return
+	 */
 	public boolean bonusSansLimite() {
 		return false;
 	}

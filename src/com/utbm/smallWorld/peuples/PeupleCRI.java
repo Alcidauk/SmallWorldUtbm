@@ -16,5 +16,5 @@ public class PeupleCRI extends Peuple {
 		nbUniteMax = 20;
 	}
 	
-	
+	// TODO: bonusAttaque
 }
