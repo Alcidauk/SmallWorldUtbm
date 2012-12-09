@@ -13,6 +13,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Territoire {
+	
 	private int nbUnite = 0;
 	
 	private Peuple occupant = null;
@@ -21,6 +22,7 @@ public class Territoire {
 
 	private List<Territoire> territoiresAdjacents;
 	private List<Element> elements;
+	private List<List<Peuple>> prisesDuTerritoire;
 	
 	public Territoire() {
 		territoiresAdjacents = new LinkedList<Territoire>();
@@ -99,6 +101,14 @@ public class Territoire {
 	public List<Element> getElements() {
 		return elements;
 	}
+	
+	/**
+	 * 
+	 * @return List prisesDuTerritoire
+	 */
+	public List<List<Peuple>> getPrisesDuTerritoire() {
+		return prisesDuTerritoire;
+	}
 
 	/**
 	 * @param nbUnite the nbUnite to set
@@ -134,6 +144,14 @@ public class Territoire {
 	public void setElements(List<Element> elements) {
 		this.elements = elements;
 	}
+
+	/**
+	 * 
+	 * @param prisesDuTerritoire
+	 */
+	public void setPrisesDuTerritoire(List<List<Peuple>> prisesDuTerritoire) {
+		this.prisesDuTerritoire = prisesDuTerritoire;
+	}
 	
 	/**
 	 * 
@@ -152,6 +170,7 @@ public class Territoire {
 		
 		return false;
 	}
+
 
 	
 }
