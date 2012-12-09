@@ -5,7 +5,7 @@ import com.utbm.smallWorld.interfaces.Bonusable;
 public abstract class Pouvoir implements Bonusable {
 	
 	/** nombre de pions de peuples qu'apporte le pouvoir en plus */
-	protected int nbUniteApporte = 0;
+	protected static int nbUniteApporte = 0;
 	
 	/** peuple auquel est lié le pouvoir spécial, null si lié à aucun. */
 	protected Peuple peupleLie = null;

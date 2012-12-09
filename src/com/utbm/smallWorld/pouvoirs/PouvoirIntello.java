@@ -6,6 +6,8 @@ import com.utbm.smallWorld.Territoire;
 import com.utbm.smallWorld.elements.SallePartiel;
 
 public class PouvoirIntello extends Pouvoir {
+	
+	static{ nbUniteApporte = 5; }
 
 	public PouvoirIntello(int nbUnite, boolean actifDeclin) {
 		super(nbUnite, actifDeclin);
