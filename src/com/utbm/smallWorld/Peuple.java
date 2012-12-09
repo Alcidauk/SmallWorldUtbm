@@ -15,9 +15,9 @@ import com.utbm.smallWorld.interfaces.Bonusable;
  */
 public abstract class Peuple implements Bonusable {
 	/** Nombre d'unité pouvant au maximum être présentes en jeu */
-	protected int nbUniteMax = 0;
+	protected static int nbUniteMax = 0;
 	/** Nombre d'unité conférées au joueur par défaut pour ce peuple - sans bonus du pouvoir  */
-	protected int nbUniteDepart = 0;
+	protected static int nbUniteDepart = 0;
 	/** Nombre d'unité actuellement possédées par le joueur sur le plateau */
 	protected int nbUnite = 0;
 	/** Nombre d'unité en jeu, mais ne se trouvant pas sur un territoire */
@@ -26,7 +26,7 @@ public abstract class Peuple implements Bonusable {
 	protected int nbUniteBonus = 0;
 	
 	/** Nom du peuple */
-	protected String nom;
+	protected static String nom;
 	/** Définit si le peuple est en déclin ou non */
 	protected boolean enDeclin = false;
 	
@@ -48,27 +48,15 @@ public abstract class Peuple implements Bonusable {
 		territoiresOccupes = new LinkedList<Territoire>();
 	}
 	
-	
 	/**
 	 * Constructeur
-	 * Identique au constructeur par défaut, au détail près que l'on spécifie un nom au peuple
-	 * @param nom Nom du peuple
+	 * Définit les bonus initiaux au peuple
+	 * @param pouvoir Pouvoir associé au peuple
 	 */
-	public Peuple(String nom) {
+	public Peuple(Pouvoir pv) {
 		this();
 		
-		this.nom = nom;
-	}
-	
-	/**
-	 * Constructeur
-	 * Définit un nom et des bonus initiaux au peuple
-	 * @param nom Nom du peuple
-	 * @param bonus Bonus initiaux du peuple
-	 */
-	public Peuple(String nom, List<Bonus> bonus) {
-		this.territoiresOccupes = new LinkedList<Territoire>();
-		this.nom = nom;
+		this.pouvoir = pv;
 	}
 
 	
@@ -242,15 +230,22 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @return the nbUniteMax
 	 */
-	public int getNbUniteMax() {
+	public static int getNbUniteMax() {
 		return nbUniteMax;
 	}
 
 	/**
 	 * @return the nbUniteDepart
 	 */
-	public int getNbUniteDepart() {
+	public static int getNbUniteDepart() {
 		return nbUniteDepart;
+	}
+
+	/**
+	 * @return the nom
+	 */
+	public static String getNom() {
+		return nom;
 	}
 
 	/**
@@ -272,13 +267,6 @@ public abstract class Peuple implements Bonusable {
 	 */
 	public int getNbUniteBonus() {
 		return nbUniteBonus;
-	}
-
-	/**
-	 * @return the nom
-	 */
-	public String getNom() {
-		return nom;
 	}
 
 	/**
@@ -319,17 +307,25 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @param nbUniteMax the nbUniteMax to set
 	 */
-	public void setNbUniteMax(int nbUniteMax) {
-		this.nbUniteMax = nbUniteMax;
+	public static void setNbUniteMax(int _nbUniteMax) {
+		nbUniteMax = _nbUniteMax;
 	}
 
 	/**
 	 * @param nbUniteDepart the nbUniteDepart to set
 	 */
-	public void setNbUniteDepart(int nbUniteDepart) {
-		this.nbUniteDepart = nbUniteDepart;
+	public static void setNbUniteDepart(int _nbUniteDepart) {
+		nbUniteDepart = _nbUniteDepart;
 	}
 
+	/**
+	 * @param nom the nom to set
+	 */
+	public static void setNom(String _nom) {
+		nom = _nom;
+	}
+
+	
 	/**
 	 * @param nbUnite the nbUnite to set
 	 */
@@ -349,13 +345,6 @@ public abstract class Peuple implements Bonusable {
 	 */
 	public void setNbUniteBonus(int nbUniteBonus) {
 		this.nbUniteBonus = nbUniteBonus;
-	}
-
-	/**
-	 * @param nom the nom to set
-	 */
-	public void setNom(String nom) {
-		this.nom = nom;
 	}
 
 	/**

@@ -9,6 +9,6 @@ import com.utbm.smallWorld.Peuple;
  * @author Administrateur
  *
  */
-public class SuperPeupleExemple extends Peuple {
+public class PeupleRats extends Peuple {
 	
 }
