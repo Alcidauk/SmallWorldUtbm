@@ -4,11 +4,25 @@
 package com.utbm.smallWorld.peuples;
 
 import com.utbm.smallWorld.Peuple;
+import com.utbm.smallWorld.Territoire;
 
 /**
  * @author Administrateur
  *
  */
 public class PeupleServiceTechnique extends Peuple {
+	static {
+		nom = "Service technique";
+		description = "";
+		nbUniteDepart = 15;
+		nbUniteMax = 20;
+	}
 	
+	public boolean bonusSansLimite() {
+		return true;
+	}
+	
+	public int bonusAttaque(Territoire from, Territoire to) {
+		return to.coutAttaque() == Integer.MAX_VALUE ? Integer.MAX_VALUE : 0;
+	}
 }

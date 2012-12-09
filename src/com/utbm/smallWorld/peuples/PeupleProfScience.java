@@ -12,9 +12,12 @@ import com.utbm.smallWorld.Peuple;
 public class PeupleProfScience extends Peuple {
 	static {
 		nom = "Professeur scientifique";
+		description = "";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}
 	
-	
+	public int bonusValeurDe() {
+		return 2;
+	}
 }

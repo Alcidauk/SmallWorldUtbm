@@ -14,6 +14,7 @@ import com.utbm.smallWorld.elements.Laboratoire;
 public class PeupleChercheur extends Peuple {
 	static {
 		nom = "Chercheur";
+		description = "";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}

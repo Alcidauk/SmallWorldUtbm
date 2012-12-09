@@ -8,7 +8,11 @@ public interface Bonusable {
 
 	public int bonusDefense(Territoire t, Peuple attaquant);
 
-	public int bonusAttaque(Territoire t);
+	public int bonusAttaque(Territoire from, Territoire to);
+	
+	public int bonusUnite();
+	
+	public int bonusUniteAttaque();
 
 	public int bonusValeurDe();
 

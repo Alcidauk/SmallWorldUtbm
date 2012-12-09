@@ -12,6 +12,7 @@ import com.utbm.smallWorld.Peuple;
 public class PeupleAlternance extends Peuple {
 	static {
 		nom = "Alternance";
+		description = "";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}

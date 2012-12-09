@@ -3,7 +3,11 @@
  */
 package com.utbm.smallWorld.peuples;
 
+import java.util.Iterator;
+
 import com.utbm.smallWorld.Peuple;
+import com.utbm.smallWorld.Territoire;
+import com.utbm.smallWorld.elements.SalleInfo;
 
 /**
  * @author Administrateur
@@ -12,9 +16,25 @@ import com.utbm.smallWorld.Peuple;
 public class PeupleCRI extends Peuple {
 	static {
 		nom = "CRI";
+		description = "";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}
 	
-	// TODO: bonusAttaque
+	
+	public int bonusAttaque(Territoire from, Territoire to) {
+		int bonus = 0;
+		
+		if (from.has(SalleInfo.class)) {
+			Iterator<Territoire> it = territoiresOccupes.iterator();
+			
+			while (it.hasNext()) {
+				if (it.next().has(SalleInfo.class)) {
+					bonus++;
+				}
+			}
+		}
+		
+		return bonus;
+	}
 }

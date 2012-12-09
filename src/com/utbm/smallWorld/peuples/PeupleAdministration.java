@@ -15,6 +15,7 @@ import com.utbm.smallWorld.elements.Photocopieuse;
 public class PeupleAdministration extends Peuple {
 	static {
 		nom = "Administration";
+		description = "";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}

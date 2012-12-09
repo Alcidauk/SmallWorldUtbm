@@ -24,9 +24,11 @@ public abstract class Peuple implements Bonusable {
 	protected int nbUniteEnMain = 0;
 	/** Nombre d'unité bonus servant à augmenter notre attaque, mais qui ne peuvent pas être déployées */
 	protected int nbUniteBonus = 0;
-	
+
 	/** Nom du peuple */
 	protected static String nom;
+	/** Description du peuple */
+	protected static String description;
 	/** Définit si le peuple est en déclin ou non */
 	protected boolean enDeclin = false;
 	
@@ -193,11 +195,11 @@ public abstract class Peuple implements Bonusable {
 	 * @param t Territoire se faisant attaquer
 	 * @return bonus d'unité d'attaque (Integer.MAX_VALUE si prise "gratuite" (1 unité))
 	 */
-	public int calcBonusAttaque(Territoire t) {
-		int bonus = this.bonusAttaque(t);
+	public int calcBonusAttaque(Territoire from, Territoire to) {
+		int bonus = this.bonusAttaque(from, to);
 		
 		if (hasPower()) {
-			bonus += this.pouvoir.bonusAttaque(t);
+			bonus += this.pouvoir.bonusAttaque(from, to);
 		}
 		
 		return bonus;
@@ -246,6 +248,13 @@ public abstract class Peuple implements Bonusable {
 	 */
 	public static String getNom() {
 		return nom;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public static String getDescription() {
+		return description;
 	}
 
 	/**
@@ -325,6 +334,13 @@ public abstract class Peuple implements Bonusable {
 		nom = _nom;
 	}
 
+	/**
+	 * @param description the description to set
+	 */
+	public static void setDescription(String _description) {
+		description = _description;
+	}
+
 	
 	/**
 	 * @param nbUnite the nbUnite to set
@@ -393,7 +409,7 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @return
 	 */
-	public int bonusAttaque(Territoire t) {
+	public int bonusAttaque(Territoire from, Territoire to) {
 		return 0;
 	}
 

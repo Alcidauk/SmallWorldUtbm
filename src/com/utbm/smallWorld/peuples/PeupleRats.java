@@ -10,5 +10,14 @@ import com.utbm.smallWorld.Peuple;
  *
  */
 public class PeupleRats extends Peuple {
+	static {
+		nom = "Rat";
+		description = "";
+		nbUniteDepart = 15;
+		nbUniteMax = 20;
+	}
 	
+	public int bonusUnite() {
+		return 1;
+	}
 }

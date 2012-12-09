@@ -14,6 +14,7 @@ import com.utbm.smallWorld.elements.SallePartiel;
 public class PeupleProfHumanite extends Peuple {
 	static {
 		nom = "Professeur d\'humanité";
+		description = "";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}
