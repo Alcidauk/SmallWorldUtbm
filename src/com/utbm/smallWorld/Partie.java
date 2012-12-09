@@ -1,6 +1,7 @@
 package com.utbm.smallWorld;
 
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -77,6 +78,10 @@ public class Partie {
 		peuplesDispo.add(new PeupleRats());
 	
 		peuplesDispo.add(new PeupleServiceTechnique());
+		
+		/* pour randomizer le choix peuple/pouvoir */
+		
+		Collections.shuffle(peuplesDispo);
 	}
 	
 	public void initPouvoirs(){
@@ -91,6 +96,8 @@ public class Partie {
 		
 		pouvoirsDispo.add(new PouvoirFetard());
 	}
+	
+
 	
 	
 }
