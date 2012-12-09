@@ -20,8 +20,8 @@ public class PouvoirGeek extends Pouvoir {
 	}
 
 	@Override
-	public int bonusAttaque(Territoire t) {
-		if( t.has(SalleInfo.class) )
+	public int bonusAttaque(Territoire from, Territoire to) {
+		if( to.has(SalleInfo.class) )
 			return 2;
 		return 0;
 	}

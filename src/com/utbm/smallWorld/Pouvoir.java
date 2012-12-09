@@ -53,29 +53,66 @@ public abstract class Pouvoir implements Bonusable {
 	}
 	
 	
-	@Override
-	public int bonusGain(Territoire t){
+	/**
+	 * @return
+	 */
+	public int bonusUnite() {
 		return 0;
 	}
 
-	@Override
-	public int bonusDefense(Territoire t, Peuple attaquant){
+	/**
+	 * @return
+	 */
+	public int bonusUniteAttaque() {
 		return 0;
 	}
 
-	@Override
-	public int bonusAttaque(Territoire t){
+	/**
+	 * @return
+	 */
+	public int bonusAttaque(Territoire from, Territoire to) {
 		return 0;
 	}
 
-	@Override
-	public boolean bonusSansLimite(){
-		return false;
+	/**
+	 * @return
+	 */
+	public int bonusDefense(Territoire t, Peuple attaquant) {
+		return 0;
 	}
 
-	@Override
-	public boolean bonusDefausseUnite(){
+	/**
+	 * @return
+	 */
+	public int bonusGain(Territoire t) {
+		return 0;
+	}
+
+	/**
+	 * @return
+	 */
+	public int bonusValeurDe() {
+		return 0;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean bonusLanceDe() {
 		return false;
 	}
 	
+	/**
+	 * @return
+	 */
+	public boolean bonusSansLimite() {
+		return false;
+	}
+
+	/**
+	 * @return
+	 */
+	public boolean bonusDefausseUnite() {
+		return false;
+	}
 }

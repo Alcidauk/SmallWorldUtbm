@@ -20,8 +20,8 @@ public class PouvoirIntello extends Pouvoir {
 	}
 
 	@Override
-	public int bonusAttaque(Territoire t) {
-		if( t.has(SallePartiel.class) )
+	public int bonusAttaque(Territoire from, Territoire to) {
+		if( to.has(SallePartiel.class) )
 			return 2;
 		return 0;
 	}
