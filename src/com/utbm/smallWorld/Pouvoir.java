@@ -64,6 +64,7 @@ public abstract class Pouvoir implements Bonusable {
 	public int bonusUniteAttaque() {
 		return 0;
 	}
+	
 
 	/**
 	 * @return
