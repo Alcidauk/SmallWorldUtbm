@@ -6,10 +6,10 @@ import com.utbm.smallWorld.Element;
 import com.utbm.smallWorld.Territoire;
 
 public class EspacePleinAir extends Element {
-
 	public EspacePleinAir(Territoire t) {
 		super(t);
-		// TODO Auto-generated constructor stub
+		
+		nom = "Espace plein air";
 	}
 
 }

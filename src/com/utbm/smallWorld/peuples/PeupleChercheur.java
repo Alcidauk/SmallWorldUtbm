@@ -12,7 +12,7 @@ import com.utbm.smallWorld.elements.Laboratoire;
  *
  */
 public class PeupleChercheur extends Peuple {
-	static {
+	public PeupleChercheur() {
 		nom = "Chercheur";
 		description = "";
 		nbUniteDepart = 15;

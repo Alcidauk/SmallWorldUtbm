@@ -14,7 +14,7 @@ import com.utbm.smallWorld.elements.SalleInfo;
  *
  */
 public class PeupleCRI extends Peuple {
-	static {
+	public PeupleCRI() {
 		nom = "CRI";
 		description = "";
 		nbUniteDepart = 15;

@@ -12,7 +12,7 @@ import com.utbm.smallWorld.elements.SallePartiel;
  *
  */
 public class PeupleProfHumanite extends Peuple {
-	static {
+	public PeupleProfHumanite() {
 		nom = "Professeur d\'humanité";
 		description = "";
 		nbUniteDepart = 15;

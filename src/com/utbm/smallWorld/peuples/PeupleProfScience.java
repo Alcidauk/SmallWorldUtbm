@@ -10,7 +10,7 @@ import com.utbm.smallWorld.Peuple;
  *
  */
 public class PeupleProfScience extends Peuple {
-	static {
+	public PeupleProfScience() {
 		nom = "Professeur scientifique";
 		description = "";
 		nbUniteDepart = 15;

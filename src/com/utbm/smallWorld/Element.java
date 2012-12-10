@@ -1,9 +1,9 @@
 package com.utbm.smallWorld;
 
-public abstract class Element {
+public abstract class Element implements Comparable<Element> {
 	protected Territoire territoire;
 	
-	protected static String nom;
+	protected String nom;
 	
 	public Element(Territoire t) {
 		this.territoire = t;
@@ -18,5 +18,17 @@ public abstract class Element {
 	
 	public int bonusGain() {
 		return 0;
+	}
+	
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public int compareTo(Element e) {
+		return nom.compareTo(e.nom);
+	}
+	
+	public boolean equals(Element e) {
+		return nom.equals(e.nom);
 	}
 }

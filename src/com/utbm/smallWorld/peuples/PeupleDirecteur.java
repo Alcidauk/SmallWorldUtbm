@@ -11,7 +11,7 @@ import com.utbm.smallWorld.Territoire;
  *
  */
 public class PeupleDirecteur extends Peuple {
-	static {
+	public PeupleDirecteur() {
 		nom = "Directeur de département";
 		description = "";
 		nbUniteDepart = 15;

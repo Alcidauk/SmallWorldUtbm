@@ -13,7 +13,7 @@ import com.utbm.smallWorld.elements.Photocopieuse;
  *
  */
 public class PeupleAdministration extends Peuple {
-	static {
+	public PeupleAdministration() {
 		nom = "Administration";
 		description = "";
 		nbUniteDepart = 15;

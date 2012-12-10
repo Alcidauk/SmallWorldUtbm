@@ -10,7 +10,7 @@ import com.utbm.smallWorld.Peuple;
  *
  */
 public class PeupleEtudiantTC extends Peuple {
-	static {
+	public PeupleEtudiantTC() {
 		nom = "Etudiant TC";
 		description = "";
 		nbUniteDepart = 15;

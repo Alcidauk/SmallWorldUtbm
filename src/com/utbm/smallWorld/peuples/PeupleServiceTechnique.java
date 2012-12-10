@@ -11,7 +11,7 @@ import com.utbm.smallWorld.Territoire;
  *
  */
 public class PeupleServiceTechnique extends Peuple {
-	static {
+	public PeupleServiceTechnique() {
 		nom = "Service technique";
 		description = "";
 		nbUniteDepart = 15;

@@ -10,7 +10,7 @@ import com.utbm.smallWorld.Peuple;
  *
  */
 public class PeupleRats extends Peuple {
-	static {
+	public PeupleRats() {
 		nom = "Rat";
 		description = "";
 		nbUniteDepart = 15;

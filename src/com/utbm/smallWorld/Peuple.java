@@ -14,10 +14,14 @@ import com.utbm.smallWorld.interfaces.Bonusable;
  * @version 1.0
  */
 public abstract class Peuple implements Bonusable {
+	/** Nom */
+	protected String nom;
+	/** Description */
+	protected String description;
 	/** Nombre d'unité pouvant au maximum être présentes en jeu */
-	protected static int nbUniteMax = 0;
+	protected int nbUniteMax = 0;
 	/** Nombre d'unité conférées au joueur par défaut pour ce peuple - sans bonus du pouvoir  */
-	protected static int nbUniteDepart = 0;
+	protected int nbUniteDepart = 0;
 	/** Nombre d'unité actuellement possédées par le joueur sur le plateau */
 	protected int nbUnite = 0;
 	/** Nombre d'unité en jeu, mais ne se trouvant pas sur un territoire */
@@ -25,10 +29,6 @@ public abstract class Peuple implements Bonusable {
 	/** Nombre d'unité bonus servant à augmenter notre attaque, mais qui ne peuvent pas être déployées */
 	protected int nbUniteBonus = 0;
 
-	/** Nom du peuple */
-	protected static String nom;
-	/** Description du peuple */
-	protected static String description;
 	/** Définit si le peuple est en déclin ou non */
 	protected boolean enDeclin = false;
 	
@@ -237,28 +237,28 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @return the nbUniteMax
 	 */
-	public static int getNbUniteMax() {
+	public int getNbUniteMax() {
 		return nbUniteMax;
 	}
 
 	/**
 	 * @return the nbUniteDepart
 	 */
-	public static int getNbUniteDepart() {
+	public int getNbUniteDepart() {
 		return nbUniteDepart;
 	}
 
 	/**
 	 * @return the nom
 	 */
-	public static String getNom() {
+	public String getNom() {
 		return nom;
 	}
 
 	/**
 	 * @return the description
 	 */
-	public static String getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
@@ -321,29 +321,29 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @param nbUniteMax the nbUniteMax to set
 	 */
-	public static void setNbUniteMax(int _nbUniteMax) {
-		nbUniteMax = _nbUniteMax;
+	public void setNbUniteMax(int nbUniteMax) {
+		this.nbUniteMax = nbUniteMax;
 	}
 
 	/**
 	 * @param nbUniteDepart the nbUniteDepart to set
 	 */
-	public static void setNbUniteDepart(int _nbUniteDepart) {
-		nbUniteDepart = _nbUniteDepart;
-	}
-
-	/**
-	 * @param nom the nom to set
-	 */
-	public static void setNom(String _nom) {
-		nom = _nom;
+	public void setNbUniteDepart(int nbUniteDepart) {
+		this.nbUniteDepart = nbUniteDepart;
 	}
 
 	/**
 	 * @param description the description to set
 	 */
-	public static void setDescription(String _description) {
-		description = _description;
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	
