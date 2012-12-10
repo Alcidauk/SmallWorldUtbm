@@ -3,7 +3,6 @@
 package com.utbm.smallWorld.elements;
 
 import com.utbm.smallWorld.Element;
-import com.utbm.smallWorld.Peuple;
 import com.utbm.smallWorld.Territoire;
 
 public class Photocopieuse extends Element {
