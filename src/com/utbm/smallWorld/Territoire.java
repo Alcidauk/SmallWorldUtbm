@@ -208,6 +208,12 @@ public class Territoire {
 		this.prisesDuTerritoire = prisesDuTerritoire;
 	}
 	
+	
+	
+	public void ajouterElement(Element e) {
+		
+	}
+	
 	/**
 	 * 
 	 * @param type le type d'élément dont on veut savoir s'il est sur le territoire
