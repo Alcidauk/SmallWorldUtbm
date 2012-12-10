@@ -108,4 +108,11 @@ public abstract class Pouvoir implements Bonusable {
 	public boolean bonusDefausseUnite() {
 		return false;
 	}
+	
+	/**
+	 * 
+	 */
+	public void actionPriseTerritoire(Territoire t) {
+		
+	}
 }

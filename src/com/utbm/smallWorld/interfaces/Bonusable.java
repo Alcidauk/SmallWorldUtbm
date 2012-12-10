@@ -21,4 +21,6 @@ public interface Bonusable {
 	public boolean bonusSansLimite();
 
 	public boolean bonusDefausseUnite();
+	
+	public void actionPriseTerritoire(Territoire t);
 }

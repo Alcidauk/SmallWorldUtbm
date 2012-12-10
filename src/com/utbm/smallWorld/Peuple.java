@@ -454,5 +454,12 @@ public abstract class Peuple implements Bonusable {
 	public boolean bonusDefausseUnite() {
 		return false;
 	}
+	
+	/**
+	 * 
+	 */
+	public void actionPriseTerritoire(Territoire t) {
+		
+	}
 }
 
