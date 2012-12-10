@@ -18,7 +18,7 @@ public interface Bonusable {
 
 	public boolean bonusLanceDe();
 
-	public boolean bonusSansLimite();
+	public boolean bonusPeutAttaquer(Territoire t);
 
 	public boolean bonusDefausseUnite();
 	

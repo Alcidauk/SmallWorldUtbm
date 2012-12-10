@@ -18,10 +18,6 @@ public class PeupleServiceTechnique extends Peuple {
 		nbUniteMax = 20;
 	}
 	
-	public boolean bonusSansLimite() {
-		return true;
-	}
-	
 	public int bonusAttaque(Territoire from, Territoire to) {
 		return to.coutAttaque() == Integer.MAX_VALUE ? Integer.MAX_VALUE : 0;
 	}
