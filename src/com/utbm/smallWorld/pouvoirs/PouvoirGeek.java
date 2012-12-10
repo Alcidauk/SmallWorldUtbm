@@ -7,7 +7,11 @@ import com.utbm.smallWorld.elements.SalleInfo;
 
 public class PouvoirGeek extends Pouvoir {
 	
-	static{ nbUniteApporte = 5; }
+	static{ 
+		nbUniteApporte = 5;
+		nom = "geek";
+		desc = "";
+	}
 
 	@Override
 	public int bonusDefense(Territoire t, Peuple attaquant){

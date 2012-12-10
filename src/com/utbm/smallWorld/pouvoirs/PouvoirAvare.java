@@ -1,21 +1,42 @@
 package com.utbm.smallWorld.pouvoirs;
 
+import java.util.Iterator;
+import java.util.List;
+
+import com.utbm.smallWorld.Partie;
+import com.utbm.smallWorld.Peuple;
 import com.utbm.smallWorld.Pouvoir;
 import com.utbm.smallWorld.Territoire;
 
 public class PouvoirAvare extends Pouvoir {
 	
-	static{ nbUniteApporte = 5; }
+	static{ 
+		nbUniteApporte = 5;
+		nom = "avare";
+		desc = "";
+	}
 
 	
 	/**
 	 * @return
 	 */
 	public int bonusGain(Territoire t) {
-		//if( this.peupleLie)
+		List<Peuple> lstTmp = t.getPrisesDuTerritoire()[Partie.getInstance().getTourEnCours()];
+		
+		Iterator<Peuple> it = lstTmp.iterator();
+			
+		while( it.hasNext() ){
+			Peuple p = it.next();
+				
+			if( p == this.peupleLie){
+				return 1;
+			}
+		}
+		
 		return 0;
 	}
 	
 	
 
 }
+

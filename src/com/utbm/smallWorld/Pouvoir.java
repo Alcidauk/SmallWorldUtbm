@@ -10,7 +10,12 @@ public abstract class Pouvoir implements Bonusable {
 	/** peuple auquel est lié le pouvoir spécial, null si lié à aucun. */
 	protected Peuple peupleLie = null;
 	
+	/** indique si le pouvoir est encore comptabilisé si son peuple associé est en déclin */
 	protected boolean actifEnDeclin = false;
+	
+	protected static String nom;
+	
+	protected static String desc;
 
 	public Pouvoir(){
 		

@@ -7,7 +7,11 @@ import com.utbm.smallWorld.elements.SallePartiel;
 
 public class PouvoirIntello extends Pouvoir {
 	
-	static{ nbUniteApporte = 5; }
+	static{ 
+		nbUniteApporte = 5;
+		nom = "intello";
+		desc = "";
+	}
 	
 	@Override
 	public int bonusDefense(Territoire t, Peuple attaquant) {

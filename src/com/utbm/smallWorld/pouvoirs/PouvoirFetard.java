@@ -5,7 +5,11 @@ import com.utbm.smallWorld.Territoire;
 
 public class PouvoirFetard extends Pouvoir {
 	
-	static{ nbUniteApporte = 5; }
+	static{ 
+		nbUniteApporte = 5;
+		nom = "fêtard";
+		desc = "";
+	}
 	
 	@Override
 	public int bonusAttaque(Territoire from, Territoire to){

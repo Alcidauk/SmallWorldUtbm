@@ -22,7 +22,7 @@ public class Territoire {
 
 	private List<Territoire> territoiresAdjacents;
 	private List<Element> elements;
-	private List<List<Peuple>> prisesDuTerritoire;
+	private List<Peuple> prisesDuTerritoire[];
 	
 	public Territoire() {
 		territoiresAdjacents = new LinkedList<Territoire>();
@@ -106,7 +106,7 @@ public class Territoire {
 	 * 
 	 * @return List prisesDuTerritoire
 	 */
-	public List<List<Peuple>> getPrisesDuTerritoire() {
+	public List<Peuple>[] getPrisesDuTerritoire() {
 		return prisesDuTerritoire;
 	}
 
@@ -149,7 +149,7 @@ public class Territoire {
 	 * 
 	 * @param prisesDuTerritoire
 	 */
-	public void setPrisesDuTerritoire(List<List<Peuple>> prisesDuTerritoire) {
+	public void setPrisesDuTerritoire(List<Peuple>[] prisesDuTerritoire) {
 		this.prisesDuTerritoire = prisesDuTerritoire;
 	}
 	

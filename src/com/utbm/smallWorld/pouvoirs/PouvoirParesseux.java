@@ -6,7 +6,11 @@ import com.utbm.smallWorld.Territoire;
 
 public class PouvoirParesseux extends Pouvoir {
 	
-	static{ nbUniteApporte = 5; }
+	static{ 
+		nbUniteApporte = 5; 
+		nom = "paresseux";
+		desc = "";
+	}
 	
 	@Override
 	public int bonusDefense(Territoire t, Peuple attaquant){

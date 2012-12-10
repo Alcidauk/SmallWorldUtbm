@@ -97,6 +97,14 @@ public class Partie {
 		pouvoirsDispo.add(new PouvoirFetard());
 	}
 	
+	public int getNbTours(){
+		return this.nbTours;
+	}
+	
+	public int getTourEnCours(){
+		return this.tourEnCours;
+	}
+	
 
 	
 	
