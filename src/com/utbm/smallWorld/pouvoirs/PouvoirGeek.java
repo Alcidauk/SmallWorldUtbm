@@ -7,7 +7,7 @@ import com.utbm.smallWorld.elements.SalleInfo;
 
 public class PouvoirGeek extends Pouvoir {
 	
-	static{ 
+	public PouvoirGeek(){ 
 		nbUniteApporte = 5;
 		nom = "geek";
 		desc = "";

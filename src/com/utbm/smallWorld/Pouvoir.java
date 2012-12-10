@@ -5,20 +5,28 @@ import com.utbm.smallWorld.interfaces.Bonusable;
 public abstract class Pouvoir implements Bonusable {
 	
 	/** nombre de pions de peuples qu'apporte le pouvoir en plus */
-	protected static int nbUniteApporte = 0;
+	protected  int nbUniteApporte;
 	
 	/** peuple auquel est lié le pouvoir spécial, null si lié à aucun. */
-	protected Peuple peupleLie = null;
+	protected Peuple peupleLie;
 	
 	/** indique si le pouvoir est encore comptabilisé si son peuple associé est en déclin */
-	protected boolean actifEnDeclin = false;
+	protected boolean actifEnDeclin;
 	
-	protected static String nom;
+	/** nom du pouvoir */
+	protected String nom;
 	
-	protected static String desc;
+	/** description du pouvoir */
+	protected String desc;
 
+	/* constructeur */
+	
 	public Pouvoir(){
-		
+		nom = "";
+		desc = "";
+		actifEnDeclin = false;
+		nbUniteApporte = 0;
+		peupleLie = null;
 	}
 
 	/* accesseurs peupleLie */
@@ -50,51 +58,72 @@ public abstract class Pouvoir implements Bonusable {
 		return this.actifEnDeclin;
 	}
 	
+	/* accesseurs nom */
+	
+	public String getNom(){
+		return nom;
+	}
+	
+	/* accesseurs descripteur */
+	
+	public String getDesc(){
+		return desc;
+	}
+	
+	/* accesseurs nbUniteApporte */
+	
+	public int getNbUniteApporte(){
+		return nbUniteApporte;
+	}
+	
+	
+	/** méthode de l'interface bonusable. Toutes définies pour être inactives ici et utilisées dans les filles */
 	
 	/**
-	 * @return
+	 * @return int le nombre d'unités en plus à la fin du tour
 	 */
 	public int bonusUnite() {
 		return 0;
 	}
 
 	/**
-	 * @return
+	 * @return int le nombre d'unités en renfort pour une attaque
 	 */
 	public int bonusUniteAttaque() {
 		return 0;
 	}
+	
 
 	/**
-	 * @return
+	 * @return int le nombre de points d'attaque bonus
 	 */
 	public int bonusAttaque(Territoire from, Territoire to) {
 		return 0;
 	}
 
 	/**
-	 * @return
+	 * @return int le nombre de points de défense supplémentaire 
 	 */
 	public int bonusDefense(Territoire t, Peuple attaquant) {
 		return 0;
 	}
 
 	/**
-	 * @return
+	 * @return int le nombre de points de victoire en plus à ajouter à la fin du tour
 	 */
 	public int bonusGain(Territoire t) {
 		return 0;
 	}
 
 	/**
-	 * @return
+	 * @return int le nombre de points en plus pour la valeur du dé lors d'un lancer.
 	 */
 	public int bonusValeurDe() {
 		return 0;
 	}
 	
 	/**
-	 * @return
+	 * @return boolean est-ce que le dé peut être lancé à chaque conquête
 	 */
 	public boolean bonusLanceDe() {
 		return false;

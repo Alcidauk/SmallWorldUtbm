@@ -10,7 +10,7 @@ import com.utbm.smallWorld.Territoire;
 
 public class PouvoirAvare extends Pouvoir {
 	
-	static{ 
+	public PouvoirAvare(){ 
 		nbUniteApporte = 5;
 		nom = "avare";
 		desc = "";

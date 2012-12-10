@@ -6,6 +6,12 @@ import com.utbm.smallWorld.elements.EspacePleinAir;
 
 public class PouvoirFumeur extends Pouvoir {
 	
+	public PouvoirFumeur(){
+		nom = "Fumeur";
+		desc = "";
+		nbUniteApporte = 5;
+	}
+	
 	/**
 	 * @return
 	 */

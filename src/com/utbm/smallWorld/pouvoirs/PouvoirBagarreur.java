@@ -2,10 +2,10 @@ package com.utbm.smallWorld.pouvoirs;
 
 import com.utbm.smallWorld.Pouvoir;
 
-public class PouvoirJoueur extends Pouvoir {
+public class PouvoirBagarreur extends Pouvoir {
 	
-	public PouvoirJoueur(){
-		nom = "joueur";
+	public PouvoirBagarreur(){
+		nom = "bagarreur";
 		desc = "";
 		nbUniteApporte = 5;
 	}
@@ -13,8 +13,8 @@ public class PouvoirJoueur extends Pouvoir {
 	/**
 	 * @return
 	 */
-	public int bonusValeurDe() {
-		return 2;
+	public int bonusUniteAttaque() {
+		return 1;
 	}
 
 }

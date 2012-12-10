@@ -6,7 +6,7 @@ import com.utbm.smallWorld.Territoire;
 
 public class PouvoirParesseux extends Pouvoir {
 	
-	static{ 
+	public PouvoirParesseux(){ 
 		nbUniteApporte = 5; 
 		nom = "paresseux";
 		desc = "";
