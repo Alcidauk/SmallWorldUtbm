@@ -7,7 +7,7 @@ import com.utbm.smallWorld.elements.SallePartiel;
 
 public class PouvoirIntello extends Pouvoir {
 	
-	static{ 
+	public PouvoirIntello(){ 
 		nbUniteApporte = 5;
 		nom = "intello";
 		desc = "";

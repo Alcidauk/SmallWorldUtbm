@@ -5,6 +5,12 @@ import com.utbm.smallWorld.Territoire;
 
 public class PouvoirAssociatif extends Pouvoir {
 
+	public PouvoirAssociatif(){
+		nom = "associatif";
+		desc = "";
+		nbUniteApporte = 5;		
+	}
+	
 	/**
 	 * @return
 	 */

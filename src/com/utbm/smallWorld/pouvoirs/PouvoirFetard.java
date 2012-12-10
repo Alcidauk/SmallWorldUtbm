@@ -5,7 +5,7 @@ import com.utbm.smallWorld.Territoire;
 
 public class PouvoirFetard extends Pouvoir {
 	
-	static{ 
+	public PouvoirFetard(){ 
 		nbUniteApporte = 5;
 		nom = "fêtard";
 		desc = "";

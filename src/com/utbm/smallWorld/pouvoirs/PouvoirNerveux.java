@@ -6,6 +6,12 @@ import com.utbm.smallWorld.Territoire;
 import com.utbm.smallWorld.elements.MachineACafe;
 
 public class PouvoirNerveux extends Pouvoir {
+	
+	public PouvoirNerveux(){
+		nom = "nerveux";
+		desc = "";
+		nbUniteApporte = 5;
+	}
 
 	/**
 	* @return
