@@ -13,56 +13,112 @@ import java.util.List;
  * @version 1.0
  */
 public class Territoire {
-	
+	/** Nombre d'unité présentes sur le territoire */
 	private int nbUnite = 0;
 	
+	/** Joueur présent sur le territoire */
 	private Peuple occupant = null;
 	
+	/** Indique si le territoire est en bordure de carte */
 	private boolean estEnBordure = false;
 
+	/** Liste des territoires adjacants à l'actuel */
 	private List<Territoire> territoiresAdjacents;
+	
+	/** Liste des éléments présents sur le territoire */
 	private List<Element> elements;
+	
+	/** Historique des prises du territoire */
 	private List<Peuple> prisesDuTerritoire[];
 	
+	/**
+	 * Constructeur par défaut
+	 * Initialise les listes
+	 */
 	public Territoire() {
 		territoiresAdjacents = new LinkedList<Territoire>();
 		elements = new LinkedList<Element>();
 	}
 	
+	/**
+	 * Constructeur, appel au constructeur par défaut
+	 * @param enBordure Indique si le territoire est en bordure
+	 */
 	public Territoire(boolean enBordure) {
 		this();
 		
 		this.estEnBordure = enBordure;
 	}
 	
-	public int coutAttaque() {
-		return this.nbUnite;
+	/**
+	 * Calcule le cout de l'attaque pour ce territoire
+	 * @param attaquant Peuple essayant d'attaquer le territoire
+	 * @return cout en nombre d'unité, Integer.MAX_VALUE si le territoire est dit imprenable
+	 */
+	public int coutAttaque(Peuple attaquant) {
+		int cout = this.nbUnite;
+		
+		Iterator<Element> it = this.elements.iterator();
+		
+		while (it.hasNext()) {
+			cout += it.next().bonusDefense(attaquant);
+		}
+		
+		return cout;
 	}
 	
-	public int bonusAttaque() {
-		return 0;
-	}
-	
+	/**
+	 * @return Nombre de point victoire bonus sans compter le point normal
+	 */
 	public int bonusGain() {
-		return 0;
+		int bonus = this.nbUnite;
+		
+		Iterator<Element> it = this.elements.iterator();
+		
+		while (it.hasNext()) {
+			bonus += it.next().bonusGain();
+		}
+		
+		return bonus;
 	}
 	
+	/**
+	 * Ajoute des unités sur le territoire
+	 * @param nbUnite Nombre d'unité à ajouter
+	 */
 	public void ajouterUnite(int nbUnite) {
 		this.nbUnite += nbUnite;
 	}
 	
+	/**
+	 * Retire des unités sur le territoire
+	 * @param nbUnite Nombre d'unité à retirer
+	 */
 	public void retirerUnite(int nbUnite) {
-		this.nbUnite -= nbUnite;
+		this.nbUnite = Math.max(0, nbUnite);
 	}
 	
+	/**
+	 * Vérifie si le territoire est adjacent à un des territoires du peuple passé
+	 * @param p Peuple a tester
+	 * @return true/false
+	 */
 	public boolean estAdjacent(Peuple p) {
 		return false;
 	}
 	
+	/**
+	 * Changement de propriétaire
+	 * @param attaquant Nouveau propriétaire
+	 * @param nBUnite Nombre d'unité à placer sur le territoire
+	 */
 	public void priseTerritoire(Peuple attaquant, int nbUnite) {
 		
 	}
 	
+	/**
+	 * Abandon du territoire par le joueur actuel
+	 */
 	public void abandon() {
 		
 	}
@@ -146,7 +202,6 @@ public class Territoire {
 	}
 
 	/**
-	 * 
 	 * @param prisesDuTerritoire
 	 */
 	public void setPrisesDuTerritoire(List<Peuple>[] prisesDuTerritoire) {

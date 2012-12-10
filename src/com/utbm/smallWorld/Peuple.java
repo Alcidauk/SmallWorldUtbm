@@ -4,8 +4,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.management.openmbean.TabularDataSupport;
-
 import com.utbm.smallWorld.interfaces.Bonusable;
 
 /**
@@ -211,9 +209,14 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @return si le peuple peut outre-passer les règles de déplacement standards
 	 */
-	/*public boolean estSansLimite() {
-		return this.bonusSansLimite() || (hasPower() && this.pouvoir.bonusSansLimite());
-	}*/
+	public boolean peutAttaquer(Territoire t) {
+		if (t.estAdjacent(this)) {
+			return true;
+		}
+		//else
+		
+		return bonusPeutAttaquer(t) || (hasPower() && this.pouvoir.bonusPeutAttaquer(t));
+	}
 	
 	
 	/**

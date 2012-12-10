@@ -19,6 +19,6 @@ public class PeupleServiceTechnique extends Peuple {
 	}
 	
 	public int bonusAttaque(Territoire from, Territoire to) {
-		return to.coutAttaque() == Integer.MAX_VALUE ? Integer.MAX_VALUE : 0;
+		return to.coutAttaque(this) == Integer.MAX_VALUE ? Integer.MAX_VALUE : 0;
 	}
 }
