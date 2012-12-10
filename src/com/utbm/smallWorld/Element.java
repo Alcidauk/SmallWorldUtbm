@@ -3,6 +3,8 @@ package com.utbm.smallWorld;
 public abstract class Element {
 	protected Territoire territoire;
 	
+	protected static String nom;
+	
 	public Element(Territoire t) {
 		this.territoire = t;
 	}
