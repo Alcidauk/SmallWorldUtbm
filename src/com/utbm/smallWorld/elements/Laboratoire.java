@@ -10,6 +10,8 @@ public class Laboratoire extends Element {
 	public Laboratoire(Territoire t) {
 		super(t);
 		// TODO Auto-generated constructor stub
+		
+		nom = "Laboratoire";
 	}
 
 }

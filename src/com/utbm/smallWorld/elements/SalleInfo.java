@@ -10,6 +10,8 @@ public class SalleInfo extends Element {
 	public SalleInfo(Territoire t) {
 		super(t);
 		// TODO Auto-generated constructor stub
+		
+		nom = "Salle Info";
 	}
 
 }

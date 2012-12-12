@@ -10,6 +10,8 @@ public class Photocopieuse extends Element {
 	public Photocopieuse(Territoire t) {
 		super(t);
 		// TODO Auto-generated constructor stub
+		
+		nom = "Photocopieuse";
 	}
 	
 	public int bonusGain(){

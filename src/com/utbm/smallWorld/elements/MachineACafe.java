@@ -12,6 +12,8 @@ public class MachineACafe extends Element {
 	public MachineACafe(Territoire t) {
 		super(t);
 		// TODO Auto-generated constructor stub
+		
+		nom = "Machine à café";
 	}
 	
 	
