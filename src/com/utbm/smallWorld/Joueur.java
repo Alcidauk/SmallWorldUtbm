@@ -58,7 +58,7 @@ public class Joueur {
 	/**
 	 * Lance l'attaque d'un territoire
 	 */
-	public void attaquer(Territoire to)
+	public boolean attaquer(Territoire to)
 	{
 		List<Territoire> occupes = this.peuple.getTerritoiresOccupes();
 		
@@ -84,11 +84,44 @@ public class Joueur {
 				}
 			}
 		}
+		// Le peuple ne possède aucun territoire
+		else if (! to.isEstEnBordure()) {
+			try {
+				if (! this.peuple.peutAttaquer(null, to)) {
+					return false;
+				}
+			}
+			catch (Exception e) {
+				return false;
+			}
+			
+		}
 		
 		// Calcule du malus d'attaque
-		double malus = to.coutAttaque(this.peuple);
+		double cout = to.coutAttaque(this.peuple);
 		
+		// Regarde si le territoire peut être attaqué
+		if (Double.isInfinite(cout)) {
+			if (Double.isInfinite(bonus)) {
+				bonus = 0;
+				cout = to.getNbUnite();
+			}
+			else {
+				return false;
+			}
+		}
 		
+		//
+		if (cout > this.peuple.getNbUniteEnMain() + this.peuple.getNbUniteBonus()) {
+			return false;
+		}
+		
+		// Prise du territoire
+		to.priseTerritoire();
+		
+		this.peuple.priseTerritoire(to, (int) cout);
+		
+		return true;
 	}
 	public void pertePeuple(Peuple peuple) {
 		// TODO Auto-generated method stub
