@@ -211,13 +211,13 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @return si le peuple peut outre-passer les règles de déplacement standards
 	 */
-	public boolean peutAttaquer(Territoire t) {
-		if (t.estAdjacent(this)) {
+	public boolean peutAttaquer(Territoire from, Territoire to) {
+		if (to.estAdjacent(from)) {
 			return true;
 		}
 		//else
 		
-		return bonusPeutAttaquer(t) || (hasPower() && this.pouvoir.bonusPeutAttaquer(t));
+		return bonusPeutAttaquer(from, to) || (hasPower() && this.pouvoir.bonusPeutAttaquer(from, to));
 	}
 	
 	
@@ -451,7 +451,7 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @return
 	 */
-	public boolean bonusPeutAttaquer(Territoire t) {
+	public boolean bonusPeutAttaquer(Territoire from, Territoire to) {
 		return false;
 	}
 

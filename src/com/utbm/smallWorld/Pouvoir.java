@@ -132,7 +132,7 @@ public abstract class Pouvoir implements Bonusable {
 	/**
 	 * 
 	 */
-	public boolean bonusPeutAttaquer(Territoire t){
+	public boolean bonusPeutAttaquer(Territoire from, Territoire to){
 		return false;
 	}
 

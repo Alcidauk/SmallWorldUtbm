@@ -14,7 +14,7 @@ public class PouvoirVoyageur extends Pouvoir {
 	/**
 	 * 
 	 */
-	public boolean bonusPeutAttaquer(Territoire t){
+	public boolean bonusPeutAttaquer(Territoire from, Territoire to){
 		return true;
 	}
 	

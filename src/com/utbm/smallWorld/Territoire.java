@@ -104,7 +104,17 @@ public class Territoire {
 	 * @return true/false
 	 */
 	public boolean estAdjacent(Peuple p) {
+		// TODO
 		return false;
+	}
+	
+	/**
+	 * Vérifie si le territoire est adjacent à un autre
+	 * @param t Territoire a tester
+	 * @return true/false
+	 */
+	public boolean estAdjacent(Territoire t) {
+		return territoiresAdjacents.contains(t);
 	}
 	
 	/**

@@ -54,7 +54,7 @@ public class Joueur {
 	//Fonction Attaquer un Territoire
 	public void attaquer(Territoire t)
 	{
-			
+		
 	}
 	public void pertePeuple(Peuple peuple) {
 		// TODO Auto-generated method stub
