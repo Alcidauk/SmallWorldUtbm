@@ -54,7 +54,7 @@ public class Territoire {
 	 * Calcule le cout de l'attaque pour ce territoire
 	 * @param attaquant Peuple essayant d'attaquer le territoire
 	 * @return cout en nombre d'unité, Integer.MAX_VALUE si le territoire est dit imprenable
-	 */
+	 */ /* TODO: Somme peuple.bonusDefense */
 	public int coutAttaque(Peuple attaquant) {
 		int cout = this.nbUnite;
 		
@@ -108,12 +108,13 @@ public class Territoire {
 	}
 	
 	/**
-	 * Changement de propriétaire
-	 * @param attaquant Nouveau propriétaire
-	 * @param nBUnite Nombre d'unité à placer sur le territoire
+	 * Perte du territoire
 	 */
-	public void priseTerritoire(Peuple attaquant, int nbUnite) {
+	public void priseTerritoire() {
+		occupant.perteTerritoire(this);
 		
+		occupant = null;
+		nbUnite = 0;
 	}
 	
 	/**
