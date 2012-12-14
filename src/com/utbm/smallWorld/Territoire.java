@@ -54,15 +54,17 @@ public class Territoire {
 	 * Calcule le cout de l'attaque pour ce territoire
 	 * @param attaquant Peuple essayant d'attaquer le territoire
 	 * @return cout en nombre d'unité, Integer.MAX_VALUE si le territoire est dit imprenable
-	 */ /* TODO: Somme peuple.bonusDefense */
-	public int coutAttaque(Peuple attaquant) {
-		int cout = this.nbUnite;
+	 */
+	public double coutAttaque(Peuple attaquant) {
+		double cout = this.nbUnite;
 		
 		Iterator<Element> it = this.elements.iterator();
 		
 		while (it.hasNext()) {
 			cout += it.next().bonusDefense(attaquant);
 		}
+		
+		cout += this.occupant.bonusDefense(this, attaquant);
 		
 		return cout;
 	}

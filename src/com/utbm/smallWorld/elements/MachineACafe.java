@@ -17,8 +17,8 @@ public class MachineACafe extends Element {
 	}
 	
 	
-	public int bonusDefense(Peuple attaquant){
-		return 1;
+	public double bonusDefense(Peuple attaquant){
+		return 1.0;
 	}
 
 }

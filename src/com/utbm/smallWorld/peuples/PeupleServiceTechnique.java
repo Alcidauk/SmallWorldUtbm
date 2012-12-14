@@ -18,7 +18,7 @@ public class PeupleServiceTechnique extends Peuple {
 		nbUniteMax = 20;
 	}
 	
-	public int bonusAttaque(Territoire from, Territoire to) {
-		return to.coutAttaque(this) == Integer.MAX_VALUE ? Integer.MAX_VALUE : 0;
+	public double bonusAttaque(Territoire from, Territoire to) {
+		return to.coutAttaque(this) == Double.POSITIVE_INFINITY ? Double.POSITIVE_INFINITY : 0;
 	}
 }

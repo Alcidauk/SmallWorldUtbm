@@ -19,7 +19,7 @@ public class PeupleProfHumanite extends Peuple {
 		nbUniteMax = 20;
 	}
 	
-	public int bonusDefense(Territoire t, Peuple attaquant) {
-		return t.has(SallePartiel.class) ? Integer.MAX_VALUE : 0;
+	public double bonusDefense(Territoire t, Peuple attaquant) {
+		return t.has(SallePartiel.class) ? Double.POSITIVE_INFINITY : 0;
 	}
 }

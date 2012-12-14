@@ -20,7 +20,7 @@ public class PeupleAdministration extends Peuple {
 		nbUniteMax = 20;
 	}
 	
-	public int bonusDefense(Territoire t, Peuple attaquant) {
-		return (t.has(MachineACafe.class) ? 1 : 0) + (t.has(Photocopieuse.class) ? 1 : 0);
+	public double bonusDefense(Territoire t, Peuple attaquant) {
+		return (t.has(MachineACafe.class) ? 1.0 : 0.0) + (t.has(Photocopieuse.class) ? 1.0 : 0.0);
 	}
 }

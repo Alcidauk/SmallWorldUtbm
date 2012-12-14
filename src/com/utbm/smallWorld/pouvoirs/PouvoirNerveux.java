@@ -16,10 +16,10 @@ public class PouvoirNerveux extends Pouvoir {
 	/**
 	* @return
 	*/
-	public int bonusDefense(Territoire t, Peuple attaquant) {
+	public double bonusDefense(Territoire t, Peuple attaquant) {
 		if( t.has(MachineACafe.class) )
-			return 2;
-		return 0;
+			return 2.0;
+		return 0.0;
 	}
 	
 	

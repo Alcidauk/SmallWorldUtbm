@@ -22,11 +22,11 @@ public class Nourriture extends Element {
 	 *  Si le peuple attaquant le territoire possédant de la nourriture est un Rat alors,
 	 *  aucun bonus de défense. Sinon, bonus de défense pour tous les autres peuples
 	 */
-	public int bonusDefense(Peuple attaquant){
+	public double bonusDefense(Peuple attaquant){
 		if(attaquant instanceof PeupleRats){
-			return 0;
+			return 0.0;
 		}
-		return 1;
+		return 1.0;
 		
 	}
 

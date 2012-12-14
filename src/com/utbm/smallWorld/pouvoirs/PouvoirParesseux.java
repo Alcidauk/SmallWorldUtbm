@@ -13,8 +13,8 @@ public class PouvoirParesseux extends Pouvoir {
 	}
 	
 	@Override
-	public int bonusDefense(Territoire t, Peuple attaquant){
-		return 1;
+	public double bonusDefense(Territoire t, Peuple attaquant){
+		return 1.0;
 	}
 
 }

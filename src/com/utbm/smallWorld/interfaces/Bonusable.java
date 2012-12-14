@@ -6,9 +6,9 @@ import com.utbm.smallWorld.Territoire;
 public interface Bonusable {
 	public int bonusGain(Territoire t);
 
-	public int bonusDefense(Territoire t, Peuple attaquant);
+	public double bonusDefense(Territoire t, Peuple attaquant);
 
-	public int bonusAttaque(Territoire from, Territoire to);
+	public double bonusAttaque(Territoire from, Territoire to);
 	
 	public int bonusUnite();
 	

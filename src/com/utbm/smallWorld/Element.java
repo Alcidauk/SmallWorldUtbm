@@ -12,7 +12,7 @@ public abstract class Element implements Comparable<Element> {
 	/**
 	 * Si retourne Integer.MAX_VALUE, alors inattaquable
 	 */
-	public int bonusDefense(Peuple attaquant) {
+	public double bonusDefense(Peuple attaquant) {
 		return 0;
 	}
 	

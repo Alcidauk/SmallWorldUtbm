@@ -1,5 +1,8 @@
 package com.utbm.smallWorld;
 
+import java.util.Iterator;
+import java.util.List;
+
 
 public class Joueur {
 
@@ -51,9 +54,40 @@ public class Joueur {
 	{
 		return argent;
 	}
-	//Fonction Attaquer un Territoire
-	public void attaquer(Territoire t)
+	
+	/**
+	 * Lance l'attaque d'un territoire
+	 */
+	public void attaquer(Territoire to)
 	{
+		List<Territoire> occupes = this.peuple.getTerritoiresOccupes();
+		
+		Territoire from = null;
+		double bonus = 0.0;
+		
+		// Recherche du meilleur territoire pour attaquer
+		if (occupes.size() > 0) {
+			Iterator<Territoire> it = occupes.iterator();
+			
+			bonus = 0.0;
+			
+			while (it.hasNext()) {
+				Territoire tmp = it.next();
+				
+				if (this.peuple.peutAttaquer(tmp, to)) {
+					double tmpBonus = this.peuple.calcBonusAttaque(from, to);
+					
+					if (tmpBonus > bonus || from == null) {
+						from = tmp;
+						bonus = tmpBonus;
+					}
+				}
+			}
+		}
+		
+		// Calcule du malus d'attaque
+		double malus = to.coutAttaque(this.peuple);
+		
 		
 	}
 	public void pertePeuple(Peuple peuple) {

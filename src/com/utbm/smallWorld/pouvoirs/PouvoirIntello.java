@@ -14,17 +14,17 @@ public class PouvoirIntello extends Pouvoir {
 	}
 	
 	@Override
-	public int bonusDefense(Territoire t, Peuple attaquant) {
+	public double bonusDefense(Territoire t, Peuple attaquant) {
 		if( t.has(SallePartiel.class) )
-			return 1;
-		return 0;
+			return 1.0;
+		return 0.0;
 	}
 
 	@Override
-	public int bonusAttaque(Territoire from, Territoire to) {
+	public double bonusAttaque(Territoire from, Territoire to) {
 		if( to.has(SallePartiel.class) )
-			return 2;
-		return 0;
+			return 2.0;
+		return 0.0;
 	}
 
 }

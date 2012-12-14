@@ -23,9 +23,9 @@ public class SallePartiel extends Element {
 	 *  est un étudiant de Branche ou de Tronc commun, alors le territoire  
 	 *  est inattaquable
 	 */
-	public int bonusDefense(Peuple attaquant){
+	public double bonusDefense(Peuple attaquant){
 		if ((attaquant instanceof PeupleEtudiantTC) || (attaquant instanceof PeupleEtudiantBranche)){
-			return Integer.MAX_VALUE;
+			return Double.POSITIVE_INFINITY;
 		}
 		return 1;
 	}

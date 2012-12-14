@@ -97,15 +97,15 @@ public abstract class Pouvoir implements Bonusable {
 	/**
 	 * @return int le nombre de points d'attaque bonus
 	 */
-	public int bonusAttaque(Territoire from, Territoire to) {
-		return 0;
+	public double bonusAttaque(Territoire from, Territoire to) {
+		return 0.0;
 	}
 
 	/**
 	 * @return int le nombre de points de défense supplémentaire 
 	 */
-	public int bonusDefense(Territoire t, Peuple attaquant) {
-		return 0;
+	public double bonusDefense(Territoire t, Peuple attaquant) {
+		return 0.0;
 	}
 
 	/**

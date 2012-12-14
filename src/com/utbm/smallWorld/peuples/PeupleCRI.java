@@ -22,8 +22,8 @@ public class PeupleCRI extends Peuple {
 	}
 	
 	
-	public int bonusAttaque(Territoire from, Territoire to) {
-		int bonus = 0;
+	public double bonusAttaque(Territoire from, Territoire to) {
+		double bonus = 0.0;
 		
 		if (from.has(SalleInfo.class)) {
 			Iterator<Territoire> it = territoiresOccupes.iterator();

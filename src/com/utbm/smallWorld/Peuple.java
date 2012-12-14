@@ -181,8 +181,8 @@ public abstract class Peuple implements Bonusable {
 	 * @param attaquant Peuple essayant de conquérir le territoire
 	 * @return bonus d'unité de défense (Integer.MAX_VALUE si imprennable)
 	 */
-	public int calcBonusDefense(Territoire t, Peuple attaquant) {
-		int bonus = this.bonusDefense(t, attaquant);
+	public double calcBonusDefense(Territoire t, Peuple attaquant) {
+		double bonus = this.bonusDefense(t, attaquant);
 		
 		if (hasPower()) {
 			bonus += this.pouvoir.bonusDefense(t, attaquant);
@@ -197,8 +197,8 @@ public abstract class Peuple implements Bonusable {
 	 * @param t Territoire se faisant attaquer
 	 * @return bonus d'unité d'attaque (Integer.MAX_VALUE si prise "gratuite" (1 unité))
 	 */
-	public int calcBonusAttaque(Territoire from, Territoire to) {
-		int bonus = this.bonusAttaque(from, to);
+	public double calcBonusAttaque(Territoire from, Territoire to) {
+		double bonus = this.bonusAttaque(from, to);
 		
 		if (hasPower()) {
 			bonus += this.pouvoir.bonusAttaque(from, to);
@@ -416,15 +416,15 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @return
 	 */
-	public int bonusAttaque(Territoire from, Territoire to) {
-		return 0;
+	public double bonusAttaque(Territoire from, Territoire to) {
+		return 0.0;
 	}
 
 	/**
 	 * @return
 	 */
-	public int bonusDefense(Territoire t, Peuple attaquant) {
-		return 0;
+	public double bonusDefense(Territoire t, Peuple attaquant) {
+		return 0.0;
 	}
 
 	/**
