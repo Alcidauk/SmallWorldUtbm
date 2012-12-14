@@ -2,6 +2,7 @@ package com.utbm.smallWorld;
 
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,22 +20,22 @@ public class Partie {
 	
 	protected List<Joueur> lstJoueurs = null;
 	
-	protected Joueur joueurEnCours = null;
+	protected int joueurEnCours = 0;
 	
-	protected List<Peuple> peuplesPris = null;
+	protected List<Class<? extends Peuple>> peuplesPris = null;
 	
-	protected List<Peuple> peuplesDispo = null;
+	protected List<Class<? extends Peuple>> peuplesDispo = null;
 	
-	protected List<Pouvoir> pouvoirsPris = null;
+	protected List<Class<? extends Pouvoir>> pouvoirsPris = null;
 	
-	protected List<Pouvoir> pouvoirsDispo = null;
+	protected List<Class<? extends Pouvoir>> pouvoirsDispo = null;
 	
 	private Partie(){
 		lstJoueurs = new LinkedList<Joueur>();
-		peuplesPris = new LinkedList<Peuple>();
-		peuplesDispo = new LinkedList<Peuple>();
-		pouvoirsPris = new LinkedList<Pouvoir>();
-		pouvoirsDispo = new LinkedList<Pouvoir>();
+		peuplesPris = new LinkedList<Class<? extends Peuple>>();
+		peuplesDispo = new LinkedList<Class<? extends Peuple>>();
+		pouvoirsPris = new LinkedList<Class<? extends Pouvoir>>();
+		pouvoirsDispo = new LinkedList<Class<? extends Pouvoir>>();
 		
 		initPeuples();
 		initPouvoirs();
@@ -46,8 +47,41 @@ public class Partie {
 		return part;
 	}
 
-	public static void remettreBoite(Peuple peuple) {
-		// TODO Auto-generated method stub
+	public void remettreBoite(Peuple peuple) {
+		
+		Iterator<Class<? extends Peuple>> it = peuplesPris.iterator();
+		Class<? extends Peuple> c = null;
+		
+		
+		while( it.hasNext() && c == null ){
+			Class<? extends Peuple> tmp = it.next();
+	
+			if( tmp.isInstance(peuple) ){
+				c = tmp;
+			}			
+			
+		}
+		
+		peuplesPris.remove(c);
+		peuplesDispo.add(c);
+		
+		
+		
+		Iterator<Class<? extends Pouvoir>> ite = pouvoirsPris.iterator();
+		Class<? extends Pouvoir> cl = null;
+		
+		
+		while( ite.hasNext() && cl == null ){
+			Class<? extends Pouvoir> tmp = ite.next();
+	
+			if( tmp.isInstance(peuple.getPouvoir()) ){
+				cl = tmp;
+			}			
+			
+		}
+		
+		pouvoirsPris.remove(cl);
+		pouvoirsDispo.add(cl);
 		
 	}
 	
@@ -57,27 +91,27 @@ public class Partie {
 	
 	public void initPeuples(){
 		
-		peuplesDispo.add(new PeupleAdministration());
+		peuplesDispo.add(PeupleAdministration.class);
 
-		peuplesDispo.add(new PeupleAlternance());
+		peuplesDispo.add(PeupleAlternance.class);
 
-		peuplesDispo.add(new PeupleChercheur());
+		peuplesDispo.add(PeupleChercheur.class);
 		
-		peuplesDispo.add(new PeupleCRI());
+		peuplesDispo.add(PeupleCRI.class);
 		
-		peuplesDispo.add(new PeupleDirecteur());
+		peuplesDispo.add(PeupleDirecteur.class);
 		
-		peuplesDispo.add(new PeupleEtudiantBranche());
+		peuplesDispo.add(PeupleEtudiantBranche.class);
 		
-		peuplesDispo.add(new PeupleEtudiantTC());
+		peuplesDispo.add(PeupleEtudiantTC.class);
 		
-		peuplesDispo.add(new PeupleProfHumanite());
+		peuplesDispo.add(PeupleProfHumanite.class);
 		
-		peuplesDispo.add(new PeupleProfScience());
+		peuplesDispo.add(PeupleProfScience.class);
 		
-		peuplesDispo.add(new PeupleRats());
+		peuplesDispo.add(PeupleRats.class);
 	
-		peuplesDispo.add(new PeupleServiceTechnique());
+		peuplesDispo.add(PeupleServiceTechnique.class);
 		
 		/* pour randomizer le choix peuple/pouvoir */
 		
@@ -86,15 +120,23 @@ public class Partie {
 	
 	public void initPouvoirs(){
 		
-		pouvoirsDispo.add(new PouvoirAvare());
+		pouvoirsDispo.add( PouvoirAvare.class);
 		
-		pouvoirsDispo.add(new PouvoirGeek());
+		pouvoirsDispo.add( PouvoirGeek.class);
 		
-		pouvoirsDispo.add(new PouvoirParesseux());
+		pouvoirsDispo.add( PouvoirParesseux.class);
 		
-		pouvoirsDispo.add(new PouvoirIntello());
+		pouvoirsDispo.add( PouvoirIntello.class);
 		
-		pouvoirsDispo.add(new PouvoirFetard());
+		pouvoirsDispo.add( PouvoirFetard.class);
+	}
+	
+	public void mettreCombinaisonEnJeu(int numCombinaison){
+		pouvoirsPris.add( pouvoirsDispo.get(numCombinaison) );
+		peuplesPris.add( peuplesDispo.get(numCombinaison) );
+		
+		pouvoirsDispo.remove(0);
+		peuplesDispo.remove(0);
 	}
 	
 	public int getNbTours(){
@@ -103,6 +145,20 @@ public class Partie {
 	
 	public int getTourEnCours(){
 		return this.tourEnCours;
+	}
+	
+	public void changerTour(){
+		this.tourEnCours++;
+	}
+	
+	public void passerJoueurSuivant(){
+		
+		if( this.joueurEnCours < this.lstJoueurs.size() ){
+			this.joueurEnCours++;
+		}else{
+			this.joueurEnCours = 0;
+		}
+		
 	}
 	
 
