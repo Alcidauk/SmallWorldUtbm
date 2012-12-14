@@ -1,44 +1,45 @@
 package com.utbm.smallWorld;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Iterator;
+
 
 public class Joueur {
 
 	private String nom;
 	private int argent;
 	private Peuple peuple ;
-	private LinkedList<Peuple> peuplesDeclin; /*je suis pas sure si c'est une linkedlist ou un tableau*/
+	private Peuple peuplesDeclin;
 	
 	// Constructer
-	public Joeur()
+	public Joueur()
 	{
 		nom= null;
 		argent=0;
-		peuple= new Peuple(null);
+		peuple= null;
 		peuplesDeclin= null;
 	}
-	public Joeur(string n, int monnaie, Peuple p)
+	
+	public Joueur(String n, int monnaie, Peuple p)
 	{
 		nom= n;
 		argent= monnaie;
-		peuple =new Peuple(p);
-		this.peuplesDeclin= new LinkedList<Peuple>;  
+		peuple = p;
+		peuplesDeclin= null;  
 		
 	}
 	
 	// Fonctions Setter
-	public void setNom(string n)
+	public void setNom(String n)
 	{
 		nom = n;
 	}
+	
 	public void setArgent(int n)
 	{
 		argent = n;
 	}
+	
 	public void setPeuple(Peuple p)
 	{
-		peuple = new peuple(p);
+		peuple = p;
 	}
 	
 	//Fonctions Getter
