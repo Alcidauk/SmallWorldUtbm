@@ -1,5 +1,6 @@
 package com.utbm.smallWorld;
 
+import java.awt.Rectangle;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -31,6 +32,9 @@ public class Territoire {
 	/** Historique des prises du territoire */
 	private List<Peuple> prisesDuTerritoire[];
 	
+	/** Coordonnées du Territoire sur la carte */
+	private Rectangle coords;
+	
 	/**
 	 * Constructeur par défaut
 	 * Initialise les listes
@@ -38,6 +42,7 @@ public class Territoire {
 	public Territoire() {
 		territoiresAdjacents = new LinkedList<Territoire>();
 		elements = new LinkedList<Element>();
+		coords = null;
 	}
 	
 	/**
@@ -170,6 +175,13 @@ public class Territoire {
 	public List<Element> getElements() {
 		return elements;
 	}
+
+	/**
+	 * @return the coords
+	 */
+	public Rectangle getCoords() {
+		return coords;
+	}
 	
 	/**
 	 * 
@@ -219,6 +231,13 @@ public class Territoire {
 	 */
 	public void setPrisesDuTerritoire(List<Peuple>[] prisesDuTerritoire) {
 		this.prisesDuTerritoire = prisesDuTerritoire;
+	}
+
+	/**
+	 * @param coords to set
+	 */
+	public void setCoords(Rectangle c) {
+		this.coords = c;
 	}
 	
 	

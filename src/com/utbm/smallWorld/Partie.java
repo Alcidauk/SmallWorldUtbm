@@ -43,6 +43,9 @@ public class Partie {
 	/** Liste des pouvoirs disponibles dans le tas */
 	protected List<Class<? extends Pouvoir>> pouvoirsDispo = null;
 	
+	/** Argent placée sur les peuples de la file d'attente */
+	protected List<Integer> argentPeuple = null;
+	
 	/**
 	 * Constructeur par défaut, initialise les listes
 	 */
@@ -52,6 +55,7 @@ public class Partie {
 		peuplesDispo = new LinkedList<Class<? extends Peuple>>();
 		pouvoirsPris = new LinkedList<Class<? extends Pouvoir>>();
 		pouvoirsDispo = new LinkedList<Class<? extends Pouvoir>>();
+		argentPeuple = new LinkedList<Integer>();
 		
 		initPeuples();
 		initPouvoirs();
@@ -120,26 +124,37 @@ public class Partie {
 	private void initPeuples(){
 		
 		peuplesDispo.add(PeupleAdministration.class);
+		argentPeuple.add(0);
 
 		peuplesDispo.add(PeupleAlternance.class);
+		argentPeuple.add(0);
 
 		peuplesDispo.add(PeupleChercheur.class);
+		argentPeuple.add(0);
 		
 		peuplesDispo.add(PeupleCRI.class);
+		argentPeuple.add(0);
 		
 		peuplesDispo.add(PeupleDirecteur.class);
+		argentPeuple.add(0);
 		
 		peuplesDispo.add(PeupleEtudiantBranche.class);
+		argentPeuple.add(0);
 		
 		peuplesDispo.add(PeupleEtudiantTC.class);
+		argentPeuple.add(0);
 		
 		peuplesDispo.add(PeupleProfHumanite.class);
+		argentPeuple.add(0);
 		
 		peuplesDispo.add(PeupleProfScience.class);
+		argentPeuple.add(0);
 		
 		peuplesDispo.add(PeupleRats.class);
+		argentPeuple.add(0);
 	
 		peuplesDispo.add(PeupleServiceTechnique.class);
+		argentPeuple.add(0);
 		
 		/* pour randomizer le choix peuple/pouvoir */
 		
@@ -151,33 +166,33 @@ public class Partie {
 	 */
 	private void initPouvoirs(){
 
-		pouvoirsDispo.add( PouvoirAssociatif.class);
+		pouvoirsDispo.add(PouvoirAssociatif.class);
 		
-		pouvoirsDispo.add( PouvoirAvare.class);
+		pouvoirsDispo.add(PouvoirAvare.class);
 		
-		pouvoirsDispo.add( PouvoirBagarreur.class);
+		pouvoirsDispo.add(PouvoirBagarreur.class);
 		
-		pouvoirsDispo.add( PouvoirFauxCul.class);
+		pouvoirsDispo.add(PouvoirFauxCul.class);
 		
-		pouvoirsDispo.add( PouvoirFetard.class);
+		pouvoirsDispo.add(PouvoirFetard.class);
 		
-		pouvoirsDispo.add( PouvoirFumeur.class);
+		pouvoirsDispo.add(PouvoirFumeur.class);
 		
-		pouvoirsDispo.add( PouvoirGeek.class);
+		pouvoirsDispo.add(PouvoirGeek.class);
 		
-		pouvoirsDispo.add( PouvoirGlouton.class);
+		pouvoirsDispo.add(PouvoirGlouton.class);
 		
-		pouvoirsDispo.add( PouvoirIntello.class);
+		pouvoirsDispo.add(PouvoirIntello.class);
 		
-		pouvoirsDispo.add( PouvoirJoueur.class);
+		pouvoirsDispo.add(PouvoirJoueur.class);
 		
-		pouvoirsDispo.add( PouvoirNerveux.class);
+		pouvoirsDispo.add(PouvoirNerveux.class);
 		
-		pouvoirsDispo.add( PouvoirOpportuniste.class);
+		pouvoirsDispo.add(PouvoirOpportuniste.class);
 		
-		pouvoirsDispo.add( PouvoirParesseux.class);
+		pouvoirsDispo.add(PouvoirParesseux.class);
 		
-		pouvoirsDispo.add( PouvoirVoyageur.class);
+		pouvoirsDispo.add(PouvoirVoyageur.class);
 	}
 	
 	/**
@@ -207,15 +222,12 @@ public class Partie {
 	
 	public void passerJoueurSuivant(){
 		
-		if( this.joueurEnCours < this.lstJoueurs.size() ){
+		if (this.joueurEnCours < this.lstJoueurs.size()) {
 			this.joueurEnCours++;
-		}else{
+		}
+		else {
 			this.joueurEnCours = 0;
 		}
-		
 	}
-	
-
-	
 	
 }
