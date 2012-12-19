@@ -80,7 +80,7 @@ public abstract class Peuple implements Bonusable {
 		this.territoiresOccupes.remove(t);
 		
 		if (this.enDeclin && this.territoiresOccupes.size() == 0) {
-			joueur.pertePeuple(this);
+			joueur.pertePeupleEnDeclin();
 			
 			Partie.getInstance().remettreBoite(this);
 		}
@@ -228,7 +228,7 @@ public abstract class Peuple implements Bonusable {
 		this.enDeclin = true;
 		
 		if (this.territoiresOccupes.size() == 0) {
-			joueur.pertePeuple(this);
+			joueur.pertePeupleEnDeclin();
 			Partie.getInstance().remettreBoite(this);
 		}
 	}

@@ -7,59 +7,31 @@ import java.util.List;
 public class Joueur {
 
 	private String nom;
-	private int argent;
-	private Peuple peuple ;
-	private Peuple peuplesDeclin;
+	private int argent = 0;
+	private Peuple peuple = null;
+	private Peuple peuplesDeclin = null;
 	
-	// Constructer
-	public Joueur()
-	{
-		nom= null;
-		argent=0;
-		peuple= null;
-		peuplesDeclin= null;
+	/**
+	 * Constructeur par défaut
+	 */
+	public Joueur()	{
+		this.nom = "Default";
 	}
 	
-	public Joueur(String n, int monnaie, Peuple p)
-	{
-		nom= n;
-		argent= monnaie;
-		peuple = p;
-		peuplesDeclin= null;  
-		
-	}
-	
-	// Fonctions Setter
-	public void setNom(String n)
-	{
-		nom = n;
-	}
-	
-	public void setArgent(int n)
-	{
-		argent = n;
-	}
-	
-	public void setPeuple(Peuple p)
-	{
-		peuple = p;
-	}
-	
-	//Fonctions Getter
-	public String getNom()
-	{
-		return nom;
-	}
-	public int getArgent()
-	{
-		return argent;
+	/**
+	 * Constructeur
+	 * @param nom Nom du joueur
+	 * @param monnaie Argent possédé par le joueur
+	 */
+	public Joueur(String nom, int monnaie) {
+		this.nom = nom;
+		this.argent = monnaie;
 	}
 	
 	/**
 	 * Lance l'attaque d'un territoire
 	 */
-	public boolean attaquer(Territoire to)
-	{
+	public boolean attaquer(Territoire to) {
 		List<Territoire> occupes = this.peuple.getTerritoiresOccupes();
 		
 		Territoire from = null;
@@ -123,9 +95,70 @@ public class Joueur {
 		
 		return true;
 	}
-	public void pertePeuple(Peuple peuple) {
-		// TODO Auto-generated method stub
-		
+	
+	
+	/**
+	 * Indique au joueur que son peuple en déclin n'est plus
+	 */
+	public void pertePeupleEnDeclin() {
+		this.peuplesDeclin = null;
+	}
+	
+	
+	/**
+	 * @return the nom
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * @return the argent
+	 */
+	public int getArgent() {
+		return argent;
+	}
+
+	/**
+	 * @return the peuple
+	 */
+	public Peuple getPeuple() {
+		return peuple;
+	}
+
+	/**
+	 * @return the peuplesDeclin
+	 */
+	public Peuple getPeuplesDeclin() {
+		return peuplesDeclin;
+	}
+
+	/**
+	 * @param nom the nom to set
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	/**
+	 * @param argent the argent to set
+	 */
+	public void setArgent(int argent) {
+		this.argent = argent;
+	}
+
+	/**
+	 * @param peuple the peuple to set
+	 */
+	public void setPeuple(Peuple peuple) {
+		this.peuple = peuple;
+	}
+
+	/**
+	 * @param peuplesDeclin the peuplesDeclin to set
+	 */
+	public void setPeuplesDeclin(Peuple peuplesDeclin) {
+		this.peuplesDeclin = peuplesDeclin;
 	}
 	
 }
