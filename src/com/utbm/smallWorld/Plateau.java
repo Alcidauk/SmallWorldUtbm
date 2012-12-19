@@ -15,7 +15,7 @@ public class Plateau {
 	 * Constructeur
 	 */
 	public Plateau(Icon image) {
-		
+		this.image = image;
 	}
 	
 	public Icon getIcon() {

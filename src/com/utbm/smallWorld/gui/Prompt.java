@@ -4,9 +4,10 @@ package com.utbm.smallWorld.gui;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
-public class Prompt extends JDialog implements MouseListener {
+public class Prompt extends JDialog implements MouseListener, KeyListener {
 	/** Stub */
 	private static final long serialVersionUID = 1L;
 	/** Largeur par défaut */
@@ -51,6 +52,7 @@ public class Prompt extends JDialog implements MouseListener {
 		
 		JButton quit = new JButton("OK");
 		
+		input.addKeyListener(this);
 		quit.addMouseListener(this);
 
 		bottom.add(input);
@@ -86,10 +88,23 @@ public class Prompt extends JDialog implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		setVisible(false);
 	}
+
+	/**
+	 * Event
+	 */
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == 10) {
+			setVisible(false);
+		}
+	}
 	
 	
 	public void mouseReleased(MouseEvent e){}
 	public void mouseEntered(MouseEvent e){}
 	public void mouseExited(MouseEvent e){}
 	public void mouseClicked(MouseEvent e){}
+
+	public void keyTyped(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {}
+	
 }

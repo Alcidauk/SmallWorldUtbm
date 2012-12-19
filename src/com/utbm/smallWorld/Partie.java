@@ -48,6 +48,9 @@ public class Partie {
 	/** Argent placée sur les peuples de la file d'attente */
 	protected List<Integer> argentPeuple = null;
 	
+	/** Plateau de la partie */
+	protected Plateau plateau;
+	
 	/**
 	 * Constructeur par défaut, initialise les listes
 	 */
@@ -209,15 +212,6 @@ public class Partie {
 		peuplesDispo.remove(numCombinaison);
 	}
 	
-	
-	public int getNbTours(){
-		return this.nbTours;
-	}
-	
-	public int getTourEnCours(){
-		return this.tourEnCours;
-	}
-	
 	public void tourSuivant(){
 		this.tourEnCours++;
 	}
@@ -230,6 +224,167 @@ public class Partie {
 		else {
 			this.joueurEnCours = 0;
 		}
+	}
+
+	/**
+	 * @return the defaultMonnaie
+	 */
+	public static int getDefaultMonnaie() {
+		return DEFAULT_MONNAIE;
+	}
+
+	/**
+	 * @return the part
+	 */
+	public static Partie getPart() {
+		return part;
+	}
+
+	/**
+	 * @return the nbTours
+	 */
+	public int getNbTours() {
+		return nbTours;
+	}
+
+	/**
+	 * @return the tourEnCours
+	 */
+	public int getTourEnCours() {
+		return tourEnCours;
+	}
+
+	/**
+	 * @return the lstJoueurs
+	 */
+	public List<Joueur> getLstJoueurs() {
+		return lstJoueurs;
+	}
+
+	/**
+	 * @return the joueurEnCours
+	 */
+	public int getJoueurEnCours() {
+		return joueurEnCours;
+	}
+
+	/**
+	 * @return the peuplesPris
+	 */
+	public List<Class<? extends Peuple>> getPeuplesPris() {
+		return peuplesPris;
+	}
+
+	/**
+	 * @return the peuplesDispo
+	 */
+	public List<Class<? extends Peuple>> getPeuplesDispo() {
+		return peuplesDispo;
+	}
+
+	/**
+	 * @return the pouvoirsPris
+	 */
+	public List<Class<? extends Pouvoir>> getPouvoirsPris() {
+		return pouvoirsPris;
+	}
+
+	/**
+	 * @return the pouvoirsDispo
+	 */
+	public List<Class<? extends Pouvoir>> getPouvoirsDispo() {
+		return pouvoirsDispo;
+	}
+
+	/**
+	 * @return the argentPeuple
+	 */
+	public List<Integer> getArgentPeuple() {
+		return argentPeuple;
+	}
+
+	/**
+	 * @return the plateau
+	 */
+	public Plateau getPlateau() {
+		return plateau;
+	}
+
+	/**
+	 * @param part the part to set
+	 */
+	public static void setPart(Partie part) {
+		Partie.part = part;
+	}
+
+	/**
+	 * @param nbTours the nbTours to set
+	 */
+	public void setNbTours(int nbTours) {
+		this.nbTours = nbTours;
+	}
+
+	/**
+	 * @param tourEnCours the tourEnCours to set
+	 */
+	public void setTourEnCours(int tourEnCours) {
+		this.tourEnCours = tourEnCours;
+	}
+
+	/**
+	 * @param lstJoueurs the lstJoueurs to set
+	 */
+	public void setLstJoueurs(List<Joueur> lstJoueurs) {
+		this.lstJoueurs = lstJoueurs;
+	}
+
+	/**
+	 * @param joueurEnCours the joueurEnCours to set
+	 */
+	public void setJoueurEnCours(int joueurEnCours) {
+		this.joueurEnCours = joueurEnCours;
+	}
+
+	/**
+	 * @param peuplesPris the peuplesPris to set
+	 */
+	public void setPeuplesPris(List<Class<? extends Peuple>> peuplesPris) {
+		this.peuplesPris = peuplesPris;
+	}
+
+	/**
+	 * @param peuplesDispo the peuplesDispo to set
+	 */
+	public void setPeuplesDispo(List<Class<? extends Peuple>> peuplesDispo) {
+		this.peuplesDispo = peuplesDispo;
+	}
+
+	/**
+	 * @param pouvoirsPris the pouvoirsPris to set
+	 */
+	public void setPouvoirsPris(List<Class<? extends Pouvoir>> pouvoirsPris) {
+		this.pouvoirsPris = pouvoirsPris;
+	}
+
+	/**
+	 * @param pouvoirsDispo the pouvoirsDispo to set
+	 */
+	public void setPouvoirsDispo(List<Class<? extends Pouvoir>> pouvoirsDispo) {
+		this.pouvoirsDispo = pouvoirsDispo;
+	}
+
+	/**
+	 * @param argentPeuple the argentPeuple to set
+	 */
+	public void setArgentPeuple(List<Integer> argentPeuple) {
+		this.argentPeuple = argentPeuple;
+	}
+
+	/**
+	 * @param plateau the plateau to set
+	 */
+	public void setPlateau(Plateau plateau) {
+		this.plateau = plateau;
 	}
 	
 }

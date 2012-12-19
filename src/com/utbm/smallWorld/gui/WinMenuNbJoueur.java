@@ -14,9 +14,4 @@ public class WinMenuNbJoueur extends WinMenu {
 		newItem("3 joueurs", 3);
 		newItem("4 joueurs", 4);
 	}
-	
-	public static void main(String[] args) {
-		WinMenu w = new WinMenuNbJoueur();
-		System.out.println(w.open());
-	}
 }

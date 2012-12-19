@@ -74,7 +74,7 @@ public class WinMenu extends JDialog {
 		panTitle.add(labMenu);
 		background.add(panTitle);
 		background.add(panContent);
-		setContentPane(background);
+		getContentPane().add(background);
 	}
 	
 	
@@ -106,8 +106,8 @@ public class WinMenu extends JDialog {
 		
 		btn.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent arg0) {}
-			public void mousePressed(MouseEvent arg0) {}
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {
 				cliqueMenu(index);
 			}
 			
