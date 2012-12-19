@@ -6,18 +6,17 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
+import javax.swing.border.Border;
 
 import com.utbm.smallWorld.Joueur;
 import com.utbm.smallWorld.Partie;
@@ -36,7 +35,7 @@ public class Game extends JFrame {
 	/** Génération de l'image de background */
 	static {
 		try {
-			BACKGROUND = new ImageIcon(ImageIO.read(new File("res/win/background.jpg")));
+			BACKGROUND = new ImageIcon(ImageIO.read(Game.class.getResource("/res/win/background.jpg")));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -91,7 +90,7 @@ public class Game extends JFrame {
 	private void loadPlateau(int nbJoueur) {
 		// TODO
 		try {
-			Icon plIm = new ImageIcon(ImageIO.read(new File("res/maps/map2p.png")));
+			Icon plIm = new ImageIcon(ImageIO.read(Game.class.getResource("/res/maps/map2p.png")));
 			
 			Plateau plateau = new Plateau(plIm);
 			
@@ -145,6 +144,30 @@ public class Game extends JFrame {
 		a.add(c);
 		
 		getContentPane().add(a);
+		
+		final JPanel d = new JPanel();
+		d.setBounds(206, 101, 206, 130);
+		d.setPreferredSize(new Dimension(206, 130));
+		
+		final Border bord = BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED);
+		
+		d.setBorder(null);
+		d.setOpaque(false);
+		d.addMouseListener(new MouseListener() {
+			public void mouseReleased(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseClicked(MouseEvent arg0) {}
+			
+			public void mouseExited(MouseEvent arg0) {
+				d.setBorder(null);
+			}
+			
+			public void mouseEntered(MouseEvent arg0) {
+				d.setBorder(bord);
+			}
+		});
+
+		getContentPane().add(d);
 		
 		repaint();
 	}
