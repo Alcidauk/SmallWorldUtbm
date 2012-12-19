@@ -10,13 +10,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -24,33 +19,25 @@ import javax.swing.JPanel;
  * @author Administrateur
  *
  */
-public class WinMenu extends JFrame {
+public class WinMenu extends JDialog {
 	/** Stub */
 	private static final long serialVersionUID = 1L;
-	/** Image de background de la fenêtre */
-	private static Icon BACKGROUND = null;
 	/** Panel contenant les items du menu */
 	private JPanel panContent;
+	/** Choix de l'utilisateur sur le menu */
+	private int lastChoice = -1;
 	
-	/** Génération de l'image de background */
-	static {
-		try {
-			BACKGROUND = new ImageIcon(ImageIO.read(new File("res/win/background.jpg")));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	};
 	
 	/**
 	 * Constructeur
 	 * @param title Titre de la fenêtre / menu
 	 */
 	public WinMenu(String title) {
+		setModal(true);
 		setTitle("SmallWorld UTBM - " + title);
 		setSize(1280, 768);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		
 		build(title);
@@ -64,7 +51,7 @@ public class WinMenu extends JFrame {
 	private void build(String title) {
 		// Fond d'écran
 		JLabel background = new JLabel();
-		background.setIcon(BACKGROUND);
+		background.setIcon(Game.BACKGROUND);
 		FlowLayout layBack = new FlowLayout();
 		layBack.setVgap(0);
 		background.setLayout(layBack);
@@ -144,7 +131,11 @@ public class WinMenu extends JFrame {
 	 * Intercepte les cliques sur le menu
 	 * @param index Id de l'item
 	 */
-	protected void cliqueMenu(int index) {}
+	protected void cliqueMenu(int index) {
+		this.lastChoice = index;
+		
+		setVisible(false);
+	}
 	
 	
 	/**
@@ -165,7 +156,11 @@ public class WinMenu extends JFrame {
 	/**
 	 * Ouvre la fenetre
 	 */
-	public void open() {
+	public int open() {
+		this.lastChoice = -1;
+		
 		setVisible(true);
+		
+		return this.lastChoice;
 	}
 }

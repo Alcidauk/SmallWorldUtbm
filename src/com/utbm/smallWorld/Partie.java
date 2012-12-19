@@ -16,6 +16,8 @@ import com.utbm.smallWorld.pouvoirs.*;
  * 
  */
 public class Partie {
+	public static final int DEFAULT_MONNAIE = 10;
+
 	/** Singleton, instance de la partie en cours */
 	private static Partie part;
 	
@@ -49,7 +51,7 @@ public class Partie {
 	/**
 	 * Constructeur par défaut, initialise les listes
 	 */
-	private Partie(){
+	private Partie() {
 		lstJoueurs = new LinkedList<Joueur>();
 		peuplesPris = new LinkedList<Class<? extends Peuple>>();
 		peuplesDispo = new LinkedList<Class<? extends Peuple>>();

@@ -15,18 +15,8 @@ public class WinMenuNbJoueur extends WinMenu {
 		newItem("4 joueurs", 4);
 	}
 	
-	
-	/**
-	 * Interception des cliques
-	 */
-	protected void cliqueMenu(int index) {
-		System.out.println(index);
-		
-		close();
-	}
-	
 	public static void main(String[] args) {
 		WinMenu w = new WinMenuNbJoueur();
-		w.open();
+		System.out.println(w.open());
 	}
 }
