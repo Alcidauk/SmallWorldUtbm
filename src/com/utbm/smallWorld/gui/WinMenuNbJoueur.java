@@ -8,7 +8,7 @@ public class WinMenuNbJoueur extends WinMenu {
 	 * Constructeur
 	 */
 	public WinMenuNbJoueur() {
-		super("Combien de joueur pour cette partie ?");
+		super("Combien de joueurs pour cette partie ?");
 		
 		newItem("2 joueurs", 2);
 		newItem("3 joueurs", 3);
