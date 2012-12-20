@@ -20,16 +20,26 @@ import com.utbm.smallWorld.Territoire;
 public class TerritoireCase extends JPanel implements MouseListener {
 	/** Stub */
 	private static final long serialVersionUID = 1L;
+	/** Bordure des territoires en temps normal */
 	private static Border thinBord;
+	/** Bordure des territoires lors du hover */
 	private static Border bigBord;
+	
+	/** Label du nombre d'unité */
 	private JLabel tx;
+	/** Territoire lié */
 	private Territoire territoire;
 	
+	/** Initialisation des statiques */
 	static {
 		bigBord = BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED);
 		thinBord = new LineBorder(Color.BLACK);
 	};
 	
+	/**
+	 * Constructeur
+	 * @param pos Position du territoire sur la carte
+	 */
 	public TerritoireCase(Rectangle pos) {
 		this.setBounds(pos);
 		this.setPreferredSize(new Dimension(pos.width, pos.height));
@@ -50,21 +60,12 @@ public class TerritoireCase extends JPanel implements MouseListener {
 		
 		this.add(tx, new GridBagConstraints());
 	}
-
-	/**
-	 * @return the territoire
-	 */
-	public Territoire getTerritoire() {
-		return territoire;
-	}
-
-	/**
-	 * @param territoire the territoire to set
-	 */
-	public void setTerritoire(Territoire territoire) {
-		this.territoire = territoire;
-	}
 	
+	
+	/**
+	 * Met à jour les informations concernant le territoire
+	 * Couleur / nombre d'unité
+	 */
 	public void majInfos() {
 		int i;
 		int nb;
@@ -83,6 +84,27 @@ public class TerritoireCase extends JPanel implements MouseListener {
 		tx.setText(nb + "");
 	}
 
+	
+	/**
+	 * @return the territoire lié
+	 */
+	public Territoire getTerritoire() {
+		return territoire;
+	}
+
+	
+	/**
+	 * @param territoire the territoire lié to set
+	 */
+	public void setTerritoire(Territoire territoire) {
+		this.territoire = territoire;
+	}
+
+	
+	/**
+	 * Action lors du hover: Changement de bordure
+	 * @param arg0 useless
+	 */
 	public void mouseEntered(MouseEvent arg0) {
 		setBorder(bigBord);
 		
@@ -90,13 +112,20 @@ public class TerritoireCase extends JPanel implements MouseListener {
 		
 		Game.getInstance().showInfo("Coord: (" + r.x + ", " + r.y + ")\nSize: (" + r.width + ", " + r.height + ")");
 	}
-	
+
+
+	/**
+	 * Action lors du blur: Changement de bordure
+	 * @param arg0 useless
+	 */
 	public void mouseExited(MouseEvent arg0) {
 		setBorder(thinBord);
 		
 		Game.getInstance().hideInfo();
 	}
 	
+	
+	/** Stub */
 	public void mouseClicked(MouseEvent arg0) {}
 	public void mousePressed(MouseEvent arg0) {}
 	public void mouseReleased(MouseEvent arg0) {}
