@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,13 +33,25 @@ public class Game extends JFrame {
 
 	/** Image de background de la fenêtre */
 	public static Icon BACKGROUND = null;
+
+	public static final Color[] JOUEUR_BACKGROUND = {Color.YELLOW, Color.PINK, Color.CYAN, Color.GREEN};
+	public static final Color[] JOUEUR_FOREGROUND = {Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK};
+	
+	/** Fenêtre en cours */
+	private static Game instance;
 	
 	/** Partie en cours */
 	private Partie partieEnCours;
 
-	private JLabel playerName;
-
 	private JTextArea playerInfo;
+
+	private JLabel headerJoueur;
+
+	private JLabel headerAction;
+
+	private JLabel headerInfo;
+
+	private JPanel infoPanel;
 
 	/** Génération de l'image de background */
 	static {
@@ -51,6 +64,8 @@ public class Game extends JFrame {
 	};
 	
 	public Game() {
+		instance = this;
+		
 		// Config
 		setTitle("SmallWorld UTBM");
 		setSize(1280, 768);
@@ -95,7 +110,7 @@ public class Game extends JFrame {
 		buildBackground();
 		buildPlayerPanel();
 		buildInfoPanel();
-		buildOptionPanel();
+		buildActionPanel();
 		buildTerritoires();
 		
 		repaint();
@@ -126,24 +141,23 @@ public class Game extends JFrame {
 	
 	private void buildPlayerPanel() {
 		JPanel playerPanel = new JPanel();
-		playerPanel.setBounds(0, 450, 385, 290);
-		playerPanel.setPreferredSize(new Dimension(385, 290));
+		playerPanel.setBounds(0, 450, 385, 200);
+		playerPanel.setPreferredSize(new Dimension(385, 200));
 		playerPanel.setBackground(new Color(31, 31, 31));
 		playerPanel.setForeground(Color.WHITE);
 		playerPanel.setOpaque(true);
 		
 		FlowLayout flow = new FlowLayout();
 		flow.setVgap(0);
-		
 		playerPanel.setLayout(flow);
 		
-		playerName = new JLabel("Joueur 1");
-		playerName.setHorizontalAlignment(JLabel.CENTER);
-		playerName.setPreferredSize(new Dimension(385, 30));
-		playerName.setBackground(Color.YELLOW);
-		playerName.setOpaque(true);
+		headerJoueur = new JLabel("Joueur 1");
+		headerJoueur.setHorizontalAlignment(JLabel.CENTER);
+		headerJoueur.setPreferredSize(new Dimension(385, 30));
+		headerJoueur.setBackground(Color.YELLOW);
+		headerJoueur.setOpaque(true);
 		
-		playerPanel.add(playerName);
+		playerPanel.add(headerJoueur);
 		
 		playerInfo = new JTextArea();
 		playerInfo.append("\n");
@@ -151,7 +165,7 @@ public class Game extends JFrame {
 		playerInfo.append("Territoire....... 4\n");
 		playerInfo.append("Unités totales... 17\n");
 		playerInfo.append("Unités en main... 0\n");
-		playerInfo.setPreferredSize(new Dimension(340, 240));
+		playerInfo.setPreferredSize(new Dimension(340, 150));
 		playerInfo.setForeground(Color.WHITE);
 		playerInfo.setOpaque(false);
 		playerInfo.setEditable(false);
@@ -162,22 +176,117 @@ public class Game extends JFrame {
 		getContentPane().add(playerPanel);
 	}
 	
-	private void buildOptionPanel() {
+	private void buildActionPanel() {
+		JPanel actionPanel = new JPanel();
+		actionPanel.setBounds(0, 650, 385, 90);
+		actionPanel.setPreferredSize(new Dimension(385, 90));
+		actionPanel.setBackground(new Color(31, 31, 31));
+		actionPanel.setForeground(Color.WHITE);
+		actionPanel.setOpaque(true);
 		
+		FlowLayout flow = new FlowLayout();
+		flow.setVgap(0);
+		actionPanel.setLayout(flow);
+
+		headerAction = new JLabel("Actions");
+		headerAction.setHorizontalAlignment(JLabel.CENTER);
+		headerAction.setPreferredSize(new Dimension(385, 30));
+		headerAction.setBackground(Color.YELLOW);
+		headerAction.setOpaque(true);
+		
+		actionPanel.add(headerAction);
+		
+		JPanel actions = new JPanel(new GridBagLayout());
+		actions.setPreferredSize(new Dimension(385, 60));
+		actions.setOpaque(false);
+		
+		GridBagConstraints constraint = new GridBagConstraints();
+		
+		actions.add(new JButton("Déclin"), constraint);
+		actions.add(new JButton("Finir tour"), constraint);
+		actions.add(new JButton("Fin redéploiement"), constraint);
+		
+		actionPanel.add(actions);
+
+		getContentPane().add(actionPanel);
+	}
+	
+	private void buildInfoPanel() {
+		infoPanel = new JPanel();
+		infoPanel.setBounds(1274-400, 450, 400, 290);
+		infoPanel.setPreferredSize(new Dimension(400, 290));
+		infoPanel.setBackground(new Color(31, 31, 31));
+		infoPanel.setForeground(Color.WHITE);
+		infoPanel.setOpaque(true);
+		infoPanel.setVisible(false);
+		
+		FlowLayout flow = new FlowLayout();
+		flow.setVgap(0);
+		infoPanel.setLayout(flow);
+
+		headerInfo = new JLabel("Informations Territoire");
+		headerInfo.setHorizontalAlignment(JLabel.CENTER);
+		headerInfo.setPreferredSize(new Dimension(400, 30));
+		headerInfo.setBackground(Color.YELLOW);
+		headerInfo.setOpaque(true);
+		
+		infoPanel.add(headerInfo);
+		
+		getContentPane().add(infoPanel);
 	}
 	
 	private void buildTerritoires() {
 		// TODO
-		getContentPane().add(new TerritoireCase(new Rectangle(206, 101, 206, 130)));
-		getContentPane().add(new TerritoireCase(new Rectangle(412, 101, 60, 130)));
-
-	}
-	
-	private void buildInfoPanel() {
+		getContentPane().add(new TerritoireCase(new Rectangle(5, 5, 191, 100)));
+		getContentPane().add(new TerritoireCase(new Rectangle(5, 105, 191, 173)));
 		
+		getContentPane().add(new TerritoireCase(new Rectangle(196, 91, 216, 150)));
+		getContentPane().add(new TerritoireCase(new Rectangle(412, 91, 60, 150)));
+		
+		getContentPane().add(new TerritoireCase(new Rectangle(472, 91, 137, 85)));
+		getContentPane().add(new TerritoireCase(new Rectangle(609, 91, 138, 85)));
+		getContentPane().add(new TerritoireCase(new Rectangle(747, 91, 190, 85)));
+
+		getContentPane().add(new TerritoireCase(new Rectangle(472, 176, 158, 65)));
+		getContentPane().add(new TerritoireCase(new Rectangle(630, 176, 157, 65)));
+		getContentPane().add(new TerritoireCase(new Rectangle(787, 176, 150, 65)));
+
+		getContentPane().add(new TerritoireCase(new Rectangle(937, 91, 165, 340)));
+		getContentPane().add(new TerritoireCase(new Rectangle(1102, 91, 160, 170)));
+		getContentPane().add(new TerritoireCase(new Rectangle(1102, 261, 160, 170)));
+
+		getContentPane().add(new TerritoireCase(new Rectangle(196, 241, 187, 145)));
+		getContentPane().add(new TerritoireCase(new Rectangle(383, 241, 108, 190)));
+		getContentPane().add(new TerritoireCase(new Rectangle(491, 241, 99, 190)));
+		getContentPane().add(new TerritoireCase(new Rectangle(590, 241, 99, 190)));
+		getContentPane().add(new TerritoireCase(new Rectangle(689, 241, 99, 190)));
+		getContentPane().add(new TerritoireCase(new Rectangle(788, 241, 149, 190)));
+
+		getContentPane().add(new TerritoireCase(new Rectangle(410, 431, 150, 104)));
+		getContentPane().add(new TerritoireCase(new Rectangle(410, 535, 150, 200)));
+		getContentPane().add(new TerritoireCase(new Rectangle(560, 431, 170, 290)));
+
+	}
+	
+	
+	public void showInfo(String tx) {
+		// TODO
+		infoPanel.setVisible(true);
+	}
+	
+	
+	public void hideInfo() {
+		infoPanel.setVisible(false);
 	}
 
 	
+	/**
+	 * @return the instance
+	 */
+	public static Game getInstance() {
+		return instance;
+	}
+
 	
 	
 	

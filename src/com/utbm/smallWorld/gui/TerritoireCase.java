@@ -67,10 +67,14 @@ public class TerritoireCase extends JPanel implements MouseListener {
 
 	public void mouseEntered(MouseEvent arg0) {
 		setBorder(bigBord);
+		
+		Game.getInstance().showInfo("Pouic");
 	}
 	
 	public void mouseExited(MouseEvent arg0) {
 		setBorder(thinBord);
+		
+		Game.getInstance().hideInfo();
 	}
 	
 	public void mouseClicked(MouseEvent arg0) {}
