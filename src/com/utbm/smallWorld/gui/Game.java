@@ -53,6 +53,8 @@ public class Game extends JFrame {
 
 	private JPanel infoPanel;
 
+	private JTextArea infoTx;
+
 	/** Génération de l'image de background */
 	static {
 		try {
@@ -232,6 +234,16 @@ public class Game extends JFrame {
 		
 		infoPanel.add(headerInfo);
 		
+		infoTx = new JTextArea();
+		
+		infoTx.setPreferredSize(new Dimension(355, 240));
+		infoTx.setForeground(Color.WHITE);
+		infoTx.setOpaque(false);
+		infoTx.setEditable(false);
+		infoTx.setFont(new Font(Font.MONOSPACED, 0, 15));
+		
+		infoPanel.add(infoTx);
+		
 		getContentPane().add(infoPanel);
 	}
 	
@@ -270,7 +282,8 @@ public class Game extends JFrame {
 	
 	
 	public void showInfo(String tx) {
-		// TODO
+		infoTx.setText("\n" + tx);
+		
 		infoPanel.setVisible(true);
 	}
 	

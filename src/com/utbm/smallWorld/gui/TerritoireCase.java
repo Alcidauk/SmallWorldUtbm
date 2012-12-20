@@ -68,7 +68,9 @@ public class TerritoireCase extends JPanel implements MouseListener {
 	public void mouseEntered(MouseEvent arg0) {
 		setBorder(bigBord);
 		
-		Game.getInstance().showInfo("Pouic");
+		Rectangle r = this.getBounds();
+		
+		Game.getInstance().showInfo("Coord: (" + r.x + ", " + r.y + ")\nSize: (" + r.width + ", " + r.height + ")");
 	}
 	
 	public void mouseExited(MouseEvent arg0) {
