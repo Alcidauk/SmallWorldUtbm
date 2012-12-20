@@ -204,8 +204,8 @@ public class Game extends JFrame {
 			// MAJ
 			playerInfo.setText("");
 			playerInfo.append("\n");
-			playerInfo.append("UV............... " + argent + "\n");
-			playerInfo.append("Territoire....... " + nbTerritoire + (nbTerritoireDeclin > 0 ? " (+ " + nbTerritoireDeclin + ")" : "") + "\n");
+			playerInfo.append("UVs.............. " + argent + "\n");
+			playerInfo.append("Territoires...... " + nbTerritoire + (nbTerritoireDeclin > 0 ? " (+ " + nbTerritoireDeclin + ")" : "") + "\n");
 			playerInfo.append("Unités totales... " + nbUnite + "\n");
 			playerInfo.append("Unités en main... " + nbUniteEnMain + "\n");
 			
