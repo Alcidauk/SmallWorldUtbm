@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -17,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import com.utbm.smallWorld.Joueur;
 import com.utbm.smallWorld.Partie;
@@ -31,6 +35,10 @@ public class Game extends JFrame {
 	
 	/** Partie en cours */
 	private Partie partieEnCours;
+
+	private JLabel playerName;
+
+	private JTextArea playerInfo;
 
 	/** Génération de l'image de background */
 	static {
@@ -83,8 +91,14 @@ public class Game extends JFrame {
 			
 			partieEnCours.ajouterJoueur(j);
 		}
+
+		buildBackground();
+		buildPlayerPanel();
+		buildInfoPanel();
+		buildOptionPanel();
+		buildTerritoires();
 		
-		begin();
+		repaint();
 	}
 
 	private void loadPlateau(int nbJoueur) {
@@ -102,76 +116,71 @@ public class Game extends JFrame {
 	}
 	
 	
-	private void begin() {
+	private void buildBackground() {
 		JLabel map = new JLabel();
 		map.setIcon(partieEnCours.getPlateau().getIcon());
 		map.setBounds(0, 0, 1274, 740);
 		
 		setContentPane(map);
-		
-		JPanel a = new JPanel();
-		a.setBounds(0, 450, 385, 290);
-		a.setPreferredSize(new Dimension(385, 290));
-		a.setBackground(new Color(31, 31, 31));
-		a.setForeground(Color.WHITE);
-		a.setOpaque(true);
+	}
+	
+	private void buildPlayerPanel() {
+		JPanel playerPanel = new JPanel();
+		playerPanel.setBounds(0, 450, 385, 290);
+		playerPanel.setPreferredSize(new Dimension(385, 290));
+		playerPanel.setBackground(new Color(31, 31, 31));
+		playerPanel.setForeground(Color.WHITE);
+		playerPanel.setOpaque(true);
 		
 		FlowLayout flow = new FlowLayout();
 		flow.setVgap(0);
 		
-		a.setLayout(flow);
+		playerPanel.setLayout(flow);
 		
-		JLabel b = new JLabel("Joueur 1");
-		b.setHorizontalAlignment(JLabel.CENTER);
-		b.setPreferredSize(new Dimension(385, 30));
-		b.setBackground(Color.YELLOW);
-		b.setOpaque(true);
+		playerName = new JLabel("Joueur 1");
+		playerName.setHorizontalAlignment(JLabel.CENTER);
+		playerName.setPreferredSize(new Dimension(385, 30));
+		playerName.setBackground(Color.YELLOW);
+		playerName.setOpaque(true);
 		
-		a.add(b);
+		playerPanel.add(playerName);
 		
-		JTextArea c = new JTextArea();
-		c.append("\n");
-		c.append("Argent........... 13 jetons\n");
-		c.append("Territoire....... 4\n");
-		c.append("Unités totales... 17\n");
-		c.append("Unités en main... 0\n");
-		c.setPreferredSize(new Dimension(340, 240));
-		c.setForeground(Color.WHITE);
-		c.setOpaque(false);
-		c.setEditable(false);
-		c.setFont(new Font(Font.MONOSPACED, 0, 15));
+		playerInfo = new JTextArea();
+		playerInfo.append("\n");
+		playerInfo.append("Argent........... 13 jetons\n");
+		playerInfo.append("Territoire....... 4\n");
+		playerInfo.append("Unités totales... 17\n");
+		playerInfo.append("Unités en main... 0\n");
+		playerInfo.setPreferredSize(new Dimension(340, 240));
+		playerInfo.setForeground(Color.WHITE);
+		playerInfo.setOpaque(false);
+		playerInfo.setEditable(false);
+		playerInfo.setFont(new Font(Font.MONOSPACED, 0, 15));
 		
-		a.add(c);
+		playerPanel.add(playerInfo);
 		
-		getContentPane().add(a);
+		getContentPane().add(playerPanel);
+	}
+	
+	private void buildOptionPanel() {
 		
-		final JPanel d = new JPanel();
-		d.setBounds(206, 101, 206, 130);
-		d.setPreferredSize(new Dimension(206, 130));
-		
-		final Border bord = BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED);
-		
-		d.setBorder(null);
-		d.setOpaque(false);
-		d.addMouseListener(new MouseListener() {
-			public void mouseReleased(MouseEvent arg0) {}
-			public void mousePressed(MouseEvent arg0) {}
-			public void mouseClicked(MouseEvent arg0) {}
-			
-			public void mouseExited(MouseEvent arg0) {
-				d.setBorder(null);
-			}
-			
-			public void mouseEntered(MouseEvent arg0) {
-				d.setBorder(bord);
-			}
-		});
+	}
+	
+	private void buildTerritoires() {
+		// TODO
+		getContentPane().add(new TerritoireCase(new Rectangle(206, 101, 206, 130)));
+		getContentPane().add(new TerritoireCase(new Rectangle(412, 101, 60, 130)));
 
-		getContentPane().add(d);
+	}
+	
+	private void buildInfoPanel() {
 		
-		repaint();
 	}
 
+	
+	
+	
+	
 	public static void main(String[] args) {
 		JFrame a = new Game();
 		a.setVisible(true);
