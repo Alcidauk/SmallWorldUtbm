@@ -7,12 +7,12 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,11 +20,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 import com.utbm.smallWorld.Joueur;
 import com.utbm.smallWorld.Partie;
+import com.utbm.smallWorld.Peuple;
 import com.utbm.smallWorld.Plateau;
 
 public class Game extends JFrame {
@@ -33,27 +32,40 @@ public class Game extends JFrame {
 
 	/** Image de background de la fenêtre */
 	public static Icon BACKGROUND = null;
+	
+	/** Couleur de background des différents joueurs */
+	public static final Color[] JOUEUR_BACKGROUND = {Color.YELLOW, Color.PINK, Color.CYAN, Color.GREEN, Color.GRAY};
 
-	public static final Color[] JOUEUR_BACKGROUND = {Color.YELLOW, Color.PINK, Color.CYAN, Color.GREEN};
-	public static final Color[] JOUEUR_FOREGROUND = {Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK};
+	/** Couleur d'écriture des différents joueurs */
+	public static final Color[] JOUEUR_FOREGROUND = {Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE};
 	
 	/** Fenêtre en cours */
 	private static Game instance;
 	
 	/** Partie en cours */
 	private Partie partieEnCours;
-
+	
+	/** Zone contenant les informations sur le joueur en cours */
 	private JTextArea playerInfo;
-
+	
+	/** Entete de la section contenant les infos joueurs */
 	private JLabel headerJoueur;
 
+	/** Entete de la section contenant les différentes actions possibles */
 	private JLabel headerAction;
-
+	
+	/** Entete de la section contenant des informations, notamment sur les territoires */
 	private JLabel headerInfo;
-
+	
+	/** Section contenant des informations sur les territories */
 	private JPanel infoPanel;
 
+	/** Zone de texte contenant les informations sur les territoires */
 	private JTextArea infoTx;
+	
+	/** Liste des territoires de la map */
+	private List<TerritoireCase> territoires;
+	
 
 	/** Génération de l'image de background */
 	static {
@@ -65,6 +77,9 @@ public class Game extends JFrame {
 		}
 	};
 	
+	/**
+	 * Constructeur
+	 */
 	public Game() {
 		instance = this;
 		
@@ -83,20 +98,49 @@ public class Game extends JFrame {
 		
 		setContentPane(background);
 		
+		// Initialisation de la partie
 		partieEnCours = Partie.getInstance();
+		territoires = new LinkedList<TerritoireCase>();
 		
-		askNbJoueur();
-	}
-	
-	public void askNbJoueur() {
-		WinMenu nbMenu = new WinMenuNbJoueur();
-		
-		setVisible(false);
-		int nbJoueur = nbMenu.open();
 		setVisible(true);
 		
+		// Affiche la fenêtre nombre de joueur
+		askNbJoueur();
+		
+		// Construction des éléments de la fenêtre
+		buildBackground();
+		buildPlayerPanel();
+		buildInfoPanel();
+		buildActionPanel();
+		buildTerritoires();
+		
+		// Mise à jour des informations affichées
+		majInfos();
+	}
+	
+	/**
+	 * Affiche la fenêtre de demande du nombre de joueur
+	 */
+	public void askNbJoueur() {
+		// Création de la fenêtre de choix
+		WinMenu nbMenu = new WinMenu("Combien de joueurs pour cette partie ?");
+
+		nbMenu.newItem("2 joueurs", 2);
+		nbMenu.newItem("3 joueurs", 3);
+		nbMenu.newItem("4 joueurs", 4);
+		
+		// Affiche la fenêtre de choix
+		int nbJoueur = nbMenu.open();
+		
+		// Si la fenêtre a été fermée, on termine le processus
+		if (nbJoueur < 0) {
+			System.exit(0);
+		}
+		
+		// On charge le plateau correspondant au nom de joueur sélectionné
 		loadPlateau(nbJoueur);
 		
+		// On crée les joueurs
 		for (int i = 0; i < nbJoueur; i++) {
 			String name;
 			
@@ -105,19 +149,94 @@ public class Game extends JFrame {
 			} while (name.length() == 0);
 			
 			Joueur j = new Joueur(name, Partie.DEFAULT_MONNAIE);
+			j.setIndice(i);
 			
 			partieEnCours.ajouterJoueur(j);
 		}
+	}
+	
 
-		buildBackground();
-		buildPlayerPanel();
-		buildInfoPanel();
-		buildActionPanel();
-		buildTerritoires();
-		
-		repaint();
+	/**
+	 * Mise à jours des informations affichées sur la fenêtre
+	 */
+	public void majInfos() {
+		// Un premier try au cas où on appelerait cette méthode un peu trop tot
+		try {
+			int i, 
+				argent = 0,
+				nbTerritoire = 0,
+				nbTerritoireDeclin = 0,
+				nbUnite = 0,
+				nbUniteEnMain = 0;
+			
+			String name = "Undefined";
+			
+			try {
+				// Récupération de l'indice du joueur en cours
+				i = partieEnCours.getJoueurEnCours();
+				
+				// Récupération des informations sur le joueur en cours
+				Joueur j = partieEnCours.getJoueur(i);
+				
+				name = j.getNom();
+				argent = j.getArgent();
+				
+				// Sur son peuple
+				Peuple p = j.getPeuple();
+				
+				if (p != null) {
+					nbTerritoire = j.getPeuple().getTerritoiresOccupes().size();
+					nbUnite = j.getPeuple().getNbUnite();
+					nbUniteEnMain = j.getPeuple().getNbUniteEnMain();
+				}
+				
+				// Sur son peuple en déclin
+				p = j.getPeupleDeclin();
+				
+				if (p != null) {
+					nbTerritoireDeclin = p.getTerritoiresOccupes().size();
+				}
+			}
+			catch (Exception e) {
+				i = Game.JOUEUR_BACKGROUND.length - 1;
+			}
+			
+			// MAJ
+			playerInfo.setText("");
+			playerInfo.append("\n");
+			playerInfo.append("UV............... " + argent + "\n");
+			playerInfo.append("Territoire....... " + nbTerritoire + (nbTerritoireDeclin > 0 ? " (+ " + nbTerritoireDeclin + ")" : "") + "\n");
+			playerInfo.append("Unités totales... " + nbUnite + "\n");
+			playerInfo.append("Unités en main... " + nbUniteEnMain + "\n");
+			
+			// Mise à jour des couleurs
+			headerAction.setBackground(JOUEUR_BACKGROUND[i]);
+			headerAction.setForeground(JOUEUR_FOREGROUND[i]);
+			
+			headerInfo.setBackground(JOUEUR_BACKGROUND[i]);
+			headerInfo.setForeground(JOUEUR_FOREGROUND[i]);
+			
+			headerJoueur.setBackground(JOUEUR_BACKGROUND[i]);
+			headerJoueur.setForeground(JOUEUR_FOREGROUND[i]);
+			headerJoueur.setText(name);
+			
+			// Mise à jour des territoires
+			Iterator<TerritoireCase> it = territoires.iterator();
+			while (it.hasNext()) {
+				it.next().majInfos();
+			}
+			
+			// Useless?
+			repaint();
+		}
+		catch (Exception e) {}
 	}
 
+	
+	/**
+	 * Chargement du plateau correspondant au paramètre
+	 * @param nbJoueur nombre de joueur
+	 */
 	private void loadPlateau(int nbJoueur) {
 		// TODO
 		try {
@@ -133,6 +252,9 @@ public class Game extends JFrame {
 	}
 	
 	
+	/**
+	 * Création du fond de la fenêtre
+	 */
 	private void buildBackground() {
 		JLabel map = new JLabel();
 		map.setIcon(partieEnCours.getPlateau().getIcon());
@@ -141,6 +263,10 @@ public class Game extends JFrame {
 		setContentPane(map);
 	}
 	
+	
+	/**
+	 * Création de la zone Information Player
+	 */
 	private void buildPlayerPanel() {
 		JPanel playerPanel = new JPanel();
 		playerPanel.setBounds(0, 450, 385, 200);
@@ -162,11 +288,6 @@ public class Game extends JFrame {
 		playerPanel.add(headerJoueur);
 		
 		playerInfo = new JTextArea();
-		playerInfo.append("\n");
-		playerInfo.append("Argent........... 13 jetons\n");
-		playerInfo.append("Territoire....... 4\n");
-		playerInfo.append("Unités totales... 17\n");
-		playerInfo.append("Unités en main... 0\n");
 		playerInfo.setPreferredSize(new Dimension(340, 150));
 		playerInfo.setForeground(Color.WHITE);
 		playerInfo.setOpaque(false);
@@ -178,6 +299,10 @@ public class Game extends JFrame {
 		getContentPane().add(playerPanel);
 	}
 	
+	
+	/**
+	 * Création de la zone Actions
+	 */
 	private void buildActionPanel() {
 		JPanel actionPanel = new JPanel();
 		actionPanel.setBounds(0, 650, 385, 90);
@@ -213,6 +338,10 @@ public class Game extends JFrame {
 		getContentPane().add(actionPanel);
 	}
 	
+	
+	/**
+	 * Création de la zone Information Territoire
+	 */
 	private void buildInfoPanel() {
 		infoPanel = new JPanel();
 		infoPanel.setBounds(1274-400, 450, 400, 290);
@@ -247,6 +376,10 @@ public class Game extends JFrame {
 		getContentPane().add(infoPanel);
 	}
 	
+	
+	/**
+	 * Création des zones des territoires
+	 */
 	private void buildTerritoires() {
 		// TODO
 		getContentPane().add(new TerritoireCase(new Rectangle(5, 5, 191, 100)));
@@ -281,6 +414,10 @@ public class Game extends JFrame {
 	}
 	
 	
+	/**
+	 * Affiche la zone d'information
+	 * @param tx Texte à afficher
+	 */
 	public void showInfo(String tx) {
 		infoTx.setText("\n" + tx);
 		
@@ -288,6 +425,9 @@ public class Game extends JFrame {
 	}
 	
 	
+	/**
+	 * Masque la zone d'information
+	 */
 	public void hideInfo() {
 		infoPanel.setVisible(false);
 	}
@@ -304,7 +444,6 @@ public class Game extends JFrame {
 	
 	
 	public static void main(String[] args) {
-		JFrame a = new Game();
-		a.setVisible(true);
+		new Game();
 	}
 }

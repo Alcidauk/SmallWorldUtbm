@@ -309,6 +309,14 @@ public class Partie {
 	public Plateau getPlateau() {
 		return plateau;
 	}
+	
+	/**
+	 * @param i Index du joueur souhaité
+	 * @return Joueur
+	 */
+	public Joueur getJoueur(int i) {
+		return lstJoueurs.get(i);
+	}
 
 	/**
 	 * @param part the part to set

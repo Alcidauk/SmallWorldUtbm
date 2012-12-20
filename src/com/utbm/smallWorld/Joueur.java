@@ -5,11 +5,11 @@ import java.util.List;
 
 
 public class Joueur {
-
+	private int indice;
 	private String nom;
 	private int argent = 0;
 	private Peuple peuple = null;
-	private Peuple peuplesDeclin = null;
+	private Peuple peupleDeclin = null;
 	
 	/**
 	 * Constructeur par défaut
@@ -101,7 +101,7 @@ public class Joueur {
 	 * Indique au joueur que son peuple en déclin n'est plus
 	 */
 	public void pertePeupleEnDeclin() {
-		this.peuplesDeclin = null;
+		this.peupleDeclin = null;
 	}
 	
 	
@@ -129,8 +129,22 @@ public class Joueur {
 	/**
 	 * @return the peuplesDeclin
 	 */
-	public Peuple getPeuplesDeclin() {
-		return peuplesDeclin;
+	public Peuple getPeupleDeclin() {
+		return peupleDeclin;
+	}
+
+	/**
+	 * @return the indice
+	 */
+	public int getIndice() {
+		return indice;
+	}
+
+	/**
+	 * @param indice the indice to set
+	 */
+	public void setIndice(int indice) {
+		this.indice = indice;
 	}
 
 	/**
@@ -158,7 +172,7 @@ public class Joueur {
 	 * @param peuplesDeclin the peuplesDeclin to set
 	 */
 	public void setPeuplesDeclin(Peuple peuplesDeclin) {
-		this.peuplesDeclin = peuplesDeclin;
+		this.peupleDeclin = peuplesDeclin;
 	}
 	
 }

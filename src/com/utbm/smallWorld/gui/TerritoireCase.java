@@ -64,6 +64,24 @@ public class TerritoireCase extends JPanel implements MouseListener {
 	public void setTerritoire(Territoire territoire) {
 		this.territoire = territoire;
 	}
+	
+	public void majInfos() {
+		int i;
+		int nb;
+		
+		try {
+			i = territoire.getOccupant().getJoueur().getIndice();
+			nb = territoire.getNbUnite();
+		}
+		catch (Exception e) {
+			i = Game.JOUEUR_BACKGROUND.length - 1;
+			nb = 0;
+		}
+		
+		tx.setBackground(Game.JOUEUR_BACKGROUND[i]);
+		tx.setForeground(Game.JOUEUR_FOREGROUND[i]);
+		tx.setText(nb + "");
+	}
 
 	public void mouseEntered(MouseEvent arg0) {
 		setBorder(bigBord);
