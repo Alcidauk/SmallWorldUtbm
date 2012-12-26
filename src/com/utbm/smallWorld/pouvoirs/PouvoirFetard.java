@@ -7,7 +7,7 @@ public class PouvoirFetard extends Pouvoir {
 	
 	public PouvoirFetard(){ 
 		nbUniteApporte = 5;
-		nom = "fêtard";
+		nom = "Fêtard";
 		desc = "";
 	}
 	

@@ -25,6 +25,7 @@ import com.utbm.smallWorld.Joueur;
 import com.utbm.smallWorld.Partie;
 import com.utbm.smallWorld.Peuple;
 import com.utbm.smallWorld.Plateau;
+import com.utbm.smallWorld.Pouvoir;
 
 public class Game extends JFrame {
 	/** Stub */
@@ -116,6 +117,8 @@ public class Game extends JFrame {
 		
 		// Mise à jour des informations affichées
 		majInfos();
+		
+		partieEnCours.nouveauTour();
 	}
 	
 	/**
@@ -173,10 +176,10 @@ public class Game extends JFrame {
 			
 			try {
 				// Récupération de l'indice du joueur en cours
-				i = partieEnCours.getJoueurEnCours();
+				i = partieEnCours.getIndexJoueurEnCours();
 				
 				// Récupération des informations sur le joueur en cours
-				Joueur j = partieEnCours.getJoueur(i);
+				Joueur j = partieEnCours.getJoueurEnCours();
 				
 				name = j.getNom();
 				argent = j.getArgent();
@@ -247,6 +250,85 @@ public class Game extends JFrame {
 			partieEnCours.setPlateau(plateau);
 		}
 		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	/**
+	 * 
+	 */
+	public void selectionPeuple() {
+		try {
+			Joueur j = partieEnCours.getJoueurEnCours();
+			
+			WinMenu choixPeuple = new WinMenu(j.getNom() + " (" + j.getArgent() + " $), choisissez votre peuple :");
+    		
+    		int i = -1;
+    		List<Class<? extends Peuple>> ppl = partieEnCours.getPeuplesDispo();
+    		List<Class<? extends Pouvoir>> pov = partieEnCours.getPouvoirsDispo();
+    		List<Integer> argent = partieEnCours.getArgentPeuple();
+    		
+    		Iterator<Class<? extends Peuple>> itPpl = ppl.iterator();
+    		Iterator<Class<? extends Pouvoir>> itPov = pov.iterator();
+    		Iterator<Integer> itArgent = argent.iterator();
+    		
+    		while (itPpl.hasNext() && ++i < 6) {
+    			Class<? extends Peuple> clPpl = itPpl.next();
+    			Class<? extends Pouvoir> clPov = itPov.next();
+    			int arg = itArgent.next().intValue();
+    			
+    			Peuple insPpl = clPpl.newInstance();
+    			Pouvoir insPov = clPov.newInstance();
+    			
+    			// TODO Description
+    			JLabel it = choixPeuple.newItem(arg + "$ - " + insPpl.getNom() + " (" + insPpl.getNbUniteDepart() + " unit.) + " + insPov.getNom() + " (" + insPov.getNbUniteApporte() + " unit.)", i);
+    			it.setHorizontalAlignment(JLabel.LEFT);
+    		}
+    		
+    		// Affiche la fenêtre de choix
+    		int indexPeuple;
+    		int cout = 0;
+    		
+    		do {
+    			indexPeuple = choixPeuple.open();
+    			
+    			if (indexPeuple >= 0) {
+    				cout = indexPeuple - argent.get(indexPeuple).intValue();
+    				
+    				if (cout > j.getArgent()) {
+    					choixPeuple.setHeadTitle("Vous n'avez pas assez d'argent ! (" + j.getArgent() + " $)");
+    					indexPeuple = -1;
+    				}
+    			}
+    		} while (indexPeuple < 0);
+    		
+    		// Création du peuple
+    		Peuple pl = ppl.get(indexPeuple).newInstance();
+    		pl.setPouvoir(pov.get(indexPeuple).newInstance());
+    		pl.setNbUnite(pl.getNbUniteDepart() + pl.getPouvoir().getNbUniteApporte());
+    		pl.setNbUniteEnMain(pl.getNbUnite());
+    		
+    		// Attribution du joueur
+    		j.setPeuple(pl);
+    		j.setArgent(j.getArgent() - cout);
+    		
+    		// Màj des listes
+    		partieEnCours.getPeuplesPris().add(ppl.get(indexPeuple));
+    		partieEnCours.getPouvoirsPris().add(pov.get(indexPeuple));
+    		
+    		ppl.remove(indexPeuple);
+    		pov.remove(indexPeuple);
+    		argent.remove(indexPeuple);
+    		
+    		// màj argent
+    		for (int a = 0; a < indexPeuple; a++) {
+    			argent.set(a, argent.get(a) + 1);
+    		}
+    		
+    		majInfos();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -431,7 +513,6 @@ public class Game extends JFrame {
 	public void hideInfo() {
 		infoPanel.setVisible(false);
 	}
-
 	
 	/**
 	 * @return the instance
@@ -446,4 +527,5 @@ public class Game extends JFrame {
 	public static void main(String[] args) {
 		new Game();
 	}
+
 }

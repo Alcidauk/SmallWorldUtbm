@@ -9,7 +9,7 @@ public class PouvoirGeek extends Pouvoir {
 	
 	public PouvoirGeek(){ 
 		nbUniteApporte = 5;
-		nom = "geek";
+		nom = "Geek";
 		desc = "";
 	}
 

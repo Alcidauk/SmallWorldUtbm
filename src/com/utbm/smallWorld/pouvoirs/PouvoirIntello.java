@@ -9,7 +9,7 @@ public class PouvoirIntello extends Pouvoir {
 	
 	public PouvoirIntello(){ 
 		nbUniteApporte = 5;
-		nom = "intello";
+		nom = "Intello";
 		desc = "";
 	}
 	

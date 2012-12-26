@@ -5,7 +5,7 @@ import com.utbm.smallWorld.Pouvoir;
 public class PouvoirOpportuniste extends Pouvoir {
 	
 	public PouvoirOpportuniste(){
-		nom = "opportuniste";
+		nom = "Opportuniste";
 		desc = "";
 		nbUniteApporte = 5;
 	}

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.utbm.smallWorld.gui.Game;
 import com.utbm.smallWorld.peuples.*;
 import com.utbm.smallWorld.pouvoirs.*;
 
@@ -16,7 +17,7 @@ import com.utbm.smallWorld.pouvoirs.*;
  * 
  */
 public class Partie {
-	public static final int DEFAULT_MONNAIE = 10;
+	public static final int DEFAULT_MONNAIE = 2;
 
 	/** Singleton, instance de la partie en cours */
 	private static Partie part;
@@ -25,13 +26,19 @@ public class Partie {
 	protected int nbTours = 10;
 	
 	/** Tour en cours de jeu */
-	protected int tourEnCours = 0;
+	protected int tourEnCours = -1;
 	
 	/** Liste des joueurs participant à la partie */
 	protected List<Joueur> lstJoueurs = null;
 	
 	/** Index du joueur jouant à un instant donné */
-	protected int joueurEnCours = 0;
+	protected int indexJoueurEnCours = 0;
+	
+	/** Index du joueur jouant à un instant donné */
+	protected Joueur joueurEnCours = null;
+	
+	/** Etape du tour */
+	protected int etape = 0;
 	
 	/** Liste des peuples actuellement en jeu */
 	protected List<Class<? extends Peuple>> peuplesPris = null;
@@ -65,6 +72,62 @@ public class Partie {
 		initPeuples();
 		initPouvoirs();
 	}
+
+	
+	
+	public void nouveauTour() {
+		tourEnCours++;
+		etape = 0;
+		indexJoueurEnCours = 0;
+		
+		joueurEnCours = this.lstJoueurs.get(indexJoueurEnCours);
+		
+		if (joueurEnCours.getPeuple() == null) {
+			Game.getInstance().selectionPeuple();
+		}
+		
+		miseEnMain();
+	}
+	
+
+	
+	
+	public void cliqueTerritoire(Territoire territoire) {
+		if (etape == 0) {
+			if (joueurEnCours.getPeuple().equals(territoire.getOccupant())) {
+				// abandon ?
+			}
+			else {
+				// attaque ?
+			}
+		}
+	}
+	
+	
+	public void miseEnMain() {
+		Peuple p = joueurEnCours.getPeuple();
+		
+		// Récupération des unités du plateau
+		p.setNbUniteEnMain(0);
+		
+		Iterator<Territoire> it = p.getTerritoiresOccupes().iterator();
+		
+		while (it.hasNext()) {
+			Territoire t = it.next();
+			
+			int nb = t.getNbUnite();
+			
+			t.setNbUnite(1);
+			
+			p.addNbUniteEnMain(nb - 1);
+		}
+		
+		// Application des bonus
+		p.calcBonusUniteAttaque();
+		
+		// Joueur maintenant prêt à attaquer.
+	}
+	
 	
 	/**
 	 * @return instance de la Partie en cours
@@ -215,16 +278,6 @@ public class Partie {
 	public void tourSuivant(){
 		this.tourEnCours++;
 	}
-	
-	public void passerJoueurSuivant(){
-		
-		if (this.joueurEnCours < this.lstJoueurs.size()) {
-			this.joueurEnCours++;
-		}
-		else {
-			this.joueurEnCours = 0;
-		}
-	}
 
 	/**
 	 * @return the defaultMonnaie
@@ -264,7 +317,14 @@ public class Partie {
 	/**
 	 * @return the joueurEnCours
 	 */
-	public int getJoueurEnCours() {
+	public int getIndexJoueurEnCours() {
+		return indexJoueurEnCours;
+	}
+
+	/**
+	 * @return the joueurEnCours
+	 */
+	public Joueur getJoueurEnCours() {
 		return joueurEnCours;
 	}
 
@@ -349,7 +409,14 @@ public class Partie {
 	/**
 	 * @param joueurEnCours the joueurEnCours to set
 	 */
-	public void setJoueurEnCours(int joueurEnCours) {
+	public void setIndexJoueurEnCours(int indexJoueurEnCours) {
+		this.indexJoueurEnCours = indexJoueurEnCours;
+	}
+
+	/**
+	 * @param joueurEnCours the joueurEnCours to set
+	 */
+	public void setJoueurEnCours(Joueur joueurEnCours) {
 		this.joueurEnCours = joueurEnCours;
 	}
 

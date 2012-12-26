@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import com.utbm.smallWorld.Partie;
 import com.utbm.smallWorld.Territoire;
 
 public class TerritoireCase extends JPanel implements MouseListener {
@@ -124,9 +125,11 @@ public class TerritoireCase extends JPanel implements MouseListener {
 		Game.getInstance().hideInfo();
 	}
 	
-	
+
+	public void mouseClicked(MouseEvent arg0) {
+		Partie.getInstance().cliqueTerritoire(this.territoire);
+	}
 	/** Stub */
-	public void mouseClicked(MouseEvent arg0) {}
 	public void mousePressed(MouseEvent arg0) {}
 	public void mouseReleased(MouseEvent arg0) {}
 }

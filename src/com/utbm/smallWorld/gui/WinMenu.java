@@ -27,6 +27,8 @@ public class WinMenu extends JDialog {
 	/** Choix de l'utilisateur sur le menu */
 	private int lastChoice = -1;
 	
+	private JLabel labMenu;
+	
 	
 	/**
 	 * Constructeur
@@ -37,8 +39,8 @@ public class WinMenu extends JDialog {
 		setTitle("SmallWorld UTBM - " + title);
 		setSize(1280, 768);
 		setLocationRelativeTo(null);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+		//setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
 		build(title);
 	}
@@ -62,7 +64,7 @@ public class WinMenu extends JDialog {
 		panTitle.setBackground(new Color(0, 0, 0, 140));
 		
 		// Titre du haut
-		JLabel labMenu = new JLabel(title);
+		labMenu = new JLabel(title);
 		labMenu.setFont(new Font("Serif", 0, 60));
 		labMenu.setForeground(Color.WHITE);
 		
@@ -79,12 +81,24 @@ public class WinMenu extends JDialog {
 	
 	
 	/**
+	 * TODO
+	 */
+	public void setHeadTitle(String title) {
+		this.labMenu.setText(title);
+	}
+	
+	
+	/**
 	 * Ajout d'un élément au menu
 	 * @param text Texte de l'option
 	 * @param index Numero renvoyé lors du clique
+	 * @return 
 	 */
-	public void newItem(String text, int index) {
-		panContent.add(menuItem(text, index));
+	public JLabel newItem(String text, int index) {
+		JLabel it = menuItem(text, index);
+		panContent.add(it);
+		
+		return it;
 	}
 
 	
@@ -100,7 +114,7 @@ public class WinMenu extends JDialog {
 		btn.setForeground(Color.WHITE);
 		btn.setBackground(new Color(0, 0, 0, 0));
 		btn.setFont(new Font("Serif", 0, 40));
-		btn.setPreferredSize(new Dimension(700, 60));
+		btn.setPreferredSize(new Dimension(1000, 60));
 		btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		final WinMenu that = this;
 		

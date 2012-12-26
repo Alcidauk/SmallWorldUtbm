@@ -8,7 +8,7 @@ import com.utbm.smallWorld.elements.MachineACafe;
 public class PouvoirNerveux extends Pouvoir {
 	
 	public PouvoirNerveux(){
-		nom = "nerveux";
+		nom = "Nerveux";
 		desc = "";
 		nbUniteApporte = 5;
 	}

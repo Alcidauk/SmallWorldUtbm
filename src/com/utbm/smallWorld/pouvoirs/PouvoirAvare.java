@@ -12,7 +12,7 @@ public class PouvoirAvare extends Pouvoir {
 	
 	public PouvoirAvare(){ 
 		nbUniteApporte = 5;
-		nom = "avare";
+		nom = "Avare";
 		desc = "";
 	}
 

@@ -7,7 +7,7 @@ import com.utbm.smallWorld.elements.Nourriture;
 public class PouvoirGlouton extends Pouvoir {
 	
 	public PouvoirGlouton(){
-		nom = "glouton";
+		nom = "Glouton";
 		desc = "";
 		nbUniteApporte = 5;
 	}

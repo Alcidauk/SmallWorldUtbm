@@ -176,6 +176,14 @@ public abstract class Peuple implements Bonusable {
 	
 	
 	/**
+	 * TODO
+	 */
+	public void calcBonusUniteAttaque() {
+		this.nbUniteBonus = this.bonusUniteAttaque() + this.pouvoir.bonusUniteAttaque();
+	}
+	
+	
+	/**
 	 * Calcule les éventuels bonus de défense accordés par les bonus du peuple
 	 * @param t Territoire du peuple se faisant attaquer
 	 * @param attaquant Peuple essayant de conquérir le territoire
@@ -361,6 +369,13 @@ public abstract class Peuple implements Bonusable {
 	 */
 	public void setNbUniteEnMain(int nbUniteEnMain) {
 		this.nbUniteEnMain = nbUniteEnMain;
+	}
+
+	/**
+	 * @param nbUniteEnMain the nbUniteEnMain to add
+	 */
+	public void addNbUniteEnMain(int nbUniteEnMain) {
+		this.nbUniteEnMain += nbUniteEnMain;
 	}
 
 	/**

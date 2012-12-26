@@ -6,7 +6,7 @@ import com.utbm.smallWorld.Territoire;
 public class PouvoirAssociatif extends Pouvoir {
 
 	public PouvoirAssociatif(){
-		nom = "associatif";
+		nom = "Associatif";
 		desc = "";
 		nbUniteApporte = 5;		
 	}

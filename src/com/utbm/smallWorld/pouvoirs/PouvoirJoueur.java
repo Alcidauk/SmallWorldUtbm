@@ -5,7 +5,7 @@ import com.utbm.smallWorld.Pouvoir;
 public class PouvoirJoueur extends Pouvoir {
 	
 	public PouvoirJoueur(){
-		nom = "joueur";
+		nom = "Joueur";
 		desc = "";
 		nbUniteApporte = 5;
 	}

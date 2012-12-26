@@ -8,7 +8,7 @@ public class PouvoirParesseux extends Pouvoir {
 	
 	public PouvoirParesseux(){ 
 		nbUniteApporte = 5; 
-		nom = "paresseux";
+		nom = "Paresseux";
 		desc = "";
 	}
 	
