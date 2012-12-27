@@ -247,4 +247,13 @@ public class Territoire {
 
 
 	
+	/**
+	 * TODO
+	 */
+	public void addTerritoireAdjacent(Territoire t) {
+		this.territoiresAdjacents.add(t);
+	}
+
+
+	
 }

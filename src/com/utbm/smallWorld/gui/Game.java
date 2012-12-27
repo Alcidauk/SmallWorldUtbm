@@ -463,7 +463,14 @@ public class Game extends JFrame {
 	 * Création des zones des territoires
 	 */
 	private void buildTerritoires() {
-		// TODO
+		// TODO nombre de player
+		List<TerritoireCase> territoires = SQLite.createTerritoires(2);
+		
+		for (TerritoireCase t : territoires) {
+			getContentPane().add(t);
+		}
+		
+		/*
 		getContentPane().add(new TerritoireCase(new Rectangle(5, 5, 191, 100)));
 		getContentPane().add(new TerritoireCase(new Rectangle(5, 105, 191, 173)));
 		
@@ -492,7 +499,7 @@ public class Game extends JFrame {
 		getContentPane().add(new TerritoireCase(new Rectangle(410, 431, 150, 104)));
 		getContentPane().add(new TerritoireCase(new Rectangle(410, 535, 150, 200)));
 		getContentPane().add(new TerritoireCase(new Rectangle(560, 431, 170, 290)));
-
+		 */
 	}
 	
 	
