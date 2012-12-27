@@ -460,9 +460,9 @@ public class Game extends JFrame {
 		
 		GridBagConstraints constraint = new GridBagConstraints();
 		
-		actions.add(new JButton("Déclin"), constraint);
-		actions.add(new JButton("Finir tour"), constraint);
-		actions.add(new JButton("Fin redéploiement"), constraint);
+		actions.add(new JoueurAction("Déclin"), constraint);
+		actions.add(new JoueurAction("Finir tour"), constraint);
+		actions.add(new JoueurAction("Fin redéploiement"), constraint);
 		
 		actionPanel.add(actions);
 

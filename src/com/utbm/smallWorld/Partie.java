@@ -104,6 +104,11 @@ public class Partie {
 	}
 	
 	
+	public void cliqueFinTour(){
+		System.out.println("ok");
+	}
+	
+	
 	public void miseEnMain() {
 		Peuple p = joueurEnCours.getPeuple();
 		
