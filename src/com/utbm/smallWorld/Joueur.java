@@ -40,6 +40,7 @@ public class Joueur {
 		// Recherche du meilleur territoire pour attaquer
 		if (occupes.size() > 0) {
 			Iterator<Territoire> it = occupes.iterator();
+
 			
 			bonus = 0.0;
 			
@@ -58,6 +59,8 @@ public class Joueur {
 		}
 		// Le peuple ne possède aucun territoire
 		else if (! to.isEstEnBordure()) {
+			System.out.println("ok");
+
 			try {
 				if (! this.peuple.peutAttaquer(null, to)) {
 					return false;
