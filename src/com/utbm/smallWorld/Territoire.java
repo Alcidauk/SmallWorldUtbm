@@ -68,7 +68,7 @@ public class Territoire {
 			cout += this.occupant.bonusDefense(this, attaquant);
 		}
 		
-		return cout;
+		return cout <= 0 ? 1 : cout;
 	}
 	
 	/**
