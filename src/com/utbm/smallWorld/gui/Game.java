@@ -26,6 +26,7 @@ import com.utbm.smallWorld.Partie;
 import com.utbm.smallWorld.Peuple;
 import com.utbm.smallWorld.Plateau;
 import com.utbm.smallWorld.Pouvoir;
+import com.utbm.smallWorld.Territoire;
 
 public class Game extends JFrame {
 	/** Stub */
@@ -157,6 +158,60 @@ public class Game extends JFrame {
 			partieEnCours.ajouterJoueur(j);
 		}
 	}
+	
+	
+	/**
+	 * Affiche la fenêtre de confirmation d'abandon d'un territoire
+	 */
+	public void askAbandon(Territoire t) {
+		// Création de la fenêtre de choix
+		WinMenu confMenu = new WinMenu("Abandonner le territoire ?");
+
+		confMenu.newItem("Oui", 0);
+		confMenu.newItem("Non", 1);
+		
+		// Affiche la fenêtre de choix
+		int conf = confMenu.open();
+		
+		// Si la fenêtre a été fermée, on termine le processus
+		if (conf == 0 || conf == 1) {
+			System.exit(0);
+		}
+		
+		if( conf == 0){
+			Peuple tmp = partieEnCours.getJoueurEnCours().getPeuple();
+			tmp.abandonTerritoire(t);
+		}
+		
+	}
+	
+	
+	/**
+	 * Affiche la fenêtre de confirmation d'attaque d'un territoire
+	 */
+	public void askAttaque(Territoire t) {
+		// Création de la fenêtre de choix
+		WinMenu confMenu = new WinMenu("Attaquer le territoire ?");
+
+		confMenu.newItem("Oui", 0);
+		confMenu.newItem("Non", 1);
+		
+		// Affiche la fenêtre de choix
+		int conf = confMenu.open();
+		
+		// Si la fenêtre a été fermée, on termine le processus
+		if (conf == 0 || conf == 1) {
+			System.exit(0);
+		}
+		
+		if( conf == 0){
+			Joueur tmp = partieEnCours.getJoueurEnCours();
+			tmp.attaquer(t);
+		}
+		
+	}
+	
+
 	
 
 	/**

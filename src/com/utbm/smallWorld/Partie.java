@@ -94,11 +94,11 @@ public class Partie {
 	
 	public void cliqueTerritoire(Territoire territoire) {
 		if (etape == 0) {
-			if (joueurEnCours.getPeuple().equals(territoire.getOccupant())) {
-				// abandon ?
+			if ( joueurEnCours.getPeuple().equals(territoire.getOccupant()) ) {
+				Game.getInstance().askAbandon(territoire);
 			}
 			else {
-				// attaque ?
+				Game.getInstance().askAttaque(territoire);
 			}
 		}
 	}
