@@ -79,6 +79,8 @@ public abstract class Peuple implements Bonusable {
 	protected void quitterTerritoire(Territoire t) {
 		this.territoiresOccupes.remove(t);
 		
+		t.setOccupant(null);
+		
 		if (this.enDeclin && this.territoiresOccupes.size() == 0) {
 			joueur.pertePeupleEnDeclin();
 			
