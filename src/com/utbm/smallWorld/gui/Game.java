@@ -248,6 +248,24 @@ public class Game extends JFrame {
 		majInfos();
 	}
 	
+	public void askConfRedeploiement(){
+		// Création de la fenêtre de choix
+		WinMenu confMenu = new WinMenu("Confirmer la fin du redéploiement ?");
+
+		confMenu.newItem("Oui", 0);
+		confMenu.newItem("Non", 1);
+		
+		// Affiche la fenêtre de choix
+		int conf = confMenu.open();
+
+		
+		if( conf == 0){
+			partieEnCours.setEtape(2);
+			// TODO à passer tous les joueurs qui ont des pions en main.
+			majInfos();
+		}
+	}
+	
 
 	
 
@@ -504,9 +522,9 @@ public class Game extends JFrame {
 		
 		GridBagConstraints constraint = new GridBagConstraints();
 		
-		actions.add(new JoueurAction("Déclin"), constraint);
-		actions.add(new JoueurAction("Finir tour"), constraint);
-		actions.add(new JoueurAction("Fin redéploiement"), constraint);
+		actions.add(new JoueurAction("Déclin", 2), constraint);
+		actions.add(new JoueurAction("Finir tour", 0), constraint);
+		actions.add(new JoueurAction("Fin redéploiement", 1), constraint);
 		
 		actionPanel.add(actions);
 

@@ -1,6 +1,7 @@
 package com.utbm.smallWorld;
 
 
+import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -90,8 +91,10 @@ public class Partie {
 	}
 	
 
-	
-	
+	/**
+	 * Traitements en fonction du territoire cliqué
+	 * @param territoire
+	 */
 	public void cliqueTerritoire(Territoire territoire) {
 		if (etape == 0) {
 			
@@ -111,12 +114,29 @@ public class Partie {
 		}
 	}
 	
-	
+	/**
+	 * Traitement lors d'un clic sur le bouton fin tour
+	 */
 	public void cliqueFinTour(){
-		Game.getInstance().askConf();
+		if( etape == 0 )
+			Game.getInstance().askConf();
 	}
 	
+	
+	/**
+	 * Traitement lors d'un clic sur le bouton fin redéploiement
+	 */
 	public void cliqueFinRedeploiement(){
+		if(  etape == 1 && joueurEnCours.getPeuple().getNbUniteEnMain() == 0 )
+			Game.getInstance().askConfRedeploiement();
+	}
+	
+	
+	/**
+	 * Traitement lors d'un clic sur le bouton passer en déclin
+	 */
+	public void cliqueDeclin() {
+		// TODO Auto-generated method stub
 		
 	}
 	
@@ -484,5 +504,7 @@ public class Partie {
 	public void setEtape(int noEtape){
 		this.etape = noEtape;
 	}
-	
+
+
+
 }
