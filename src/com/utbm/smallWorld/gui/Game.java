@@ -204,6 +204,50 @@ public class Game extends JFrame {
 		
 	}
 	
+	/**
+	 * Affiche la fenêtre de demande pour un lancé de dé lors du clic sur "fin tour"
+	 */
+	public void askConf() {
+		// Création de la fenêtre de choix
+		WinMenu confMenu = new WinMenu("Confirmer la fin du tour ?");
+
+		confMenu.newItem("Oui", 0);
+		confMenu.newItem("Non", 1);
+		
+		// Affiche la fenêtre de choix
+		int conf = confMenu.open();
+
+		
+		if( conf == 0){
+			partieEnCours.setEtape(1);
+			partieEnCours.miseEnMain();
+			majInfos();
+		}
+		
+	}
+	
+	
+	/**
+	 * Affiche une fenêtre qui demande le nombre de pions à placer sur le territoire. Si 0, abandon.
+	 * @param t
+	 */
+	public void askNbPion(Territoire t){
+		int nbPion;
+		
+		do{
+			nbPion = Prompt.askInt("Choissiez le nombre de pions à replacer sur ce territoire. Pour l'abandonner, choisissez 0.");
+		}while( nbPion > partieEnCours.getJoueurEnCours().getPeuple().getNbUniteEnMain() );
+			
+		if( nbPion != 0 ){
+			t.setNbUnite(nbPion);
+			partieEnCours.getJoueurEnCours().getPeuple().addNbUniteEnMain(-nbPion);
+		}else{
+			askAbandon(t);
+		}
+		
+		majInfos();
+	}
+	
 
 	
 

@@ -81,6 +81,25 @@ public class Prompt extends JDialog implements MouseListener, KeyListener {
 		return instance.input.getText();
 	}
 	
+	/**
+	 * Affiche la fenêtre. Cas où l'on attend un int.
+	 */
+	public static int askInt(String question) {
+		instance.input.setText("");
+		instance.question.setText(question);
+		
+		instance.setVisible(true);
+		
+		int tmp = 0;
+		
+		try{
+			tmp = Integer.parseInt(instance.input.getText()); 
+		}catch( Exception e){
+			askInt(question);
+		}
+		
+		return tmp;
+	}
 	
 	/**
 	 * Event

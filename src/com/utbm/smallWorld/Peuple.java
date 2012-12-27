@@ -486,5 +486,6 @@ public abstract class Peuple implements Bonusable {
 	public void actionPriseTerritoire(Territoire t) {
 		
 	}
+
 }
 

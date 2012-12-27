@@ -94,18 +94,30 @@ public class Partie {
 	
 	public void cliqueTerritoire(Territoire territoire) {
 		if (etape == 0) {
+			
 			if ( joueurEnCours.getPeuple().equals(territoire.getOccupant()) ) {
 				Game.getInstance().askAbandon(territoire);
 			}
 			else {
 				Game.getInstance().askAttaque(territoire);
 			}
+			
+		}else if( etape == 1 ){
+			
+			if( joueurEnCours.getPeuple().equals(territoire.getOccupant()) ){
+				Game.getInstance().askNbPion(territoire);
+			}
+			
 		}
 	}
 	
 	
 	public void cliqueFinTour(){
-		System.out.println("ok");
+		Game.getInstance().askConf();
+	}
+	
+	public void cliqueFinRedeploiement(){
+		
 	}
 	
 	
@@ -463,6 +475,14 @@ public class Partie {
 	 */
 	public void setPlateau(Plateau plateau) {
 		this.plateau = plateau;
+	}
+	
+	/**
+	 * 
+	 * @param noEtape
+	 */
+	public void setEtape(int noEtape){
+		this.etape = noEtape;
 	}
 	
 }
