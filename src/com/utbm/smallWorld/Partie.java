@@ -107,9 +107,7 @@ public class Partie {
 	public void miseEnMain() {
 		Peuple p = joueurEnCours.getPeuple();
 		
-		// Récupération des unités du plateau
-		p.setNbUniteEnMain(0);
-		
+		// Récupération des unités du plateau		
 		Iterator<Territoire> it = p.getTerritoiresOccupes().iterator();
 		
 		while (it.hasNext()) {
