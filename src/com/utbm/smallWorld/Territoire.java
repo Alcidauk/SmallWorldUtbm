@@ -64,7 +64,9 @@ public class Territoire {
 			cout += it.next().bonusDefense(attaquant);
 		}
 		
-		cout += this.occupant.bonusDefense(this, attaquant);
+		if (this.occupant != null) {
+			cout += this.occupant.bonusDefense(this, attaquant);
+		}
 		
 		return cout;
 	}
@@ -123,9 +125,11 @@ public class Territoire {
 	 * Perte du territoire
 	 */
 	public void priseTerritoire() {
-		occupant.perteTerritoire(this);
+		if (this.occupant != null) {
+			occupant.perteTerritoire(this);
+			occupant = null;
+		}
 		
-		occupant = null;
 		nbUnite = 0;
 	}
 	
