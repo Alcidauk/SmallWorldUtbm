@@ -143,6 +143,7 @@ public abstract class Peuple implements Bonusable {
 		this.nbUniteEnMain -= nbUnite;
 		
 		t.setNbUnite(nbUnite);
+		t.setOccupant(this);
 		
 		this.territoiresOccupes.add(t);
 		

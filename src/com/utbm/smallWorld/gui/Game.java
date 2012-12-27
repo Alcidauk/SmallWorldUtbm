@@ -358,6 +358,7 @@ public class Game extends JFrame {
     		pl.setNbUniteEnMain(pl.getNbUnite());
     		
     		// Attribution du joueur
+    		pl.setJoueur(j);
     		j.setPeuple(pl);
     		j.setArgent(j.getArgent() - cout);
     		
@@ -512,7 +513,7 @@ public class Game extends JFrame {
 	 */
 	private void buildTerritoires() {
 		// TODO nombre de player
-		List<TerritoireCase> territoires = SQLite.createTerritoires(2);
+		territoires = SQLite.createTerritoires(2);
 		
 		for (TerritoireCase t : territoires) {
 			getContentPane().add(t);
