@@ -1,0 +1,69 @@
+\documentclass[a4paper, 11pt]{article}
+
+\input{modele}
+
+	\title{\vspace{5cm}SmallWorldUtbm \\ rapport de projet \\ \ \\}
+	\date{automne 2012\\ \ \\}
+	\author{Amani Younes - Michael Longo - Gabriel Notong - Pierre Rognon \\ \ \\ \ \\ Université de Technologies de Belfort-Montbéliard\\ \ \\}
+
+	
+	
+\begin{document}
+
+	
+	\maketitle
+	
+	\newpage
+	
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Introduction}
+	
+	Dans le cadre de l’Unité de Valeur LO43, il est demandé aux étudiants de réaliser un projet afin de mettre en application les connaissances acquises durant le semestre. L'objectif de ce projet est de créer un jeu de rôle dans le langage Java. Pour cela, il faut s'inspirer d'un jeu de société existant: SmallWorld. Ce dernier a été renommé pour l'occasion SmallWorldUtbm.\\
+	Dans un premier temps nous présenterons donc le cahier des charges qui a été développé à partir du sujet proposé. Puis nous détaillerons les spécifications ainsi que les choix de conception de notre projet. Ensuite, nous donnerons un petit aperçu du fonctionnement de l'application SmallWorldUtbm pour terminer en abordant les différentes difficultés rencontrées.
+	
+	\newpage
+	
+	\section{Cahier des charges}
+	
+	SmallWorldUtbm est l'adaptation du jeu de société SmallWorld au contexte de l'Université de Technologies de Belfort-Montbéliard. Les règles du jeu doivent donc rester proches de ce jeu sans pour autant en faire la copie conforme. Le but reste donc le même c'est-à-dire diriger la destinée de peuples dans un monde où chacun doit donc lutter pour sa survie. Pour ce faire, nous aurons comme exemple:
+De peuples de substitution: 
+Étudiants TC, Étudiants branche, Professeur de connaissances scientifiques, Professeur d’humanités, Chercheurs, le CRI, les Thésards les Rats etc.. Sont un exemple ceux que les différents joueurs devront choisir pendant les différentes parties qu'ils disputeront.
+De pouvoirs associés aux peuples qui les accompagneront dans leurs différentes conquêtes de nouveaux territoires: 
+Etudiants TC: nombreux, pas de pouvoirs;
+Etudiants branche: quand ils perdent un territoire, on ne défausse pas de pion;
+CRI: si sur un territoire qui est une salle d’ordinateurs, a un bonus d’attaque +1pion par territoire salle ordinateur;
+Professeurs scientifique: sur chaque lancement de dé, on ajoute 2 au résultat;
+Professeurs d’humanités: si sur un territoire de partiel, ce territoire devient inattaquable;
+Thésard: il prend un pion de plus s’il a conquis deux régions non vides ou plus;
+Rats: ils annulent le bonus de défense de la nourriture et gagnent un pion de peuple par tour.
+D'éléments apportant des bonus de défenses une fois posés sur un territoire:
+Machine à café: bonus de défense +1 pion; 
+Photocopieuse: +1 pion de victoire pour le possesseur du territoire;
+Nourriture: bonus de défense +1 pion, sauf contre les rats;
+Salle de partiel: région inattaquable par un étudiant;
+Espace plein air ;
+Salle informatisée.
+De pouvoirs spéciaux qui permettrons aux peuples qui les ont d'avoir une petite avance sur les autres:
+Geek: bonus de défense +1 pion si sur une salle informatisée, bonus d’attaque sur une région salle informatisée +2 pions;
+Intello: bonus de défense +1 pion sur une salle de partiel, bonus d’attaque sur les salles de partiel +2 pions;
+Fêtard: à chaque tour, 2 pions de peuple de plus à l’attaque;
+Paresseux: bonus de défense partout +1 pion;
+Avare: +1 pion de victoire par région conquise dans le tour;
+Faux-cul: peut toujours attaquer par les bords de la carte en plus des régions adjacents;
+Opportuniste: a le droit à un lancer de dé pour chaque conquête;
+Joueur: +2 pions sur le dé à chaque lancer;
+Voyageur: peut attaquer partout sur la carte;
+Nerveux: si sur une machine à café, bonus de défense +2;
+Fumeur: sur un espace plein air, +2 points de victoire à chaque fin de tour;
+Associatifs: +1 pion de peuple à chaque tour;
+Bagarreur: +1 pion de peuple à l’attaque;
+Gloutons: pose de la nourriture à chaque endroit où ils vont.
+Le jeu devra être multi-joueurs: au minimum deux joueurs. L'association de peuples et pouvoirs ainsi que les pouvoirs spéciaux se fera de façon aléatoire dès le lancement du jeu.
+
+
+
+	
+\end{document}
