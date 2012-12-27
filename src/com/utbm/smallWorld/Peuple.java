@@ -95,6 +95,7 @@ public abstract class Peuple implements Bonusable {
 	 */
 	public void abandonTerritoire(Territoire t) {
 		this.nbUniteEnMain += t.getNbUnite();
+		t.setNbUnite(0);
 		
 		quitterTerritoire(t);
 	}
