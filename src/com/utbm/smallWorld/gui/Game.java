@@ -172,16 +172,13 @@ public class Game extends JFrame {
 		
 		// Affiche la fenêtre de choix
 		int conf = confMenu.open();
-		
-		// Si la fenêtre a été fermée, on termine le processus
-		if (conf == 0 || conf == 1) {
-			System.exit(0);
-		}
+
 		
 		if( conf == 0){
-			Peuple tmp = partieEnCours.getJoueurEnCours().getPeuple();
-			tmp.abandonTerritoire(t);
+			partieEnCours.getJoueurEnCours().getPeuple().abandonTerritoire(t);
+			majInfos();
 		}
+		
 		
 	}
 	
@@ -198,15 +195,11 @@ public class Game extends JFrame {
 		
 		// Affiche la fenêtre de choix
 		int conf = confMenu.open();
-		
-		// Si la fenêtre a été fermée, on termine le processus
-		if (conf == 0 || conf == 1) {
-			System.exit(0);
-		}
+
 		
 		if( conf == 0){
-			Joueur tmp = partieEnCours.getJoueurEnCours();
-			tmp.attaquer(t);
+			partieEnCours.getJoueurEnCours().attaquer(t);
+			majInfos();
 		}
 		
 	}
