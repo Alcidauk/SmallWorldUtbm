@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -15,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import com.utbm.smallWorld.Element;
 import com.utbm.smallWorld.Partie;
 import com.utbm.smallWorld.Territoire;
 
@@ -117,7 +120,17 @@ public class TerritoireCase extends JPanel implements MouseListener {
 		
 		Rectangle r = this.getBounds();
 		
-		Game.getInstance().showInfo("Coord: (" + r.x + ", " + r.y + ")\nSize: (" + r.width + ", " + r.height + ")");
+		double coutAttaque =  Partie.getInstance().coutAttaque(territoire);
+		List<Element> elements = territoire.getElements();
+		
+		String txt = "Coût de l'attaque..." + coutAttaque + "\nEléments contenus...";
+		
+		Iterator<Element> it = elements.iterator();
+		while (it.hasNext()) {
+			txt += it.next().getNom() + "\n";
+		}
+		
+		Game.getInstance().showInfo(txt);
 	}
 
 

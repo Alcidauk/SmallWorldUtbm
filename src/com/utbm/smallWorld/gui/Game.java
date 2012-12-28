@@ -560,6 +560,8 @@ public class Game extends JFrame {
 				nbUniteEnMain = 0;
 			
 			String name = "Undefined";
+			String peuple = "Undefined";
+			String pouvoir = "Undefined";
 			
 			try {
 				// Récupération de l'indice du joueur en cours
@@ -573,6 +575,9 @@ public class Game extends JFrame {
 				
 				// Sur son peuple
 				Peuple p = j.getPeuple();
+				
+				peuple = p.getNom();
+				pouvoir = p.getPouvoir().getNom();
 				
 				if (p != null) {
 					nbTerritoire = j.getPeuple().getTerritoiresOccupes().size();
@@ -608,7 +613,9 @@ public class Game extends JFrame {
 			
 			headerJoueur.setBackground(JOUEUR_BACKGROUND[i]);
 			headerJoueur.setForeground(JOUEUR_FOREGROUND[i]);
-			headerJoueur.setText(name);
+			
+			String txt = name + " (" + peuple + " : " + pouvoir + ") ";
+			headerJoueur.setText(txt);
 			
 			// Mise à jour des territoires
 			Iterator<TerritoireCase> it = territoires.iterator();

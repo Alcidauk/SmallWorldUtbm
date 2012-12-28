@@ -136,6 +136,14 @@ public class Partie {
 		p.calcBonusUniteAttaque();
 	}
 	
+	/**
+	 * permet de fournir le coût de l'attaque d'un territoire donnée appelé depuis TerritoireCase
+	 * @param t
+	 * @return
+	 */
+	public double coutAttaque(Territoire t){
+		return t.coutAttaque(joueurEnCours.getPeuple());
+	}
 	
 	
 	
