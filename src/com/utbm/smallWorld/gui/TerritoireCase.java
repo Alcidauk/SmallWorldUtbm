@@ -149,12 +149,12 @@ public class TerritoireCase extends JPanel implements MouseListener {
 	 * Action lors du clique: Délégation à Partie
 	 * @param arg0 useless
 	 */
-	public void mouseClicked(MouseEvent arg0) {
+	public void mousePressed(MouseEvent arg0) {
 		Partie.getInstance().cliqueTerritoire(this.territoire);
 	}
 	
 	
 	/* Stub */
-	public void mousePressed(MouseEvent arg0) {}
+	public void mouseClicked(MouseEvent arg0) {}
 	public void mouseReleased(MouseEvent arg0) {}
 }

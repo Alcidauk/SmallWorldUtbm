@@ -37,7 +37,7 @@ public class JoueurAction extends JButton implements MouseListener {
 	/**
 	 * 
 	 */
-	public void mouseClicked(MouseEvent arg0) {
+	public void mousePressed(MouseEvent arg0) {
 		switch( choixBouton ){
 			case 0:
 				Partie.getInstance().cliqueFinTour();
@@ -57,7 +57,7 @@ public class JoueurAction extends JButton implements MouseListener {
 	
 	public void mouseEntered(MouseEvent arg0) {}
 	public void mouseExited(MouseEvent arg0) {}
-	public void mousePressed(MouseEvent arg0) {}
+	public void mouseClicked(MouseEvent arg0) {}
 	public void mouseReleased(MouseEvent arg0) {}
 
 }

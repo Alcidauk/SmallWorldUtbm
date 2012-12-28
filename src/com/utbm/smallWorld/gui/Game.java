@@ -72,6 +72,12 @@ public class Game extends JFrame {
 	
 	/** Liste des territoires de la map */
 	private List<TerritoireCase> territoires;
+
+	private JoueurAction btnDeclin;
+
+	private JoueurAction btnTour;
+
+	private JoueurAction btnDeploie;
 	
 
 	/** Génération de l'image de background */
@@ -236,9 +242,13 @@ public class Game extends JFrame {
 		
 		GridBagConstraints constraint = new GridBagConstraints();
 		
-		actions.add(new JoueurAction("Déclin", 2), constraint);
-		actions.add(new JoueurAction("Finir tour", 0), constraint);
-		actions.add(new JoueurAction("Fin redéploiement", 1), constraint);
+		btnDeclin = new JoueurAction("Déclin", 2);
+		btnTour = new JoueurAction("Finir tour", 0);
+		btnDeploie = new JoueurAction("Fin redéploiement", 1);
+		
+		actions.add(btnDeclin, constraint);
+		actions.add(btnTour, constraint);
+		actions.add(btnDeploie, constraint);
 		
 		actionPanel.add(actions);
 
@@ -426,7 +436,7 @@ public class Game extends JFrame {
 	/**
 	 * Affiche la fenêtre de confirmation d'abandon d'un territoire
 	 */
-	public void askAbandon(Territoire t) {
+	public boolean askAbandon(Territoire t) {
 		// Création de la fenêtre de choix
 		WinMenu confMenu = new WinMenu("Abandonner le territoire ?");
 
@@ -435,21 +445,15 @@ public class Game extends JFrame {
 		
 		// Affiche la fenêtre de choix
 		int conf = confMenu.open();
-
 		
-		if( conf == 0){
-			partieEnCours.getJoueurEnCours().getPeuple().abandonTerritoire(t);
-			majInfos();
-		}
-		
-		
+		return conf == 0;
 	}
 	
 	
 	/**
 	 * Affiche la fenêtre de confirmation d'attaque d'un territoire
 	 */
-	public void askAttaque(Territoire t) {
+	public boolean askAttaque(Territoire t) {
 		// Création de la fenêtre de choix
 		WinMenu confMenu = new WinMenu("Attaquer le territoire ?");
 
@@ -458,19 +462,14 @@ public class Game extends JFrame {
 		
 		// Affiche la fenêtre de choix
 		int conf = confMenu.open();
-
 		
-		if( conf == 0){
-			partieEnCours.getJoueurEnCours().attaquer(t);
-			majInfos();
-		}
-		
+		return conf == 0;
 	}
 	
 	/**
 	 * Affiche la fenêtre de demande pour un lancé de dé lors du clic sur "fin tour"
 	 */
-	public void askConf() {
+	public boolean askConf() {
 		// Création de la fenêtre de choix
 		WinMenu confMenu = new WinMenu("Confirmer la fin du tour ?");
 
@@ -480,13 +479,7 @@ public class Game extends JFrame {
 		// Affiche la fenêtre de choix
 		int conf = confMenu.open();
 
-		
-		if( conf == 0){
-			partieEnCours.setEtape(1);
-			partieEnCours.miseEnMain();
-			majInfos();
-		}
-		
+		return conf == 0;
 	}
 	
 	
@@ -494,7 +487,7 @@ public class Game extends JFrame {
 	 * Affiche une fenêtre qui demande le nombre de pions à placer sur le territoire. Si 0, abandon.
 	 * @param t
 	 */
-	public void askNbPion(Territoire t){
+	public int askNbPion(Territoire t){
 		int nbPion;
 		int enMain = partieEnCours.getJoueurEnCours().getPeuple().getNbUniteEnMain();
 		
@@ -505,25 +498,17 @@ public class Game extends JFrame {
     		} while(nbPion > (enMain + t.getNbUnite()));
 		}
 		catch (Exception e) {
-			return;
+			return t.getNbUnite();
 		}
 		
-		if (nbPion > 0) {
-			partieEnCours.getJoueurEnCours().getPeuple().addNbUniteEnMain(-(nbPion - t.getNbUnite()));
-			t.setNbUnite(nbPion);
-		}
-		else if (nbPion == 0) {
-			askAbandon(t);
-		}
-		
-		majInfos();
+		return nbPion;
 	}
 	
 	
 	/**
 	 * Affiche la fenêtre de confirmation de redéploiement
 	 */
-	public void askConfRedeploiement(int etape){
+	public boolean askConfRedeploiement(){
 		// Création de la fenêtre de choix
 		WinMenu confMenu = new WinMenu("Confirmer la fin du redéploiement ?");
 
@@ -533,68 +518,7 @@ public class Game extends JFrame {
 		// Affiche la fenêtre de choix
 		int conf = confMenu.open();
 
-		
-		if( conf == 0){
-			if( etape == 1 ){
-				/* on passe à l'étape redéploiement des autres joueurs */
-				partieEnCours.setEtape(2);
-				/* et on indique que le joueur passe au tour suivant pour après ne pas le faire rejouer */
-				partieEnCours.getJoueurEnCours().passeTourSuivant();
-			}
-			if( etape == 1 || etape == 2){
-				/* on parcourt la liste des joueurs pou voir s'il y en a qui ont des pions en main */
-				Iterator<Joueur> it = partieEnCours.getLstJoueurs().iterator();
-				
-				Joueur tmp = it.next();
-				
-				int nbUniteMain;
-				
-				/* try pour le cas où pas encore de peuple choisi. */
-				try{
-					nbUniteMain = tmp.getPeuple().getNbUniteEnMain();
-				}catch( Exception e ){
-					nbUniteMain = 0;
-				}
-				
-				while( it.hasNext() && nbUniteMain == 0 ){
-					tmp = it.next();
-					try{
-						nbUniteMain = tmp.getPeuple().getNbUniteEnMain();
-					}catch( Exception e){
-						nbUniteMain = 0;
-					}
-				}
-				/* s'il y a des poins en main pour un joueur, 
-				 * on le passe en joueur courant pour qu'il redéploie ses pions */
-				if( nbUniteMain != 0 ){
-					partieEnCours.setJoueurEnCours(tmp);
-				/* sinon, cela signifie qu'il n'y a plus de joueur qui ont des pions à redéployer */
-				}else{
-					/*  on cherche donc le prochain joueur */
-					Iterator<Joueur> it2 = partieEnCours.getLstJoueurs().iterator();
-					Joueur tmp2 = it2.next();
-					
-					while( it2.hasNext() && tmp2.getTourJoues() > partieEnCours.getTourEnCours() ){
-						tmp2 = it2.next();
-					}
-
-					/* si il reste des joueurs dans le tour on les fait jouer */
-					if( tmp2.getTourJoues() == partieEnCours.getTourEnCours() ){
-						partieEnCours.setEtape(0);
-						partieEnCours.setJoueurEnCours(tmp2);
-						
-						if( tmp2.getPeuple() == null )
-							selectionPeuple();
-					/* si non, on pass au tour suivant, le premier joueur joue */
-					}else{
-						partieEnCours.setEtape(0);
-						partieEnCours.setJoueurEnCours(partieEnCours.getLstJoueurs().get(0));
-						partieEnCours.passeTourSuivant();
-					}
-				}
-			}
-			majInfos();
-		}
+		return conf == 0;
 	}
 	
 
@@ -678,6 +602,37 @@ public class Game extends JFrame {
 			Iterator<TerritoireCase> it = territoires.iterator();
 			while (it.hasNext()) {
 				it.next().majInfos();
+			}
+			
+			// Maj de l'étape
+			switch (partieEnCours.getEtape()) {
+				case 0:
+					headerAction.setText("Conquête");
+					
+					btnDeclin.setVisible(true);
+					btnTour.setVisible(true);
+					btnDeploie.setVisible(false);
+					
+					break;
+
+				case 1:
+					headerAction.setText("Conquête");
+					
+					btnDeclin.setVisible(false);
+					btnTour.setVisible(true);
+					btnDeploie.setVisible(false);
+					
+					break;
+				
+				case 2:
+				case 3:
+					headerAction.setText("Redéploiement");
+					
+					btnDeclin.setVisible(false);
+					btnTour.setVisible(false);
+					btnDeploie.setVisible(true);
+					
+					break;
 			}
 			
 			// Useless?

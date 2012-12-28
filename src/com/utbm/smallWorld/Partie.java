@@ -38,6 +38,9 @@ public class Partie {
 	protected int indexJoueurEnCours = 0;
 	
 	/** Index du joueur jouant à un instant donné */
+	protected int indexSauvJoueurEnCours = 0;
+	
+	/** Index du joueur jouant à un instant donné */
 	protected Joueur joueurEnCours = null;
 	
 	/** Etape du tour */
@@ -142,7 +145,16 @@ public class Partie {
 	 * @return
 	 */
 	public double coutAttaque(Territoire t){
-		return t.coutAttaque(joueurEnCours.getPeuple());
+		// TODO Temp
+		try {
+			return t.coutAttaque(joueurEnCours.getPeuple());
+		}
+		catch (Exception e) {
+			System.out.println(t);
+			System.out.println(joueurEnCours);
+		}
+		
+		return 0.0;
 	}
 	
 	
@@ -156,23 +168,44 @@ public class Partie {
 	 * @param territoire Territoire cliqué par l'utilisateur
 	 */
 	public void cliqueTerritoire(Territoire territoire) {
-		if (etape == 0) {
+		if (etape == 0 || etape == 1) {
 			// Phase d'attaque
 			
 			if ( joueurEnCours.getPeuple().equals(territoire.getOccupant()) ) {
-				Game.getInstance().askAbandon(territoire);
+				if (Game.getInstance().askAbandon(territoire)) {
+					getJoueurEnCours().getPeuple().abandonTerritoire(territoire);
+				}
 			}
 			else {
 				//if(coutAttaque(territoire) > joueurEnCours.getPeuple().)
-				Game.getInstance().askAttaque(territoire);
+				if (Game.getInstance().askAttaque(territoire)) {
+
+					if (getJoueurEnCours().attaquer(territoire) && etape == 0) {
+						etape = 1;
+					}
+				}
 			}
 			
+			Game.getInstance().majInfos();
+			
 		}
-		else if (etape == 1) {
+		else if (etape == 2 || etape == 3) {
 			// Phase de redéploiement
 			
 			if (joueurEnCours.getPeuple().equals(territoire.getOccupant())) {
-				Game.getInstance().askNbPion(territoire);
+				int nbPion = Game.getInstance().askNbPion(territoire);
+
+				if (nbPion > 0) {
+					getJoueurEnCours().getPeuple().addNbUniteEnMain(-(nbPion - territoire.getNbUnite()));
+					territoire.setNbUnite(nbPion);
+				}
+				else if (nbPion == 0) {
+					if (Game.getInstance().askAbandon(territoire)) {
+						getJoueurEnCours().getPeuple().abandonTerritoire(territoire);
+					}
+				}
+				
+				Game.getInstance().majInfos();
 			}
 		}
 	}
@@ -184,20 +217,118 @@ public class Partie {
 	 * Traitement lors d'un clic sur le bouton fin tour
 	 */
 	public void cliqueFinTour() {
-		if (etape == 0) {
-			Game.getInstance().askConf();
+		if ((etape == 0 || etape == 1) && Game.getInstance().askConf()) {
+			setEtape(2);
+			miseEnMain();
+			
+			Game.getInstance().majInfos();
 		}
 	}
 	
+	
+	public boolean deploiementSuivant() {
+		int nextJoueur = (indexSauvJoueurEnCours + 1) == lstJoueurs.size() ? 0 : (indexSauvJoueurEnCours + 1);
+		
+		for (; indexJoueurEnCours < lstJoueurs.size(); indexJoueurEnCours++) {
+			if (indexJoueurEnCours == nextJoueur) {
+				continue;
+			}
+			
+			joueurEnCours = lstJoueurs.get(indexJoueurEnCours);
+			
+			Peuple p = joueurEnCours.getPeuple();
+			
+			if (p != null && p.getNbUniteEnMain() > 0) {
+				return true;
+			}
+		}
+		
+		indexJoueurEnCours = indexSauvJoueurEnCours;
+		joueurEnCours = lstJoueurs.get(indexSauvJoueurEnCours);
+		
+		return false;
+	}
+	
+	
+	public void joueurSuivant() {
+		setEtape(0);
+		
+		
+		if (indexJoueurEnCours == lstJoueurs.size() - 1) {
+			nouveauTour();
+		}
+		else {
+			indexJoueurEnCours++;
+			joueurEnCours = lstJoueurs.get(indexJoueurEnCours);
+			
+			if (joueurEnCours.getPeuple() == null) {
+				Game.getInstance().selectionPeuple();
+    		}
+    		
+    		miseEnMain();
+		}
+	}
 	
 	/**
 	 * Traitement lors d'un clic sur le bouton fin redéploiement
 	 */
-	public void cliqueFinRedeploiement(){
-		if ( (etape == 1 || etape == 2) && joueurEnCours.getPeuple().getNbUniteEnMain() == 0) {
-			Game.getInstance().askConfRedeploiement(etape);
+	public void cliqueFinRedeploiement() {
+		if ((etape == 2 || etape == 3) && joueurEnCours.getPeuple().getNbUniteEnMain() == 0) {
+			if (Game.getInstance().askConfRedeploiement()) {
+				if (etape == 2) {
+					/* on passe à l'étape redéploiement des autres joueurs */
+					setEtape(3);
+					
+					/* et on indique que le joueur passe au tour suivant pour après ne pas le faire rejouer */
+					indexSauvJoueurEnCours = indexJoueurEnCours;
+					
+					indexJoueurEnCours = 0;
+					
+					//getJoueurEnCours().passeTourSuivant();
+				}
+				
+				if (! deploiementSuivant()) {
+					joueurSuivant();
+				}
+				
+				Game.getInstance().majInfos();
+			}
 		}
 	}
+					/*
+					/* s'il y a des poins en main pour un joueur, 
+					 * on le passe en joueur courant pour qu'il redéploie ses pions *
+					if( nbUniteMain != 0 ){
+						setJoueurEnCours(tmp);
+					/* sinon, cela signifie qu'il n'y a plus de joueur qui ont des pions à redéployer *
+					}else{
+						/*  on cherche donc le prochain joueur *
+						Iterator<Joueur> it2 = getLstJoueurs().iterator();
+						Joueur tmp2 = it2.next();
+						
+						while( it2.hasNext() && tmp2.getTourJoues() > getTourEnCours() ){
+							tmp2 = it2.next();
+						}
+
+						/* si il reste des joueurs dans le tour on les fait jouer *
+						if( tmp2.getTourJoues() == getTourEnCours() ){
+							setEtape(0);
+							setJoueurEnCours(tmp2);
+							
+							if( tmp2.getPeuple() == null )
+								selectionPeuple();
+						/* si non, on pass au tour suivant, le premier joueur joue *
+						}else{
+							setEtape(0);
+							setJoueurEnCours(getLstJoueurs().get(0));
+							passeTourSuivant();
+						}
+					}
+				}
+				majInfos();
+			}
+		}
+	}*/
 	
 	
 	/**
@@ -464,6 +595,14 @@ public class Partie {
 	 */
 	public Joueur getJoueur(int i) {
 		return lstJoueurs.get(i);
+	}
+	
+	
+	/**
+	 * @return the etape
+	 */
+	public int getEtape() {
+		return etape;
 	}
 
 
