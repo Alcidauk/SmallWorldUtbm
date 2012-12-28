@@ -67,7 +67,7 @@ public class Joueur {
 			
 			while (it.hasNext()) {
 				Territoire tmp = it.next();
-				System.out.println("!");
+				
 				if (this.peuple.peutAttaquer(tmp, to)) {
 					
 					double tmpBonus = this.peuple.calcBonusAttaque(from, to);
@@ -102,18 +102,16 @@ public class Joueur {
 		double cout = to.coutAttaque(this.peuple);
 		
 		// Regarde si le territoire peut être attaqué
-		if (Double.isInfinite(cout)) {
-			if (Double.isInfinite(bonus)) {
-				bonus = 0;
+		if (Double.isInfinite(bonus)) {
+			if (Double.isInfinite(cout)) {
 				cout = to.getNbUnite();
 			}
-			else {
-				return false;
-			}
+			
+			bonus = 0;
 		}
 		
 		// Etude de la faisabilité de l'attaque
-		if (cout > this.peuple.getNbUniteEnMain() + this.peuple.getNbUniteBonus()) {
+		if (cout > this.peuple.getNbUniteEnMain() + this.peuple.getNbUniteBonus() + bonus) {
 			// TODO lancé de dé ?
 			return false;
 		}
