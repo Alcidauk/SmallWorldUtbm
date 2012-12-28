@@ -19,7 +19,7 @@ import com.utbm.smallWorld.Territoire;
 /**
  * Classe de communication avec la base SQLLite
  * 
- * @author LONGO Michael
+ * @author UTBM'Student
  * @version 1.0
  */
 public class SQLite {
@@ -29,7 +29,7 @@ public class SQLite {
 	/** Tunnel de communication avec informix */
 	private static Connection conn;
 	
-	
+	/** Connexion */
 	static {
 		try {
 			connect();
@@ -40,7 +40,7 @@ public class SQLite {
 	};
 	
 	/**
-	 * Constructeur: Connexion Ã  la bdd informix
+	 * Constructeur: Connexion à la base de données
 	 * @throws ClassNotFoundException 
 	 * @throws SQLException 
 	 */
@@ -52,7 +52,7 @@ public class SQLite {
 	
 	
 	/**
-	 * DÃ©connecte le tunnel ouvert
+	 * Déconnecte le tunnel ouvert
 	 * @throws SQLException 
 	 */
 	public static void disconnect() throws SQLException {
@@ -68,6 +68,11 @@ public class SQLite {
 	}
 	
 	
+	/**
+	 * Créé la liste des territoires d'après les tables de la bdd
+	 * @param nbPlayer Plateau à utiliser
+	 * @return Liste des TerritoireCases avec les Territoires à l'intérieur
+	 */
 	public static List<TerritoireCase> createTerritoires(int nbPlayer) {
 		List<TerritoireCase> terris = new LinkedList<TerritoireCase>();
 		
@@ -85,7 +90,7 @@ public class SQLite {
 				TerritoireCase tc = new TerritoireCase(r);
 				
 				Territoire t = new Territoire();
-				t.setEstEnBordure(rs.getBoolean("enbordure"));
+				t.setEnBordure(rs.getBoolean("enbordure"));
 				t.setNbUnite(rs.getInt("tribuoubliee"));
 				//t.setNom(rs.getString("name")); TODO : Virer l'attribut dans la DB / ajouter l'attribut dans le classe
 				

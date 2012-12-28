@@ -16,17 +16,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * @author Administrateur
- *
+ * Fenêtre permettant d'offrir un choix à l'utilisateur
+ * 
+ * @author UTBM'Student
+ * @version 1.0
  */
 public class WinMenu extends JDialog {
 	/** Stub */
 	private static final long serialVersionUID = 1L;
+	
 	/** Panel contenant les items du menu */
 	private JPanel panContent;
+	
 	/** Choix de l'utilisateur sur le menu */
 	private int lastChoice = -1;
 	
+	/** Header de la fenêtre */
 	private JLabel labMenu;
 	
 	
@@ -81,7 +86,7 @@ public class WinMenu extends JDialog {
 	
 	
 	/**
-	 * TODO
+	 * @param title The title to set
 	 */
 	public void setHeadTitle(String title) {
 		this.labMenu.setText(title);

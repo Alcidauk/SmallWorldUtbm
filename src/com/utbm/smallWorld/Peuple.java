@@ -10,7 +10,7 @@ import com.utbm.smallWorld.interfaces.Bonusable;
  * Représentation d'un Peuple
  * Gestion des territoires, des bonus, du pouvoir spécial, etc.
  * 
- * @author LONGO Michael
+ * @author UTBM'Student
  * @version 1.0
  */
 public abstract class Peuple implements Bonusable {
@@ -50,6 +50,7 @@ public abstract class Peuple implements Bonusable {
 		territoiresOccupes = new LinkedList<Territoire>();
 	}
 	
+	
 	/**
 	 * Constructeur
 	 * Définit les bonus initiaux au peuple
@@ -63,12 +64,55 @@ public abstract class Peuple implements Bonusable {
 
 	
 	
+	/* ### Méthodes relatives aux territoires ### */
+	
+	
+	
 	/**
-	 * @return true si le peuple possède un pouvoir associé
+	 * @return si le peuple peut outre-passer les règles de déplacement standards
 	 */
-	public boolean hasPower() {
-		return this.pouvoir != null;
+	public boolean peutAttaquer(Territoire from, Territoire to) {
+		if (to.estAdjacent(from)) {
+			return true;
+		}
+		//else
+		
+		return bonusPeutAttaquer(from, to) || (hasPower() && this.pouvoir.bonusPeutAttaquer(from, to));
 	}
+	
+	
+	
+	/**
+	 * Capture d'un territoire lors d'une attaque
+	 * Soustrait les unités utilisées de la main,
+	 * en utilisant au plus les unités bonus
+	 * (Au moins 1 unité physique doit quand même être utilisée)
+	 * @param t Territoire conquis
+	 * @param nbUnite Nombre d'unité ayant pris le territoire
+	 */
+	public int priseTerritoire(Territoire t, int nbUnite) {
+		// Utilisation prioritaire des unités bonus
+		if (this.nbUniteBonus >= nbUnite - 1) {
+			this.nbUniteBonus -= nbUnite - 1;
+			
+			nbUnite = 1;
+		}
+		else {
+			nbUnite -= this.nbUniteBonus;
+			
+			this.nbUniteBonus = 0;
+		}
+		
+		this.nbUniteEnMain -= nbUnite;
+		
+		t.setNbUnite(nbUnite);
+		t.setOccupant(this);
+		
+		this.territoiresOccupes.add(t);
+		
+		return nbUnite;
+	}
+	
 	
 	
 	/**
@@ -87,6 +131,8 @@ public abstract class Peuple implements Bonusable {
 			Partie.getInstance().remettreBoite(this);
 		}
 	}
+	
+	
 	
 	/**
 	 * Abandon d'un territoire par le joueur
@@ -120,38 +166,12 @@ public abstract class Peuple implements Bonusable {
 
 		quitterTerritoire(t);
 	}
-
-
-	/**
-	 * Capture d'un territoire lors d'une attaque
-	 * Soustrait les unités utilisées de la main,
-	 * en utilisant au plus les unités bonus
-	 * (Au moins 1 unité physique doit quand même être utilisée)
-	 * @param t Territoire conquis
-	 * @param nbUnite Nombre d'unité ayant pris le territoire
-	 */
-	public int priseTerritoire(Territoire t, int nbUnite) {
-		// Utilisation prioritaire des unités bonus
-		if (this.nbUniteBonus >= nbUnite - 1) {
-			this.nbUniteBonus -= nbUnite - 1;
-			
-			nbUnite = 1;
-		}
-		else {
-			nbUnite -= this.nbUniteBonus;
-			
-			this.nbUniteBonus = 0;
-		}
-		
-		this.nbUniteEnMain -= nbUnite;
-		
-		t.setNbUnite(nbUnite);
-		t.setOccupant(this);
-		
-		this.territoiresOccupes.add(t);
-		
-		return nbUnite;
-	}
+	
+	
+	
+	
+	/* ### Calculs des bonus ### */
+	
 	
 	
 	/**
@@ -180,11 +200,12 @@ public abstract class Peuple implements Bonusable {
 	
 	
 	/**
-	 * TODO
+	 * Calcul le bonus en unité d'attaque total pour le peuple
 	 */
 	public void calcBonusUniteAttaque() {
 		this.nbUniteBonus = this.bonusUniteAttaque() + this.pouvoir.bonusUniteAttaque();
 	}
+	
 	
 	
 	/**
@@ -220,33 +241,20 @@ public abstract class Peuple implements Bonusable {
 	}
 	
 	
-	/**
-	 * @return si le peuple peut outre-passer les règles de déplacement standards
-	 */
-	public boolean peutAttaquer(Territoire from, Territoire to) {
-		if (to.estAdjacent(from)) {
-			return true;
-		}
-		//else
-		
-		return bonusPeutAttaquer(from, to) || (hasPower() && this.pouvoir.bonusPeutAttaquer(from, to));
-	}
+	
+	
+	/* ### GETTER ### */
+
+	
 	
 	
 	/**
-	 * Passe le peuple en déclin
+	 * @return true si le peuple possède un pouvoir associé
 	 */
-	public void decliner() {
-		this.enDeclin = true;
-		
-		if (this.territoiresOccupes.size() == 0) {
-			joueur.pertePeupleEnDeclin();
-			Partie.getInstance().remettreBoite(this);
-		}
+	public boolean hasPower() {
+		return this.pouvoir != null;
 	}
 	
-	
-	/* *** GETTERS *** */
 	
 	/**
 	 * @return the nbUniteMax
@@ -330,6 +338,20 @@ public abstract class Peuple implements Bonusable {
 	
 	
 	/* *** SETTERS *** */
+	
+	
+	/**
+	 * Passe le peuple en déclin
+	 */
+	public void decliner() {
+		this.enDeclin = true;
+		
+		if (this.territoiresOccupes.size() == 0) {
+			joueur.pertePeupleEnDeclin();
+			Partie.getInstance().remettreBoite(this);
+		}
+	}
+	
 	
 	
 	/**

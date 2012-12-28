@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -15,7 +14,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +26,12 @@ import com.utbm.smallWorld.Plateau;
 import com.utbm.smallWorld.Pouvoir;
 import com.utbm.smallWorld.Territoire;
 
+/**
+ * Représentation graphique du jeu
+ * 
+ * @author UTBM'Student
+ * @version 1.0
+ */
 public class Game extends JFrame {
 	/** Stub */
 	private static final long serialVersionUID = 1L;
@@ -79,6 +83,7 @@ public class Game extends JFrame {
 		}
 	};
 	
+	
 	/**
 	 * Constructeur
 	 */
@@ -122,228 +127,14 @@ public class Game extends JFrame {
 		partieEnCours.nouveauTour();
 	}
 	
-	/**
-	 * Affiche la fenêtre de demande du nombre de joueur
-	 */
-	public void askNbJoueur() {
-		// Création de la fenêtre de choix
-		WinMenu nbMenu = new WinMenu("Combien de joueurs pour cette partie ?");
-
-		nbMenu.newItem("2 joueurs", 2);
-		nbMenu.newItem("3 joueurs", 3);
-		nbMenu.newItem("4 joueurs", 4);
-		
-		// Affiche la fenêtre de choix
-		int nbJoueur = nbMenu.open();
-		
-		// Si la fenêtre a été fermée, on termine le processus
-		if (nbJoueur < 0) {
-			System.exit(0);
-		}
-		
-		// On charge le plateau correspondant au nom de joueur sélectionné
-		loadPlateau(nbJoueur);
-		
-		// On crée les joueurs
-		for (int i = 0; i < nbJoueur; i++) {
-			String name;
-			
-			do {
-				name = Prompt.ask("Choissiez un nom pour le joueur n°" + (i + 1));
-			} while (name.length() == 0);
-			
-			Joueur j = new Joueur(name, Partie.DEFAULT_MONNAIE);
-			j.setIndice(i);
-			
-			partieEnCours.ajouterJoueur(j);
-		}
-	}
 	
 	
-	/**
-	 * Affiche la fenêtre de confirmation d'abandon d'un territoire
-	 */
-	public void askAbandon(Territoire t) {
-		// Création de la fenêtre de choix
-		WinMenu confMenu = new WinMenu("Abandonner le territoire ?");
-
-		confMenu.newItem("Oui", 0);
-		confMenu.newItem("Non", 1);
-		
-		// Affiche la fenêtre de choix
-		int conf = confMenu.open();
-
-		
-		if( conf == 0){
-			partieEnCours.getJoueurEnCours().getPeuple().abandonTerritoire(t);
-			majInfos();
-		}
-		
-		
-	}
 	
 	
-	/**
-	 * Affiche la fenêtre de confirmation d'attaque d'un territoire
-	 */
-	public void askAttaque(Territoire t) {
-		// Création de la fenêtre de choix
-		WinMenu confMenu = new WinMenu("Attaquer le territoire ?");
-
-		confMenu.newItem("Oui", 0);
-		confMenu.newItem("Non", 1);
-		
-		// Affiche la fenêtre de choix
-		int conf = confMenu.open();
-
-		
-		if( conf == 0){
-			partieEnCours.getJoueurEnCours().attaquer(t);
-			majInfos();
-		}
-		
-	}
-	
-	/**
-	 * Affiche la fenêtre de demande pour un lancé de dé lors du clic sur "fin tour"
-	 */
-	public void askConf() {
-		// Création de la fenêtre de choix
-		WinMenu confMenu = new WinMenu("Confirmer la fin du tour ?");
-
-		confMenu.newItem("Oui", 0);
-		confMenu.newItem("Non", 1);
-		
-		// Affiche la fenêtre de choix
-		int conf = confMenu.open();
-
-		
-		if( conf == 0){
-			partieEnCours.setEtape(1);
-			partieEnCours.miseEnMain();
-			majInfos();
-		}
-		
-	}
+	/* ### Initialisations ### */
 	
 	
-	/**
-	 * Affiche une fenêtre qui demande le nombre de pions à placer sur le territoire. Si 0, abandon.
-	 * @param t
-	 */
-	public void askNbPion(Territoire t){
-		int nbPion;
-		
-		do{
-			nbPion = Prompt.askInt("Choissiez le nombre de pions à replacer sur ce territoire. Pour l'abandonner, choisissez 0.");
-		}while( nbPion > partieEnCours.getJoueurEnCours().getPeuple().getNbUniteEnMain() );
-			
-		if( nbPion != 0 ){
-			t.setNbUnite(nbPion);
-			partieEnCours.getJoueurEnCours().getPeuple().addNbUniteEnMain(-nbPion);
-		}else{
-			askAbandon(t);
-		}
-		
-		majInfos();
-	}
-	
-	public void askConfRedeploiement(){
-		// Création de la fenêtre de choix
-		WinMenu confMenu = new WinMenu("Confirmer la fin du redéploiement ?");
 
-		confMenu.newItem("Oui", 0);
-		confMenu.newItem("Non", 1);
-		
-		// Affiche la fenêtre de choix
-		int conf = confMenu.open();
-
-		
-		if( conf == 0){
-			partieEnCours.setEtape(2);
-			// TODO à passer tous les joueurs qui ont des pions en main.
-			majInfos();
-		}
-	}
-	
-
-	
-
-	/**
-	 * Mise à jours des informations affichées sur la fenêtre
-	 */
-	public void majInfos() {
-		// Un premier try au cas où on appelerait cette méthode un peu trop tot
-		try {
-			int i, 
-				argent = 0,
-				nbTerritoire = 0,
-				nbTerritoireDeclin = 0,
-				nbUnite = 0,
-				nbUniteEnMain = 0;
-			
-			String name = "Undefined";
-			
-			try {
-				// Récupération de l'indice du joueur en cours
-				i = partieEnCours.getIndexJoueurEnCours();
-				
-				// Récupération des informations sur le joueur en cours
-				Joueur j = partieEnCours.getJoueurEnCours();
-				
-				name = j.getNom();
-				argent = j.getArgent();
-				
-				// Sur son peuple
-				Peuple p = j.getPeuple();
-				
-				if (p != null) {
-					nbTerritoire = j.getPeuple().getTerritoiresOccupes().size();
-					nbUnite = j.getPeuple().getNbUnite();
-					nbUniteEnMain = j.getPeuple().getNbUniteEnMain();
-				}
-				
-				// Sur son peuple en déclin
-				p = j.getPeupleDeclin();
-				
-				if (p != null) {
-					nbTerritoireDeclin = p.getTerritoiresOccupes().size();
-				}
-			}
-			catch (Exception e) {
-				i = Game.JOUEUR_BACKGROUND.length - 1;
-			}
-			
-			// MAJ
-			playerInfo.setText("");
-			playerInfo.append("\n");
-			playerInfo.append("UVs.............. " + argent + "\n");
-			playerInfo.append("Territoires...... " + nbTerritoire + (nbTerritoireDeclin > 0 ? " (+ " + nbTerritoireDeclin + ")" : "") + "\n");
-			playerInfo.append("Unités totales... " + nbUnite + "\n");
-			playerInfo.append("Unités en main... " + nbUniteEnMain + "\n");
-			
-			// Mise à jour des couleurs
-			headerAction.setBackground(JOUEUR_BACKGROUND[i]);
-			headerAction.setForeground(JOUEUR_FOREGROUND[i]);
-			
-			headerInfo.setBackground(JOUEUR_BACKGROUND[i]);
-			headerInfo.setForeground(JOUEUR_FOREGROUND[i]);
-			
-			headerJoueur.setBackground(JOUEUR_BACKGROUND[i]);
-			headerJoueur.setForeground(JOUEUR_FOREGROUND[i]);
-			headerJoueur.setText(name);
-			
-			// Mise à jour des territoires
-			Iterator<TerritoireCase> it = territoires.iterator();
-			while (it.hasNext()) {
-				it.next().majInfos();
-			}
-			
-			// Useless?
-			repaint();
-		}
-		catch (Exception e) {}
-	}
 
 	
 	/**
@@ -365,84 +156,6 @@ public class Game extends JFrame {
 	}
 
 	
-	/**
-	 * 
-	 */
-	public void selectionPeuple() {
-		try {
-			Joueur j = partieEnCours.getJoueurEnCours();
-			
-			WinMenu choixPeuple = new WinMenu(j.getNom() + " (" + j.getArgent() + " $), choisissez votre peuple :");
-    		
-    		int i = -1;
-    		List<Class<? extends Peuple>> ppl = partieEnCours.getPeuplesDispo();
-    		List<Class<? extends Pouvoir>> pov = partieEnCours.getPouvoirsDispo();
-    		List<Integer> argent = partieEnCours.getArgentPeuple();
-    		
-    		Iterator<Class<? extends Peuple>> itPpl = ppl.iterator();
-    		Iterator<Class<? extends Pouvoir>> itPov = pov.iterator();
-    		Iterator<Integer> itArgent = argent.iterator();
-    		
-    		while (itPpl.hasNext() && ++i < 6) {
-    			Class<? extends Peuple> clPpl = itPpl.next();
-    			Class<? extends Pouvoir> clPov = itPov.next();
-    			int arg = itArgent.next().intValue();
-    			
-    			Peuple insPpl = clPpl.newInstance();
-    			Pouvoir insPov = clPov.newInstance();
-    			
-    			// TODO Description
-    			JLabel it = choixPeuple.newItem(arg + "$ - " + insPpl.getNom() + " (" + insPpl.getNbUniteDepart() + " unit.) + " + insPov.getNom() + " (" + insPov.getNbUniteApporte() + " unit.)", i);
-    			it.setHorizontalAlignment(JLabel.LEFT);
-    		}
-    		
-    		// Affiche la fenêtre de choix
-    		int indexPeuple;
-    		int cout = 0;
-    		
-    		do {
-    			indexPeuple = choixPeuple.open();
-    			
-    			if (indexPeuple >= 0) {
-    				cout = indexPeuple - argent.get(indexPeuple).intValue();
-    				
-    				if (cout > j.getArgent()) {
-    					choixPeuple.setHeadTitle("Vous n'avez pas assez d'argent ! (" + j.getArgent() + " $)");
-    					indexPeuple = -1;
-    				}
-    			}
-    		} while (indexPeuple < 0);
-    		
-    		// Création du peuple
-    		Peuple pl = ppl.get(indexPeuple).newInstance();
-    		pl.setPouvoir(pov.get(indexPeuple).newInstance());
-    		pl.setNbUnite(pl.getNbUniteDepart() + pl.getPouvoir().getNbUniteApporte());
-    		pl.setNbUniteEnMain(pl.getNbUnite());
-    		
-    		// Attribution du joueur
-    		pl.setJoueur(j);
-    		j.setPeuple(pl);
-    		j.setArgent(j.getArgent() - cout);
-    		
-    		// Màj des listes
-    		partieEnCours.getPeuplesPris().add(ppl.get(indexPeuple));
-    		partieEnCours.getPouvoirsPris().add(pov.get(indexPeuple));
-    		
-    		ppl.remove(indexPeuple);
-    		pov.remove(indexPeuple);
-    		argent.remove(indexPeuple);
-    		
-    		// màj argent
-    		for (int a = 0; a < indexPeuple; a++) {
-    			argent.set(a, argent.get(a) + 1);
-    		}
-    		
-    		majInfos();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	
 	/**
@@ -580,38 +293,335 @@ public class Game extends JFrame {
 		for (TerritoireCase t : territoires) {
 			getContentPane().add(t);
 		}
-		
-		/*
-		getContentPane().add(new TerritoireCase(new Rectangle(5, 5, 191, 100)));
-		getContentPane().add(new TerritoireCase(new Rectangle(5, 105, 191, 173)));
-		
-		getContentPane().add(new TerritoireCase(new Rectangle(196, 91, 216, 150)));
-		getContentPane().add(new TerritoireCase(new Rectangle(412, 91, 60, 150)));
-		
-		getContentPane().add(new TerritoireCase(new Rectangle(472, 91, 137, 85)));
-		getContentPane().add(new TerritoireCase(new Rectangle(609, 91, 138, 85)));
-		getContentPane().add(new TerritoireCase(new Rectangle(747, 91, 190, 85)));
-
-		getContentPane().add(new TerritoireCase(new Rectangle(472, 176, 158, 65)));
-		getContentPane().add(new TerritoireCase(new Rectangle(630, 176, 157, 65)));
-		getContentPane().add(new TerritoireCase(new Rectangle(787, 176, 150, 65)));
-
-		getContentPane().add(new TerritoireCase(new Rectangle(937, 91, 165, 340)));
-		getContentPane().add(new TerritoireCase(new Rectangle(1102, 91, 160, 170)));
-		getContentPane().add(new TerritoireCase(new Rectangle(1102, 261, 160, 170)));
-
-		getContentPane().add(new TerritoireCase(new Rectangle(196, 241, 187, 145)));
-		getContentPane().add(new TerritoireCase(new Rectangle(383, 241, 108, 190)));
-		getContentPane().add(new TerritoireCase(new Rectangle(491, 241, 99, 190)));
-		getContentPane().add(new TerritoireCase(new Rectangle(590, 241, 99, 190)));
-		getContentPane().add(new TerritoireCase(new Rectangle(689, 241, 99, 190)));
-		getContentPane().add(new TerritoireCase(new Rectangle(788, 241, 149, 190)));
-
-		getContentPane().add(new TerritoireCase(new Rectangle(410, 431, 150, 104)));
-		getContentPane().add(new TerritoireCase(new Rectangle(410, 535, 150, 200)));
-		getContentPane().add(new TerritoireCase(new Rectangle(560, 431, 170, 290)));
-		 */
 	}
+	
+	
+	
+	
+	
+	/* ### SOUS FENETRES ### */
+
+	
+	
+	/**
+	 * 
+	 */
+	public void selectionPeuple() {
+		try {
+			Joueur j = partieEnCours.getJoueurEnCours();
+			
+			WinMenu choixPeuple = new WinMenu(j.getNom() + " (" + j.getArgent() + " $), choisissez votre peuple :");
+    		
+    		int i = -1;
+    		List<Class<? extends Peuple>> ppl = partieEnCours.getPeuplesDispo();
+    		List<Class<? extends Pouvoir>> pov = partieEnCours.getPouvoirsDispo();
+    		List<Integer> argent = partieEnCours.getArgentPeuple();
+    		
+    		Iterator<Class<? extends Peuple>> itPpl = ppl.iterator();
+    		Iterator<Class<? extends Pouvoir>> itPov = pov.iterator();
+    		Iterator<Integer> itArgent = argent.iterator();
+    		
+    		while (itPpl.hasNext() && ++i < 6) {
+    			Class<? extends Peuple> clPpl = itPpl.next();
+    			Class<? extends Pouvoir> clPov = itPov.next();
+    			int arg = itArgent.next().intValue();
+    			
+    			Peuple insPpl = clPpl.newInstance();
+    			Pouvoir insPov = clPov.newInstance();
+    			
+    			// TODO Description
+    			JLabel it = choixPeuple.newItem(arg + "$ - " + insPpl.getNom() + " (" + insPpl.getNbUniteDepart() + " unit.) + " + insPov.getNom() + " (" + insPov.getNbUniteApporte() + " unit.)", i);
+    			it.setHorizontalAlignment(JLabel.LEFT);
+    		}
+    		
+    		// Affiche la fenêtre de choix
+    		int indexPeuple;
+    		int cout = 0;
+    		
+    		do {
+    			indexPeuple = choixPeuple.open();
+    			
+    			if (indexPeuple >= 0) {
+    				cout = indexPeuple - argent.get(indexPeuple).intValue();
+    				
+    				if (cout > j.getArgent()) {
+    					choixPeuple.setHeadTitle("Vous n'avez pas assez d'argent ! (" + j.getArgent() + " $)");
+    					indexPeuple = -1;
+    				}
+    			}
+    		} while (indexPeuple < 0);
+    		
+    		// Création du peuple
+    		Peuple pl = ppl.get(indexPeuple).newInstance();
+    		pl.setPouvoir(pov.get(indexPeuple).newInstance());
+    		pl.setNbUnite(pl.getNbUniteDepart() + pl.getPouvoir().getNbUniteApporte());
+    		pl.setNbUniteEnMain(pl.getNbUnite());
+    		
+    		// Attribution du joueur
+    		pl.setJoueur(j);
+    		j.setPeuple(pl);
+    		j.setArgent(j.getArgent() - cout);
+    		
+    		// Màj des listes
+    		partieEnCours.getPeuplesPris().add(ppl.get(indexPeuple));
+    		partieEnCours.getPouvoirsPris().add(pov.get(indexPeuple));
+    		
+    		ppl.remove(indexPeuple);
+    		pov.remove(indexPeuple);
+    		argent.remove(indexPeuple);
+    		
+    		// màj argent
+    		for (int a = 0; a < indexPeuple; a++) {
+    			argent.set(a, argent.get(a) + 1);
+    		}
+    		
+    		majInfos();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	/**
+	 * Affiche la fenêtre de demande du nombre de joueur
+	 */
+	public void askNbJoueur() {
+		// Création de la fenêtre de choix
+		WinMenu nbMenu = new WinMenu("Combien de joueurs pour cette partie ?");
+
+		nbMenu.newItem("2 joueurs", 2);
+		nbMenu.newItem("3 joueurs", 3);
+		nbMenu.newItem("4 joueurs", 4);
+		
+		// Affiche la fenêtre de choix
+		int nbJoueur = nbMenu.open();
+		
+		// Si la fenêtre a été fermée, on termine le processus
+		if (nbJoueur < 0) {
+			System.exit(0);
+		}
+		
+		// On charge le plateau correspondant au nom de joueur sélectionné
+		loadPlateau(nbJoueur);
+		
+		// On crée les joueurs
+		for (int i = 0; i < nbJoueur; i++) {
+			String name;
+			
+			do {
+				name = Prompt.ask("Choissiez un nom pour le joueur n°" + (i + 1));
+			} while (name.length() == 0);
+			
+			Joueur j = new Joueur(name, Partie.DEFAULT_ARGENT);
+			j.setIndice(i);
+			
+			partieEnCours.ajouterJoueur(j);
+		}
+	}
+	
+	
+	/**
+	 * Affiche la fenêtre de confirmation d'abandon d'un territoire
+	 */
+	public void askAbandon(Territoire t) {
+		// Création de la fenêtre de choix
+		WinMenu confMenu = new WinMenu("Abandonner le territoire ?");
+
+		confMenu.newItem("Oui", 0);
+		confMenu.newItem("Non", 1);
+		
+		// Affiche la fenêtre de choix
+		int conf = confMenu.open();
+
+		
+		if( conf == 0){
+			partieEnCours.getJoueurEnCours().getPeuple().abandonTerritoire(t);
+			majInfos();
+		}
+		
+		
+	}
+	
+	
+	/**
+	 * Affiche la fenêtre de confirmation d'attaque d'un territoire
+	 */
+	public void askAttaque(Territoire t) {
+		// Création de la fenêtre de choix
+		WinMenu confMenu = new WinMenu("Attaquer le territoire ?");
+
+		confMenu.newItem("Oui", 0);
+		confMenu.newItem("Non", 1);
+		
+		// Affiche la fenêtre de choix
+		int conf = confMenu.open();
+
+		
+		if( conf == 0){
+			partieEnCours.getJoueurEnCours().attaquer(t);
+			majInfos();
+		}
+		
+	}
+	
+	/**
+	 * Affiche la fenêtre de demande pour un lancé de dé lors du clic sur "fin tour"
+	 */
+	public void askConf() {
+		// Création de la fenêtre de choix
+		WinMenu confMenu = new WinMenu("Confirmer la fin du tour ?");
+
+		confMenu.newItem("Oui", 0);
+		confMenu.newItem("Non", 1);
+		
+		// Affiche la fenêtre de choix
+		int conf = confMenu.open();
+
+		
+		if( conf == 0){
+			partieEnCours.setEtape(1);
+			partieEnCours.miseEnMain();
+			majInfos();
+		}
+		
+	}
+	
+	
+	/**
+	 * Affiche une fenêtre qui demande le nombre de pions à placer sur le territoire. Si 0, abandon.
+	 * @param t
+	 */
+	public void askNbPion(Territoire t){
+		int nbPion;
+		int enMain = partieEnCours.getJoueurEnCours().getPeuple().getNbUniteEnMain();
+		
+		try {
+    		do {
+    			nbPion = Prompt.askInt("Choissiez le nombre de pions à replacer sur ce territoire. Pour l'abandonner, choisissez 0.");
+    			
+    		} while(nbPion > (enMain + t.getNbUnite()));
+		}
+		catch (Exception e) {
+			return;
+		}
+		
+		if (nbPion > 0) {
+			partieEnCours.getJoueurEnCours().getPeuple().addNbUniteEnMain(-(nbPion - t.getNbUnite()));
+			t.setNbUnite(nbPion);
+		}
+		else if (nbPion == 0) {
+			askAbandon(t);
+		}
+		
+		majInfos();
+	}
+	
+	
+	/**
+	 * Affiche la fenêtre de confirmation de redéploiement
+	 */
+	public void askConfRedeploiement(){
+		// Création de la fenêtre de choix
+		WinMenu confMenu = new WinMenu("Confirmer la fin du redéploiement ?");
+
+		confMenu.newItem("Oui", 0);
+		confMenu.newItem("Non", 1);
+		
+		// Affiche la fenêtre de choix
+		int conf = confMenu.open();
+
+		
+		if( conf == 0){
+			partieEnCours.setEtape(2);
+			// TODO à passer tous les joueurs qui ont des pions en main.
+			majInfos();
+		}
+	}
+	
+
+	
+	
+	/* ### Panel d'information ### */
+
+	
+	/**
+	 * Mise à jours des informations affichées sur la fenêtre
+	 */
+	public void majInfos() {
+		// Un premier try au cas où on appelerait cette méthode un peu trop tot
+		try {
+			int i, 
+				argent = 0,
+				nbTerritoire = 0,
+				nbTerritoireDeclin = 0,
+				nbUnite = 0,
+				nbUniteEnMain = 0;
+			
+			String name = "Undefined";
+			
+			try {
+				// Récupération de l'indice du joueur en cours
+				i = partieEnCours.getIndexJoueurEnCours();
+				
+				// Récupération des informations sur le joueur en cours
+				Joueur j = partieEnCours.getJoueurEnCours();
+				
+				name = j.getNom();
+				argent = j.getArgent();
+				
+				// Sur son peuple
+				Peuple p = j.getPeuple();
+				
+				if (p != null) {
+					nbTerritoire = j.getPeuple().getTerritoiresOccupes().size();
+					nbUnite = j.getPeuple().getNbUnite();
+					nbUniteEnMain = j.getPeuple().getNbUniteEnMain();
+				}
+				
+				// Sur son peuple en déclin
+				p = j.getPeupleDeclin();
+				
+				if (p != null) {
+					nbTerritoireDeclin = p.getTerritoiresOccupes().size();
+				}
+			}
+			catch (Exception e) {
+				i = Game.JOUEUR_BACKGROUND.length - 1;
+			}
+			
+			// MAJ
+			playerInfo.setText("");
+			playerInfo.append("\n");
+			playerInfo.append("UVs.............. " + argent + "\n");
+			playerInfo.append("Territoires...... " + nbTerritoire + (nbTerritoireDeclin > 0 ? " (+ " + nbTerritoireDeclin + ")" : "") + "\n");
+			playerInfo.append("Unités totales... " + nbUnite + "\n");
+			playerInfo.append("Unités en main... " + nbUniteEnMain + "\n");
+			
+			// Mise à jour des couleurs
+			headerAction.setBackground(JOUEUR_BACKGROUND[i]);
+			headerAction.setForeground(JOUEUR_FOREGROUND[i]);
+			
+			headerInfo.setBackground(JOUEUR_BACKGROUND[i]);
+			headerInfo.setForeground(JOUEUR_FOREGROUND[i]);
+			
+			headerJoueur.setBackground(JOUEUR_BACKGROUND[i]);
+			headerJoueur.setForeground(JOUEUR_FOREGROUND[i]);
+			headerJoueur.setText(name);
+			
+			// Mise à jour des territoires
+			Iterator<TerritoireCase> it = territoires.iterator();
+			while (it.hasNext()) {
+				it.next().majInfos();
+			}
+			
+			// Useless?
+			repaint();
+		}
+		catch (Exception e) {}
+	}
+	
 	
 	
 	/**
@@ -632,6 +642,10 @@ public class Game extends JFrame {
 		infoPanel.setVisible(false);
 	}
 	
+	
+	
+	
+	
 	/**
 	 * @return the instance
 	 */
@@ -641,7 +655,10 @@ public class Game extends JFrame {
 
 	
 	
-	
+	/**
+	 * Lance le jeu
+	 * @param args useless
+	 */
 	public static void main(String[] args) {
 		new Game();
 	}

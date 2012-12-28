@@ -7,15 +7,24 @@ import javax.swing.JButton;
 
 import com.utbm.smallWorld.Partie;
 
+/**
+ * TODO commentaire
+ *
+ * @author UTBM'Student
+ * @version 1.0
+ */
 public class JoueurAction extends JButton implements MouseListener {
-	
-	/**
-	 * 
-	 */
+	/** Stub */
 	private static final long serialVersionUID = 1L;
 	
+	/** Indice du bouton */
 	private int choixBouton;
 
+	/**
+	 * Constructeur
+	 * @param nom Texte du bouton ?
+	 * @param choixB indice du bouton
+	 */
 	public JoueurAction(String nom, int choixB){
 		super(nom);
 		
@@ -24,7 +33,10 @@ public class JoueurAction extends JButton implements MouseListener {
 		this.addMouseListener(this);
 	}
 
-	@Override
+	
+	/**
+	 * 
+	 */
 	public void mouseClicked(MouseEvent arg0) {
 		switch( choixBouton ){
 			case 0:
@@ -37,28 +49,12 @@ public class JoueurAction extends JButton implements MouseListener {
 
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	
+	/* STUBS */
+	
+	public void mouseEntered(MouseEvent arg0) {}
+	public void mouseExited(MouseEvent arg0) {}
+	public void mousePressed(MouseEvent arg0) {}
+	public void mouseReleased(MouseEvent arg0) {}
 
 }

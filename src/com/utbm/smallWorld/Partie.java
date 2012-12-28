@@ -1,7 +1,6 @@
 package com.utbm.smallWorld;
 
 
-import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,12 +13,15 @@ import com.utbm.smallWorld.pouvoirs.*;
 
 /**
  * Représentation d'une partie
- * Singleton
+ * Gestion du fonctionnement de la partie
  * 
+ * @author UTBM'Student
+ * @version 1.0
  */
 public class Partie {
-	public static final int DEFAULT_MONNAIE = 2;
-
+	/** Argent par défaut possédé par les joueurs */
+	public static final int DEFAULT_ARGENT = 2;
+	
 	/** Singleton, instance de la partie en cours */
 	private static Partie part;
 	
@@ -59,6 +61,8 @@ public class Partie {
 	/** Plateau de la partie */
 	protected Plateau plateau;
 	
+	
+	
 	/**
 	 * Constructeur par défaut, initialise les listes
 	 */
@@ -76,71 +80,42 @@ public class Partie {
 
 	
 	
+	/* ### Méthodes relatives au fonctionnement des tours ### */
+	
+	
+	
+	/**
+	 * Méthode permettant de passer au tour suivant
+	 */
 	public void nouveauTour() {
 		tourEnCours++;
-		etape = 0;
-		indexJoueurEnCours = 0;
 		
-		joueurEnCours = this.lstJoueurs.get(indexJoueurEnCours);
-		
-		if (joueurEnCours.getPeuple() == null) {
-			Game.getInstance().selectionPeuple();
+		if (tourEnCours > nbTours) {
+			
 		}
-		
-		miseEnMain();
-	}
-	
-
-	/**
-	 * Traitements en fonction du territoire cliqué
-	 * @param territoire
-	 */
-	public void cliqueTerritoire(Territoire territoire) {
-		if (etape == 0) {
-			
-			if ( joueurEnCours.getPeuple().equals(territoire.getOccupant()) ) {
-				Game.getInstance().askAbandon(territoire);
-			}
-			else {
-				Game.getInstance().askAttaque(territoire);
-			}
-			
-		}else if( etape == 1 ){
-			
-			if( joueurEnCours.getPeuple().equals(territoire.getOccupant()) ){
-				Game.getInstance().askNbPion(territoire);
-			}
-			
+		else {
+			// RAZ des étapes
+    		etape = 0;
+    		indexJoueurEnCours = 0;
+    		
+    		joueurEnCours = this.lstJoueurs.get(indexJoueurEnCours);
+    		
+    		// Si le peuple n'a pas de joueur, il doit en choisir un
+    		if (joueurEnCours.getPeuple() == null) {
+    			Game.getInstance().selectionPeuple();
+    		}
+    		
+    		miseEnMain();
 		}
 	}
 	
-	/**
-	 * Traitement lors d'un clic sur le bouton fin tour
-	 */
-	public void cliqueFinTour(){
-		if( etape == 0 )
-			Game.getInstance().askConf();
-	}
 	
 	
 	/**
-	 * Traitement lors d'un clic sur le bouton fin redéploiement
+	 * Récupère toutes les unités placées sur les territoires du joueur
+	 * à l'exception d'une par territoire
+	 * et les places dans sa main
 	 */
-	public void cliqueFinRedeploiement(){
-		if(  etape == 1 && joueurEnCours.getPeuple().getNbUniteEnMain() == 0 )
-			Game.getInstance().askConfRedeploiement();
-	}
-	
-	
-	/**
-	 * Traitement lors d'un clic sur le bouton passer en déclin
-	 */
-	public void cliqueDeclin() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 	public void miseEnMain() {
 		Peuple p = joueurEnCours.getPeuple();
 		
@@ -159,21 +134,75 @@ public class Partie {
 		
 		// Application des bonus
 		p.calcBonusUniteAttaque();
-		
-		// Joueur maintenant prêt à attaquer.
+	}
+	
+	
+	
+	
+	/* ### Methodes réagissant à des interactions utilisateur ### */
+	
+	
+	
+	/**
+	 * Traitements en fonction du territoire cliqué
+	 * @param territoire Territoire cliqué par l'utilisateur
+	 */
+	public void cliqueTerritoire(Territoire territoire) {
+		if (etape == 0) {
+			// Phase d'attaque
+			
+			if ( joueurEnCours.getPeuple().equals(territoire.getOccupant()) ) {
+				Game.getInstance().askAbandon(territoire);
+			}
+			else {
+				Game.getInstance().askAttaque(territoire);
+			}
+			
+		}
+		else if (etape == 1) {
+			// Phase de redéploiement
+			
+			if (joueurEnCours.getPeuple().equals(territoire.getOccupant())) {
+				Game.getInstance().askNbPion(territoire);
+			}
+		}
+	}
+	
+	
+	
+	
+	/**
+	 * Traitement lors d'un clic sur le bouton fin tour
+	 */
+	public void cliqueFinTour() {
+		if (etape == 0) {
+			Game.getInstance().askConf();
+		}
 	}
 	
 	
 	/**
-	 * @return instance de la Partie en cours
+	 * Traitement lors d'un clic sur le bouton fin redéploiement
 	 */
-	public static Partie getInstance(){
-		if( part == null ) {
-			part = new Partie();
+	public void cliqueFinRedeploiement(){
+		if (etape == 1 && joueurEnCours.getPeuple().getNbUniteEnMain() == 0) {
+			Game.getInstance().askConfRedeploiement();
 		}
-		
-		return part;
 	}
+	
+	
+	/**
+	 * Traitement lors d'un clic sur le bouton passer en déclin
+	 */
+	public void cliqueDeclin() {
+		// TODO Vérifier que etape == 0 et que le joueur n'a encore rien conquis
+		
+	}
+	
+	
+	
+	/* ### Autres méthodes ### */
+	
 	
 	/**
 	 * Passe un peuple se trouvant sur le jeu dans le tas
@@ -213,19 +242,39 @@ public class Partie {
 		pouvoirsDispo.add(pouvoirClass);
 	}
 	
+
+	
+	/**
+	 * Marque une combinaison Peuple/Pouvoir comme utilisée
+	 * @param numCombinaison index dans la liste
+	 */
+	public void mettreCombinaisonEnJeu(int numCombinaison) {
+		pouvoirsPris.add(pouvoirsDispo.get(numCombinaison));
+		peuplesPris.add(peuplesDispo.get(numCombinaison));
+		
+		pouvoirsDispo.remove(numCombinaison);
+		peuplesDispo.remove(numCombinaison);
+	}
+	
+	
+	
 	/**
 	 * Ajoute un joueur à la liste des joueurs participants
 	 * @param j Joueur à ajouter
 	 */
-	public void ajouterJoueur(Joueur j){
+	public void ajouterJoueur(Joueur j) {
 		lstJoueurs.add(j);
 	}
+	
+	
+	
+	
+	/* ### Méthodes d'initialisations ### */
 	
 	/**
 	 * Initialise les listes des peuples
 	 */
-	private void initPeuples(){
-		
+	private void initPeuples() {
 		peuplesDispo.add(PeupleAdministration.class);
 		argentPeuple.add(0);
 
@@ -260,15 +309,15 @@ public class Partie {
 		argentPeuple.add(0);
 		
 		/* pour randomizer le choix peuple/pouvoir */
-		
 		Collections.shuffle(peuplesDispo);
 	}
+	
+	
 	
 	/**
 	 * Initialisation des pouvoirs
 	 */
 	private void initPouvoirs(){
-
 		pouvoirsDispo.add(PouvoirAssociatif.class);
 		
 		pouvoirsDispo.add(PouvoirAvare.class);
@@ -296,29 +345,24 @@ public class Partie {
 		pouvoirsDispo.add(PouvoirParesseux.class);
 		
 		pouvoirsDispo.add(PouvoirVoyageur.class);
-	}
-	
-	/**
-	 * Marque une combinaison Peuple/Pouvoir comme utilisée
-	 * @param numCombinaison index dans la liste
-	 */
-	public void mettreCombinaisonEnJeu(int numCombinaison) {
-		pouvoirsPris.add( pouvoirsDispo.get(numCombinaison) );
-		peuplesPris.add( peuplesDispo.get(numCombinaison) );
 		
-		pouvoirsDispo.remove(numCombinaison);
-		peuplesDispo.remove(numCombinaison);
-	}
-	
-	public void tourSuivant(){
-		this.tourEnCours++;
+		/* pour randomizer le choix peuple/pouvoir */
+		Collections.shuffle(pouvoirsDispo);
 	}
 
+	
+	
+	
+	/* ### GETTER ### */
+	
+	
+	
+	
 	/**
 	 * @return the defaultMonnaie
 	 */
-	public static int getDefaultMonnaie() {
-		return DEFAULT_MONNAIE;
+	public static int getDefaultArgent() {
+		return DEFAULT_ARGENT;
 	}
 
 	/**
@@ -413,6 +457,26 @@ public class Partie {
 		return lstJoueurs.get(i);
 	}
 
+
+	/**
+	 * @return instance de la Partie en cours
+	 */
+	public static Partie getInstance(){
+		if( part == null ) {
+			part = new Partie();
+		}
+		
+		return part;
+	}
+	
+	
+	
+	
+	/* ### SETTER ### */
+	
+	
+	
+
 	/**
 	 * @param part the part to set
 	 */
@@ -504,7 +568,5 @@ public class Partie {
 	public void setEtape(int noEtape){
 		this.etape = noEtape;
 	}
-
-
 
 }

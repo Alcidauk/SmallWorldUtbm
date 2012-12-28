@@ -7,6 +7,12 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+/**
+ * Fenêtre permattant la saisie d'information par l'utilisateur
+ * 
+ * @author UTBM'Student
+ * @version 1.0
+ */
 public class Prompt extends JDialog implements MouseListener, KeyListener {
 	/** Stub */
 	private static final long serialVersionUID = 1L;
@@ -21,6 +27,8 @@ public class Prompt extends JDialog implements MouseListener, KeyListener {
 	private JTextField input;
 	
 	private JLabel question;
+	private JPanel top;
+	private JPanel bottom;
 	
 	static {
 		instance = new Prompt();
@@ -45,8 +53,8 @@ public class Prompt extends JDialog implements MouseListener, KeyListener {
 	 * Construction
 	 */
 	private void build() {
-		JPanel top = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		top = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		bottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
 		input = new JTextField(30);
 		
@@ -76,6 +84,12 @@ public class Prompt extends JDialog implements MouseListener, KeyListener {
 		instance.input.setText("");
 		instance.question.setText(question);
 		
+		int width = Math.max(DEFAULT_WIDTH, question.length() * 7 + 40);
+		
+		instance.top.setPreferredSize(new Dimension(width - 20, 30));
+		instance.bottom.setPreferredSize(new Dimension(width - 20, 80));
+		instance.setSize(new Dimension(width, DEFAULT_HEIGHT));
+		
 		instance.setVisible(true);
 		
 		return instance.input.getText();
@@ -83,22 +97,21 @@ public class Prompt extends JDialog implements MouseListener, KeyListener {
 	
 	/**
 	 * Affiche la fenêtre. Cas où l'on attend un int.
+	 * @throws Exception si fenêtre fermée
 	 */
 	public static int askInt(String question) {
 		instance.input.setText("");
 		instance.question.setText(question);
+
+		int width = Math.max(DEFAULT_WIDTH, question.length() * 7 + 40);
+		
+		instance.top.setPreferredSize(new Dimension(width - 20, 30));
+		instance.bottom.setPreferredSize(new Dimension(width - 20, 80));
+		instance.setSize(new Dimension(width, DEFAULT_HEIGHT));
 		
 		instance.setVisible(true);
 		
-		int tmp = 0;
-		
-		try{
-			tmp = Integer.parseInt(instance.input.getText()); 
-		}catch( Exception e){
-			askInt(question);
-		}
-		
-		return tmp;
+		return Integer.parseInt(instance.input.getText()); 
 	}
 	
 	/**
@@ -118,6 +131,7 @@ public class Prompt extends JDialog implements MouseListener, KeyListener {
 	}
 	
 	
+	/* STUB */
 	public void mouseReleased(MouseEvent e){}
 	public void mouseEntered(MouseEvent e){}
 	public void mouseExited(MouseEvent e){}

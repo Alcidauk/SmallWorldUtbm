@@ -15,7 +15,7 @@ public class PouvoirFauxCul extends Pouvoir {
 	 * 
 	 */
 	public boolean bonusPeutAttaquer(Territoire from, Territoire to){
-		if( to.isEstEnBordure() )
+		if( to.estEnBordure() )
 			return true;
 		return false;
 	}

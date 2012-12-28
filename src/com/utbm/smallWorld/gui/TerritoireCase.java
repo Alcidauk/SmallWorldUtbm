@@ -18,6 +18,12 @@ import javax.swing.border.LineBorder;
 import com.utbm.smallWorld.Partie;
 import com.utbm.smallWorld.Territoire;
 
+/**
+ * Représentation graphique d'un Territoire
+ * 
+ * @author UTBM'Student
+ * @version 1.0
+ */
 public class TerritoireCase extends JPanel implements MouseListener {
 	/** Stub */
 	private static final long serialVersionUID = 1L;
@@ -125,11 +131,17 @@ public class TerritoireCase extends JPanel implements MouseListener {
 		Game.getInstance().hideInfo();
 	}
 	
-
+	
+	/**
+	 * Action lors du clique: Délégation à Partie
+	 * @param arg0 useless
+	 */
 	public void mouseClicked(MouseEvent arg0) {
 		Partie.getInstance().cliqueTerritoire(this.territoire);
 	}
-	/** Stub */
+	
+	
+	/* Stub */
 	public void mousePressed(MouseEvent arg0) {}
 	public void mouseReleased(MouseEvent arg0) {}
 }

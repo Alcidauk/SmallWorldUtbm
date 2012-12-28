@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Représentation d'un Territoire
  * 
- * @author LONGO Michael
+ * @author UTBM'Student
  * @version 1.0
  */
 public class Territoire {
@@ -20,7 +20,7 @@ public class Territoire {
 	private Peuple occupant = null;
 	
 	/** Indique si le territoire est en bordure de carte */
-	private boolean estEnBordure = false;
+	private boolean enBordure = false;
 
 	/** Liste des territoires adjacants à l'actuel */
 	private List<Territoire> territoiresAdjacents;
@@ -31,6 +31,8 @@ public class Territoire {
 	/** Historique des prises du territoire */
 	private List<Peuple> prisesDuTerritoire[];
 	
+	
+	
 	/**
 	 * Constructeur par défaut
 	 * Initialise les listes
@@ -40,6 +42,7 @@ public class Territoire {
 		elements = new LinkedList<Element>();
 	}
 	
+	
 	/**
 	 * Constructeur, appel au constructeur par défaut
 	 * @param enBordure Indique si le territoire est en bordure
@@ -47,8 +50,10 @@ public class Territoire {
 	public Territoire(boolean enBordure) {
 		this();
 		
-		this.estEnBordure = enBordure;
+		this.enBordure = enBordure;
 	}
+	
+	
 	
 	/**
 	 * Calcule le cout de l'attaque pour ce territoire
@@ -71,6 +76,31 @@ public class Territoire {
 		return cout <= 0 ? 1 : cout;
 	}
 	
+	
+	
+	/**
+	 * Perte du territoire
+	 */
+	public void priseTerritoire() {
+		if (this.occupant != null) {
+			occupant.perteTerritoire(this);
+			occupant = null;
+		}
+		
+		nbUnite = 0;
+	}
+	
+	
+	
+	/**
+	 * Abandon du territoire par le joueur actuel
+	 */
+	public void abandon() {
+		//TODO ?
+	}
+	
+	
+	
 	/**
 	 * @return Nombre de point victoire bonus sans compter le point normal
 	 */
@@ -86,60 +116,11 @@ public class Territoire {
 		return bonus;
 	}
 	
-	/**
-	 * Ajoute des unités sur le territoire
-	 * @param nbUnite Nombre d'unité à ajouter
-	 */
-	public void ajouterUnite(int nbUnite) {
-		this.nbUnite += nbUnite;
-	}
 	
-	/**
-	 * Retire des unités sur le territoire
-	 * @param nbUnite Nombre d'unité à retirer
-	 */
-	public void retirerUnite(int nbUnite) {
-		this.nbUnite = Math.max(0, nbUnite);
-	}
+	/* ### GETTER ### */
 	
-	/**
-	 * Vérifie si le territoire est adjacent à un des territoires du peuple passé
-	 * @param p Peuple a tester
-	 * @return true/false
-	 */
-	public boolean estAdjacent(Peuple p) {
-		// TODO
-		return false;
-	}
 	
-	/**
-	 * Vérifie si le territoire est adjacent à un autre
-	 * @param t Territoire a tester
-	 * @return true/false
-	 */
-	public boolean estAdjacent(Territoire t) {
-		return territoiresAdjacents.contains(t);
-	}
 	
-	/**
-	 * Perte du territoire
-	 */
-	public void priseTerritoire() {
-		if (this.occupant != null) {
-			occupant.perteTerritoire(this);
-			occupant = null;
-		}
-		
-		nbUnite = 0;
-	}
-	
-	/**
-	 * Abandon du territoire par le joueur actuel
-	 */
-	public void abandon() {
-		
-	}
-
 	/**
 	 * @return the nbUnite
 	 */
@@ -157,8 +138,8 @@ public class Territoire {
 	/**
 	 * @return the estEnBordure
 	 */
-	public boolean isEstEnBordure() {
-		return estEnBordure;
+	public boolean estEnBordure() {
+		return enBordure;
 	}
 
 	/**
@@ -175,6 +156,7 @@ public class Territoire {
 		return elements;
 	}
 	
+	
 	/**
 	 * 
 	 * @return List prisesDuTerritoire
@@ -182,54 +164,7 @@ public class Territoire {
 	public List<Peuple>[] getPrisesDuTerritoire() {
 		return prisesDuTerritoire;
 	}
-
-	/**
-	 * @param nbUnite the nbUnite to set
-	 */
-	public void setNbUnite(int nbUnite) {
-		this.nbUnite = nbUnite;
-	}
-
-	/**
-	 * @param occupant the occupant to set
-	 */
-	public void setOccupant(Peuple occupant) {
-		this.occupant = occupant;
-	}
-
-	/**
-	 * @param estEnBordure the estEnBordure to set
-	 */
-	public void setEstEnBordure(boolean estEnBordure) {
-		this.estEnBordure = estEnBordure;
-	}
-
-	/**
-	 * @param territoiresAdjacents the territoiresAdjacents to set
-	 */
-	public void setTerritoiresAdjacents(List<Territoire> territoiresAdjacents) {
-		this.territoiresAdjacents = territoiresAdjacents;
-	}
-
-	/**
-	 * @param elements the elements to set
-	 */
-	public void setElements(List<Element> elements) {
-		this.elements = elements;
-	}
-
-	/**
-	 * @param prisesDuTerritoire
-	 */
-	public void setPrisesDuTerritoire(List<Peuple>[] prisesDuTerritoire) {
-		this.prisesDuTerritoire = prisesDuTerritoire;
-	}
 	
-	
-	
-	public void ajouterElement(Element e) {
-		
-	}
 	
 	/**
 	 * 
@@ -248,16 +183,100 @@ public class Territoire {
 		
 		return false;
 	}
-
-
+	
+	
 	
 	/**
-	 * TODO
+	 * Vérifie si le territoire est adjacent à un autre
+	 * @param t Territoire a tester
+	 * @return true/false
+	 */
+	public boolean estAdjacent(Territoire t) {
+		return territoiresAdjacents.contains(t);
+	}
+
+	
+	
+	/* ### SETTER ### */
+	
+	
+	
+	/**
+	 * @param nbUnite the nbUnite to set
+	 */
+	public void setNbUnite(int nbUnite) {
+		this.nbUnite = nbUnite;
+	}
+	
+	
+	/**
+	 * Ajoute des unités sur le territoire
+	 * @param nbUnite Nombre d'unité à ajouter
+	 */
+	public void ajouterUnite(int nbUnite) {
+		this.nbUnite += nbUnite;
+	}
+	
+	
+	
+	/**
+	 * Retire des unités sur le territoire
+	 * @param nbUnite Nombre d'unité à retirer
+	 */
+	public void retirerUnite(int nbUnite) {
+		this.nbUnite = Math.max(0, nbUnite);
+	}
+	
+
+	/**
+	 * @param occupant the occupant to set
+	 */
+	public void setOccupant(Peuple occupant) {
+		this.occupant = occupant;
+	}
+
+	/**
+	 * @param estEnBordure the estEnBordure to set
+	 */
+	public void setEnBordure(boolean estEnBordure) {
+		this.enBordure = estEnBordure;
+	}
+
+	/**
+	 * @param territoiresAdjacents the territoiresAdjacents to set
+	 */
+	public void setTerritoiresAdjacents(List<Territoire> territoiresAdjacents) {
+		this.territoiresAdjacents = territoiresAdjacents;
+	}
+
+	/**
+	 * @param elements the elements to set
+	 */
+	public void setElements(List<Element> elements) {
+		this.elements = elements;
+	}
+
+
+	/**
+	 * 
+	 */
+	public void ajouterElement(Element e) {
+		//TODO
+	}
+	
+	
+	/**
+	 * @param prisesDuTerritoire
+	 */
+	public void setPrisesDuTerritoire(List<Peuple>[] prisesDuTerritoire) {
+		this.prisesDuTerritoire = prisesDuTerritoire;
+	}
+	
+	
+	/**
+	 * @param t Territoire à ajouter à la liste des territoires adjacents
 	 */
 	public void addTerritoireAdjacent(Territoire t) {
 		this.territoiresAdjacents.add(t);
 	}
-
-
-	
 }

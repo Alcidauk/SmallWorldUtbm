@@ -3,12 +3,27 @@ package com.utbm.smallWorld;
 import java.util.Iterator;
 import java.util.List;
 
-
+/**
+ * Représentation d'un Joueur
+ * Gestion des peuples, de l'argent
+ * 
+ * @author UTBM'Student
+ * @version 1.0
+ */
 public class Joueur {
+	/** Index du joueur dans la liste des joueurs de la partie */
 	private int indice;
+	
+	/** Pseudonyme du joueur */
 	private String nom;
+	
+	/** Argent possédée par le joueur */
 	private int argent = 0;
+	
+	/** Peuple actif du joueur */
 	private Peuple peuple = null;
+	
+	/** Peuple en déclin du joueur */
 	private Peuple peupleDeclin = null;
 	
 	/**
@@ -30,6 +45,12 @@ public class Joueur {
 	
 	/**
 	 * Lance l'attaque d'un territoire
+	 * La méthode analyse les différentes possibilités d'attaque,
+	 * et sélectionne la meilleure. Une fois sélectionnée,
+	 * elle appelle les méthodes nécessaires des différentes classes.
+	 * Si l'attaque n'est pas faisable, on le signale dans le return
+	 * @param to Territoire à attaquer
+	 * @return true si l'attaque a réussi
 	 */
 	public boolean attaquer(Territoire to) {
 		List<Territoire> occupes = this.peuple.getTerritoiresOccupes();
@@ -40,14 +61,12 @@ public class Joueur {
 		// Recherche du meilleur territoire pour attaquer
 		if (occupes.size() > 0) {
 			Iterator<Territoire> it = occupes.iterator();
-
-			
-			bonus = 0.0;
 			
 			while (it.hasNext()) {
 				Territoire tmp = it.next();
-				
+				System.out.println("!");
 				if (this.peuple.peutAttaquer(tmp, to)) {
+					
 					double tmpBonus = this.peuple.calcBonusAttaque(from, to);
 					
 					if (tmpBonus > bonus || from == null) {
@@ -56,11 +75,15 @@ public class Joueur {
 					}
 				}
 			}
+			
+			// Si aucune possibilité, on annule
+			if (from == null) {
+				return false;
+			}
 		}
 		// Le peuple ne possède aucun territoire
-		else if (! to.isEstEnBordure()) {
-			System.out.println("ok");
-
+		else if (! to.estEnBordure()) {
+			// Le try est là au cas où, car on passe null
 			try {
 				if (! this.peuple.peutAttaquer(null, to)) {
 					return false;
@@ -86,8 +109,9 @@ public class Joueur {
 			}
 		}
 		
-		//
+		// Etude de la faisabilité de l'attaque
 		if (cout > this.peuple.getNbUniteEnMain() + this.peuple.getNbUniteBonus()) {
+			// TODO lancé de dé ?
 			return false;
 		}
 		
@@ -106,6 +130,13 @@ public class Joueur {
 	public void pertePeupleEnDeclin() {
 		this.peupleDeclin = null;
 	}
+	
+	
+	
+	
+	/* ### GETTER ### */
+	
+	
 	
 	
 	/**
@@ -143,6 +174,16 @@ public class Joueur {
 		return indice;
 	}
 
+	
+	
+	
+	
+	/* ### SETTER ### */
+	
+	
+	
+	
+	
 	/**
 	 * @param indice the indice to set
 	 */
@@ -177,6 +218,5 @@ public class Joueur {
 	public void setPeuplesDeclin(Peuple peuplesDeclin) {
 		this.peupleDeclin = peuplesDeclin;
 	}
-	
 }
 

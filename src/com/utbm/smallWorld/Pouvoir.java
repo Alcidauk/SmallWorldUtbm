@@ -2,8 +2,14 @@ package com.utbm.smallWorld;
 
 import com.utbm.smallWorld.interfaces.Bonusable;
 
+/**
+ * Représentation des pouvoirs
+ * Classe abstraite étant redéfinie par chaque pouvoir existant dans le jeu
+ * 
+ * @author UTBM'Student
+ * @version 1.0
+ */
 public abstract class Pouvoir implements Bonusable {
-	
 	/** nombre de pions de peuples qu'apporte le pouvoir en plus */
 	protected  int nbUniteApporte;
 	
@@ -19,66 +25,112 @@ public abstract class Pouvoir implements Bonusable {
 	/** description du pouvoir */
 	protected String desc;
 
-	/* constructeur */
 	
-	public Pouvoir(){
+	/**
+	 * Constructeur par défaut
+	 */
+	public Pouvoir() {
 		nom = "";
 		desc = "";
 		actifEnDeclin = false;
 		nbUniteApporte = 0;
 		peupleLie = null;
 	}
-
-	/* accesseurs peupleLie */
+	
+	
+	
+	/* ### GETTER ### */
 	
 	/**
-	 * setter du peupleLie
-	 * @param peupleALier le peuple à associer au pouvoir
+	 * @return the nbUniteApporte
 	 */
-	public void setPeupleLie(Peuple peupleALier){
-		this.peupleLie = peupleALier;
-	}
-	
-	
-	/**
-	 * getter du peupleLie
-	 * @return retourne le peuple lié au pouvoir dans la partie
-	 */
-	public Peuple getPeupleLie(){
-		return this.peupleLie;
-	}
-	
-	/* accesseurs actifEnDeclin */
-	
-	/**
-	 * getter d'actifEnDeclin
-	 * @return retourne actifEnDeclin
-	 */
-	public boolean getActifEnDeclin(){
-		return this.actifEnDeclin;
-	}
-	
-	/* accesseurs nom */
-	
-	public String getNom(){
-		return nom;
-	}
-	
-	/* accesseurs descripteur */
-	
-	public String getDesc(){
-		return desc;
-	}
-	
-	/* accesseurs nbUniteApporte */
-	
-	public int getNbUniteApporte(){
+	public int getNbUniteApporte() {
 		return nbUniteApporte;
 	}
+
+
+	/**
+	 * @return the peupleLie
+	 */
+	public Peuple getPeupleLie() {
+		return peupleLie;
+	}
+
+
+	/**
+	 * @return the actifEnDeclin
+	 */
+	public boolean isActifEnDeclin() {
+		return actifEnDeclin;
+	}
+
+
+	/**
+	 * @return the nom
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+
+	/**
+	 * @return the desc
+	 */
+	public String getDesc() {
+		return desc;
+	}
+
+	
+
+	/* ### SETTER ### */
+
+
+	/**
+	 * @param nbUniteApporte the nbUniteApporte to set
+	 */
+	public void setNbUniteApporte(int nbUniteApporte) {
+		this.nbUniteApporte = nbUniteApporte;
+	}
+
+
+	/**
+	 * @param peupleLie the peupleLie to set
+	 */
+	public void setPeupleLie(Peuple peupleLie) {
+		this.peupleLie = peupleLie;
+	}
+
+
+	/**
+	 * @param actifEnDeclin the actifEnDeclin to set
+	 */
+	public void setActifEnDeclin(boolean actifEnDeclin) {
+		this.actifEnDeclin = actifEnDeclin;
+	}
+
+	
+	/**
+	 * @param nom the nom to set
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+
+	/**
+	 * @param desc the desc to set
+	 */
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+
+
+
+	/* ### méthode de l'interface bonusable. Toutes définies pour être inactives ici et utilisées dans les filles ### */
 	
 	
-	/** méthode de l'interface bonusable. Toutes définies pour être inactives ici et utilisées dans les filles */
-	
+
 	/**
 	 * @return int le nombre d'unités en plus à la fin du tour
 	 */
