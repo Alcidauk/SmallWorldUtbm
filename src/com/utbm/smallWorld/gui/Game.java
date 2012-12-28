@@ -536,31 +536,53 @@ public class Game extends JFrame {
 		
 		if( conf == 0){
 			if( etape == 1 ){
+				/* on passe à l'étape redéploiement des autres joueurs */
 				partieEnCours.setEtape(2);
-				/* on indique que le joueur passe au tour suivant pour après ne pas le faire rejouer */
+				/* et on indique que le joueur passe au tour suivant pour après ne pas le faire rejouer */
 				partieEnCours.getJoueurEnCours().passeTourSuivant();
 			}
 			if( etape == 1 || etape == 2){
-				
+				/* on parcourt la liste des joueurs pou voir s'il y en a qui ont des pions en main */
 				Iterator<Joueur> it = partieEnCours.getLstJoueurs().iterator();
+				
 				Joueur tmp = it.next();
 				
-				while( it.hasNext() || tmp.getPeuple().getNbUniteEnMain() == 0 ){
-					tmp = it.next();
+				int nbUniteMain;
+				
+				/* try pour le cas où pas encore de peuple choisi. */
+				try{
+					nbUniteMain = tmp.getPeuple().getNbUniteEnMain();
+				}catch( Exception e ){
+					nbUniteMain = 0;
 				}
 				
-				if( tmp.getPeuple().getNbUniteEnMain() != 0 ){
+				while( it.hasNext() && nbUniteMain == 0 ){
+					tmp = it.next();
+					try{
+						nbUniteMain = tmp.getPeuple().getNbUniteEnMain();
+					}catch( Exception e){
+						nbUniteMain = 0;
+					}
+				}
+				/* s'il y a des poins en main pour un joueur, 
+				 * on le passe en joueur courant pour qu'il redéploie ses pions */
+				if( nbUniteMain != 0 ){
 					partieEnCours.setJoueurEnCours(tmp);
 				}else{
 					Iterator<Joueur> it2 = partieEnCours.getLstJoueurs().iterator();
 					Joueur tmp2 = it2.next();
 					
-					while( it2.hasNext() || tmp2.getTourJoues() > partieEnCours.getTourEnCours() ){
+					while( it2.hasNext() && tmp2.getTourJoues() > partieEnCours.getTourEnCours() ){
 						tmp2 = it2.next();
 					}
+
 					
 					if( tmp2.getTourJoues() == partieEnCours.getTourEnCours() ){
+						partieEnCours.setEtape(0);
 						partieEnCours.setJoueurEnCours(tmp2);
+						
+						if( tmp2.getPeuple() == null )
+							selectionPeuple();
 					}else{
 						partieEnCours.setEtape(0);
 						partieEnCours.setJoueurEnCours(partieEnCours.getLstJoueurs().get(0));

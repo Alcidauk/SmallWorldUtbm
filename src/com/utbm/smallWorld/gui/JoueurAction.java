@@ -41,10 +41,13 @@ public class JoueurAction extends JButton implements MouseListener {
 		switch( choixBouton ){
 			case 0:
 				Partie.getInstance().cliqueFinTour();
+				break;
 			case 1:
 				Partie.getInstance().cliqueFinRedeploiement();
+				break;
 			case 2:
 				Partie.getInstance().cliqueDeclin();
+				break;
 		}
 
 	}
