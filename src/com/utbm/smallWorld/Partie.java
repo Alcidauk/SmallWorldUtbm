@@ -193,8 +193,8 @@ public class Partie {
 	 * Traitement lors d'un clic sur le bouton fin redéploiement
 	 */
 	public void cliqueFinRedeploiement(){
-		if (etape == 1 && joueurEnCours.getPeuple().getNbUniteEnMain() == 0) {
-			Game.getInstance().askConfRedeploiement();
+		if ( (etape == 1 || etape == 2) && joueurEnCours.getPeuple().getNbUniteEnMain() == 0) {
+			Game.getInstance().askConfRedeploiement(etape);
 		}
 	}
 	
@@ -575,6 +575,13 @@ public class Partie {
 	 */
 	public void setEtape(int noEtape){
 		this.etape = noEtape;
+	}
+	
+	/**
+	 * passe au tour suivant
+	 */
+	public void passeTourSuivant(){
+		this.tourEnCours++;
 	}
 
 }

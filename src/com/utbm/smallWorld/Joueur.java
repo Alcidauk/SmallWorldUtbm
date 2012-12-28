@@ -26,6 +26,9 @@ public class Joueur {
 	/** Peuple en déclin du joueur */
 	private Peuple peupleDeclin = null;
 	
+	/** nb de tours déjà joués par le joueur */
+	private int tourJoues = 0;
+	
 	/**
 	 * Constructeur par défaut
 	 */
@@ -173,6 +176,14 @@ public class Joueur {
 	public int getIndice() {
 		return indice;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getTourJoues() {
+		return tourJoues;
+	}
 
 	
 	
@@ -218,5 +229,23 @@ public class Joueur {
 	public void setPeuplesDeclin(Peuple peuplesDeclin) {
 		this.peupleDeclin = peuplesDeclin;
 	}
+	
+	/**
+	 * 
+	 * @param tourJoues
+	 */
+	public void setTourJoues(int tourJoues) {
+		this.tourJoues = tourJoues;
+	}
+	
+	/**
+	 * indique que le joueur a joué son tour
+	 */
+	public void passeTourSuivant(){
+		setTourJoues(getTourJoues() + 1);
+	}
+
+
+
 }
 

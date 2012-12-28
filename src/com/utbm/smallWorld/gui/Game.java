@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import com.utbm.smallWorld.Element;
 import com.utbm.smallWorld.Joueur;
 import com.utbm.smallWorld.Partie;
 import com.utbm.smallWorld.Peuple;
@@ -522,7 +523,7 @@ public class Game extends JFrame {
 	/**
 	 * Affiche la fenêtre de confirmation de redéploiement
 	 */
-	public void askConfRedeploiement(){
+	public void askConfRedeploiement(int etape){
 		// Création de la fenêtre de choix
 		WinMenu confMenu = new WinMenu("Confirmer la fin du redéploiement ?");
 
@@ -534,7 +535,39 @@ public class Game extends JFrame {
 
 		
 		if( conf == 0){
-			partieEnCours.setEtape(2);
+			if( etape == 1 ){
+				partieEnCours.setEtape(2);
+				/* on indique que le joueur passe au tour suivant pour après ne pas le faire rejouer */
+				partieEnCours.getJoueurEnCours().passeTourSuivant();
+			}
+			if( etape == 1 || etape == 2){
+				
+				Iterator<Joueur> it = partieEnCours.getLstJoueurs().iterator();
+				Joueur tmp = it.next();
+				
+				while( it.hasNext() || tmp.getPeuple().getNbUniteEnMain() == 0 ){
+					tmp = it.next();
+				}
+				
+				if( tmp.getPeuple().getNbUniteEnMain() != 0 ){
+					partieEnCours.setJoueurEnCours(tmp);
+				}else{
+					Iterator<Joueur> it2 = partieEnCours.getLstJoueurs().iterator();
+					Joueur tmp2 = it2.next();
+					
+					while( it2.hasNext() || tmp2.getTourJoues() > partieEnCours.getTourEnCours() ){
+						tmp2 = it2.next();
+					}
+					
+					if( tmp2.getTourJoues() == partieEnCours.getTourEnCours() ){
+						partieEnCours.setJoueurEnCours(tmp2);
+					}else{
+						partieEnCours.setEtape(0);
+						partieEnCours.setJoueurEnCours(partieEnCours.getLstJoueurs().get(0));
+						partieEnCours.passeTourSuivant();
+					}
+				}
+			}
 			// TODO à passer tous les joueurs qui ont des pions en main.
 			majInfos();
 		}
