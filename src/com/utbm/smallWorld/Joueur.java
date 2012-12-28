@@ -57,7 +57,6 @@ public class Joueur {
 	 */
 	public boolean attaquer(Territoire to) {
 		List<Territoire> occupes = this.peuple.getTerritoiresOccupes();
-		
 		Territoire from = null;
 		double bonus = 0.0;
 		

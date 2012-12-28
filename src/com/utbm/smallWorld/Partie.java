@@ -163,6 +163,7 @@ public class Partie {
 				Game.getInstance().askAbandon(territoire);
 			}
 			else {
+				//if(coutAttaque(territoire) > joueurEnCours.getPeuple().)
 				Game.getInstance().askAttaque(territoire);
 			}
 			
