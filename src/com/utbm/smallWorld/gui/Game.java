@@ -568,7 +568,9 @@ public class Game extends JFrame {
 				 * on le passe en joueur courant pour qu'il redéploie ses pions */
 				if( nbUniteMain != 0 ){
 					partieEnCours.setJoueurEnCours(tmp);
+				/* sinon, cela signifie qu'il n'y a plus de joueur qui ont des pions à redéployer */
 				}else{
+					/*  on cherche donc le prochain joueur */
 					Iterator<Joueur> it2 = partieEnCours.getLstJoueurs().iterator();
 					Joueur tmp2 = it2.next();
 					
@@ -576,13 +578,14 @@ public class Game extends JFrame {
 						tmp2 = it2.next();
 					}
 
-					
+					/* si il reste des joueurs dans le tour on les fait jouer */
 					if( tmp2.getTourJoues() == partieEnCours.getTourEnCours() ){
 						partieEnCours.setEtape(0);
 						partieEnCours.setJoueurEnCours(tmp2);
 						
 						if( tmp2.getPeuple() == null )
 							selectionPeuple();
+					/* si non, on pass au tour suivant, le premier joueur joue */
 					}else{
 						partieEnCours.setEtape(0);
 						partieEnCours.setJoueurEnCours(partieEnCours.getLstJoueurs().get(0));
@@ -590,7 +593,6 @@ public class Game extends JFrame {
 					}
 				}
 			}
-			// TODO à passer tous les joueurs qui ont des pions en main.
 			majInfos();
 		}
 	}
