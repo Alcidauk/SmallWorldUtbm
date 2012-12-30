@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import com.utbm.smallWorld.Element;
 import com.utbm.smallWorld.Joueur;
@@ -78,6 +79,10 @@ public class Game extends JFrame {
 	private JoueurAction btnTour;
 
 	private JoueurAction btnDeploie;
+
+	private JPanel infoTemp;
+
+	private JLabel labInfoTemp;
 	
 
 	/** Génération de l'image de background */
@@ -290,7 +295,26 @@ public class Game extends JFrame {
 		
 		infoPanel.add(infoTx);
 		
+		// Infos temporaires
+		infoTemp = new JPanel();
+		infoTemp.setBounds(0, 0, 1274, 740-290);
+		infoTemp.setPreferredSize(new Dimension(1274, 740-290));
+		infoTemp.setBackground(new Color(31, 31, 31));
+		infoTemp.setOpaque(true);
+		infoTemp.setVisible(false);
+		
+		labInfoTemp = new JLabel("");
+		labInfoTemp.setForeground(Color.WHITE);
+		labInfoTemp.setFont(new Font("sherif", 0, 60));
+		labInfoTemp.setVerticalAlignment(JLabel.CENTER);
+		labInfoTemp.setHorizontalAlignment(JLabel.CENTER);
+		labInfoTemp.setPreferredSize(new Dimension(1274, 740-290));
+		
+		infoTemp.add(labInfoTemp);
+		
+		
 		getContentPane().add(infoPanel);
+		getContentPane().add(infoTemp);
 	}
 	
 	
@@ -526,6 +550,32 @@ public class Game extends JFrame {
 	
 	/* ### Panel d'information ### */
 
+	
+	
+	/**
+	 * 
+	 */
+	public void showTemp(String message) {
+		new WinWait(message);
+		/*labInfoTemp.setText(message);
+		infoTemp.setVisible(true);
+		
+		try {
+			SwingUtilities.invokeAndWait(new Runnable(){
+				public void run() {
+					try {
+						Thread.sleep(2000);
+					}
+					catch (Exception e) {}
+					
+					return;
+				}
+			});
+		}
+		catch (Exception e) {}
+		
+		infoTemp.setVisible(false);*/
+	}
 	
 	/**
 	 * Mise à jours des informations affichées sur la fenêtre

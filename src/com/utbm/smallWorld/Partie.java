@@ -108,6 +108,8 @@ public class Partie {
     			Game.getInstance().selectionPeuple();
     		}
     		
+    		Game.getInstance().showTemp("Attaque " + joueurEnCours.getNom());
+    		
     		miseEnMain();
 		}
 	}
@@ -224,6 +226,8 @@ public class Partie {
 			miseEnMain();
 			
 			Game.getInstance().majInfos();
+			
+    		Game.getInstance().showTemp("Redéploiement " + joueurEnCours.getNom());
 		}
 	}
 	
@@ -241,6 +245,8 @@ public class Partie {
 			Peuple p = joueurEnCours.getPeuple();
 			
 			if (p != null && p.getNbUniteEnMain() > 0) {
+	    		Game.getInstance().showTemp("Redéploiement " + joueurEnCours.getNom());
+	    		
 				return true;
 			}
 		}
@@ -268,6 +274,8 @@ public class Partie {
     		}
     		
     		miseEnMain();
+
+    		Game.getInstance().showTemp("Attaque " + joueurEnCours.getNom());
 		}
 	}
 	
