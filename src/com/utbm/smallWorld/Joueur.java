@@ -26,8 +26,9 @@ public class Joueur {
 	/** Peuple en déclin du joueur */
 	private Peuple peupleDeclin = null;
 	
-	/** nb de tours déjà joués par le joueur */
-	private int tourJoues = 0;
+	/** Points de victoire du joueur */
+	private int ptsVictoire = 0;
+
 	
 	/**
 	 * Constructeur par défaut
@@ -131,6 +132,59 @@ public class Joueur {
 		this.peupleDeclin = null;
 	}
 	
+	/**
+	 * Calcule le nombre de pts de victoire gagnés à la fin d'un tour
+	 */
+	public void calculePtsVictoire(){
+		
+		int pts = 0;
+		
+		try{
+			pts = peuple.getTerritoiresOccupes().size();
+		}catch(NullPointerException e){}
+		
+		try{
+			pts += peupleDeclin.getTerritoiresOccupes().size();
+		}catch(NullPointerException e){}
+				
+		Territoire t = null;
+		
+		try{
+			for(int i = 0; i < peuple.getTerritoiresOccupes().size(); i++){
+				t = peuple.getTerritoiresOccupes().get(i);
+				pts +=  peuple.getPouvoir().bonusGain(t);
+				
+				Element e = null;
+				
+				try{
+					for(int j = 0; j < t.getElements().size(); j++){
+						e = t.getElements().get(j);
+						pts +=  e.bonusGain();
+					}
+				}catch(NullPointerException ex){}
+				
+			}
+		}catch(NullPointerException e){}
+		
+		try{
+			for(int i = 0; i < peupleDeclin.getTerritoiresOccupes().size(); i++){
+				t = peupleDeclin.getTerritoiresOccupes().get(i);
+				pts +=  peupleDeclin.getPouvoir().bonusGain(t);
+	
+				Element e = null;
+				
+				try{
+					for(int j = 0; j < t.getElements().size(); j++){
+						e = t.getElements().get(j);
+						pts +=  e.bonusGain();
+					}
+				}catch(NullPointerException ex){}
+			}
+		}catch(NullPointerException e){}
+		
+		ptsVictoire += pts;
+	}
+	
 	
 	
 	
@@ -174,13 +228,16 @@ public class Joueur {
 		return indice;
 	}
 	
+	
 	/**
 	 * 
 	 * @return
 	 */
-	public int getTourJoues() {
-		return tourJoues;
+	public int getPtsVictoire(){
+		return ptsVictoire;
 	}
+	
+
 
 	
 	
@@ -228,20 +285,16 @@ public class Joueur {
 	}
 	
 	/**
-	 * 
-	 * @param tourJoues
+	 * @param ptsVictoire
 	 */
-	public void setTourJoues(int tourJoues) {
-		this.tourJoues = tourJoues;
+	public void setPtsVictoire(int ptsVictoire){
+		this.ptsVictoire = ptsVictoire;
 	}
 	
 	/**
-	 * indique que le joueur a joué son tour
+	 * passe le peuple en déclin
+	 * @param peupleADecliner
 	 */
-	public void passeTourSuivant(){
-		setTourJoues(getTourJoues() + 1);
-	}
-	
 	public void declinerPeuple(Peuple peupleADecliner){
 		setPeuplesDeclin(peupleADecliner);
 		setPeuple(null);

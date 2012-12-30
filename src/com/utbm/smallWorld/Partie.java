@@ -109,7 +109,7 @@ public class Partie {
     			Game.getInstance().selectionPeuple();
     		}
     		
-    		Game.getInstance().showTemp("Attaque " + joueurEnCours.getNom());
+    		Game.getInstance().showTemp(joueurEnCours.getNom() + " attaque !");
     		
     		miseEnMain();
 		}
@@ -249,7 +249,7 @@ public class Partie {
 			Peuple p = joueurEnCours.getPeuple();
 			
 			if (p != null && p.getNbUniteEnMain() > 0) {
-	    		Game.getInstance().showTemp("Redéploiement " + joueurEnCours.getNom());
+	    		Game.getInstance().showTemp(joueurEnCours.getNom() + " se redéploie.");
 	    		
 				return true;
 			}
@@ -265,6 +265,9 @@ public class Partie {
 	public void joueurSuivant() {
 		setEtape(0);
 		
+		/* on calcule les gains du tour et on met à jour les pts de victoire */
+		joueurEnCours.calculePtsVictoire();
+		Game.getInstance().showTemp("Tu as gagné " + joueurEnCours.getPtsVictoire() + " points durant ce tour !");
 		
 		if (indexJoueurEnCours == lstJoueurs.size() - 1) {
 			nouveauTour();
@@ -279,8 +282,9 @@ public class Partie {
     		
     		miseEnMain();
 
-    		Game.getInstance().showTemp("Attaque " + joueurEnCours.getNom());
+    		Game.getInstance().showTemp(joueurEnCours.getNom() + " attaque !");
 		}
+		
 	}
 	
 	/**
@@ -297,8 +301,7 @@ public class Partie {
 					indexSauvJoueurEnCours = indexJoueurEnCours;
 					
 					indexJoueurEnCours = 0;
-					
-					//getJoueurEnCours().passeTourSuivant();
+
 				}
 				
 				if (! deploiementSuivant()) {
@@ -309,40 +312,6 @@ public class Partie {
 			}
 		}
 	}
-					/*
-					/* s'il y a des poins en main pour un joueur, 
-					 * on le passe en joueur courant pour qu'il redéploie ses pions *
-					if( nbUniteMain != 0 ){
-						setJoueurEnCours(tmp);
-					/* sinon, cela signifie qu'il n'y a plus de joueur qui ont des pions à redéployer *
-					}else{
-						/*  on cherche donc le prochain joueur *
-						Iterator<Joueur> it2 = getLstJoueurs().iterator();
-						Joueur tmp2 = it2.next();
-						
-						while( it2.hasNext() && tmp2.getTourJoues() > getTourEnCours() ){
-							tmp2 = it2.next();
-						}
-
-						/* si il reste des joueurs dans le tour on les fait jouer *
-						if( tmp2.getTourJoues() == getTourEnCours() ){
-							setEtape(0);
-							setJoueurEnCours(tmp2);
-							
-							if( tmp2.getPeuple() == null )
-								selectionPeuple();
-						/* si non, on pass au tour suivant, le premier joueur joue *
-						}else{
-							setEtape(0);
-							setJoueurEnCours(getLstJoueurs().get(0));
-							passeTourSuivant();
-						}
-					}
-				}
-				majInfos();
-			}
-		}
-	}*/
 	
 	
 	/**
