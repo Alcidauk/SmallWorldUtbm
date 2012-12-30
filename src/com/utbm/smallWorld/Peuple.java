@@ -346,6 +346,8 @@ public abstract class Peuple implements Bonusable {
 	public void decliner() {
 		this.enDeclin = true;
 		
+		joueur.declinerPeuple(this);
+		
 		if (this.territoiresOccupes.size() == 0) {
 			joueur.pertePeupleEnDeclin();
 			Partie.getInstance().remettreBoite(this);

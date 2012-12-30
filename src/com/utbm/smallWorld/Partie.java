@@ -349,9 +349,11 @@ public class Partie {
 	 * Traitement lors d'un clic sur le bouton passer en déclin
 	 */
 	public void cliqueDeclin() {
-		// TODO Vérifier que etape == 0 et que le joueur n'a encore rien conquis
-		
-		
+		if( etape == 0 && Game.getInstance().askConf("Confirmer le passage en déclin ?") ){
+			joueurEnCours.getPeuple().decliner();
+			joueurSuivant();
+		}	
+		Game.getInstance().majInfos();
 	}
 	
 	

@@ -241,6 +241,11 @@ public class Joueur {
 	public void passeTourSuivant(){
 		setTourJoues(getTourJoues() + 1);
 	}
+	
+	public void declinerPeuple(Peuple peupleADecliner){
+		setPeuplesDeclin(peupleADecliner);
+		setPeuple(null);
+	}
 
 
 
