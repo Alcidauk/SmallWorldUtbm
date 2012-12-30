@@ -225,7 +225,7 @@ public class Partie {
 		/* en mode conquete, confirmé, et possède au moins un territoire (sinon il ne peut pas redéployer...) */
 		if( joueurEnCours.getPeuple().getTerritoiresOccupes().isEmpty() ){
 			new WinWarn("Veuillez tout d'abord prendre au moins un territoire");
-		}else if((etape == 0 || etape == 1) && Game.getInstance().askConf() ) {
+		}else if((etape == 0 || etape == 1) && Game.getInstance().askConf("Confirmer la fin du tour ?") ) {
 			setEtape(2);
 			miseEnMain();
 			
@@ -288,7 +288,7 @@ public class Partie {
 	 */
 	public void cliqueFinRedeploiement() {
 		if ((etape == 2 || etape == 3) && joueurEnCours.getPeuple().getNbUniteEnMain() == 0) {
-			if (Game.getInstance().askConfRedeploiement()) {
+			if (Game.getInstance().askConf("Confirmer la fin du redéploiement ?")) {
 				if (etape == 2) {
 					/* on passe à l'étape redéploiement des autres joueurs */
 					setEtape(3);

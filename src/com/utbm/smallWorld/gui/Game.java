@@ -491,12 +491,12 @@ public class Game extends JFrame {
 	}
 	
 	/**
-	 * Affiche la fenêtre de demande pour un lancé de dé lors du clic sur "fin tour"
+	 * Affiche la fenêtre de demande pour un lancé de dé lors du clic sur un bouton demandant une confirmation
 	 */
-	public boolean askConf() {
+	public boolean askConf(String message) {
 		
 		// Création de la fenêtre de choix
-		WinMenu confMenu = new WinMenu("Confirmer la fin du tour ?");
+		WinMenu confMenu = new WinMenu(message);
 
 		confMenu.newItem("Oui", 0);
 		confMenu.newItem("Non", 1);
@@ -528,25 +528,6 @@ public class Game extends JFrame {
 		
 		return nbPion;
 	}
-	
-	
-	/**
-	 * Affiche la fenêtre de confirmation de redéploiement
-	 */
-	public boolean askConfRedeploiement(){
-		// Création de la fenêtre de choix
-		WinMenu confMenu = new WinMenu("Confirmer la fin du redéploiement ?");
-
-		confMenu.newItem("Oui", 0);
-		confMenu.newItem("Non", 1);
-		
-		// Affiche la fenêtre de choix
-		int conf = confMenu.open();
-
-		return conf == 0;
-	}
-	
-
 	
 	
 	/* ### Panel d'information ### */
