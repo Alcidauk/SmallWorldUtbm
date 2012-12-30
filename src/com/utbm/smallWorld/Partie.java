@@ -211,6 +211,8 @@ public class Partie {
 				}
 				
 				Game.getInstance().majInfos();
+			}else{
+				new WinWarn("Vous ne pouvez que vous redéployer sur un de vos territoires");
 			}
 		}
 	}
