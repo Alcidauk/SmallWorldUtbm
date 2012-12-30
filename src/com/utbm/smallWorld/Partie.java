@@ -221,7 +221,8 @@ public class Partie {
 	 * Traitement lors d'un clic sur le bouton fin tour
 	 */
 	public void cliqueFinTour() {
-		if ((etape == 0 || etape == 1) && Game.getInstance().askConf()) {
+		/* en mode conquete, confirmé, et possède au moins un territoire (sinon il ne peut pas redéployer...) */
+		if ( (etape == 0 || etape == 1) && !joueurEnCours.getPeuple().territoiresOccupes.isEmpty() && Game.getInstance().askConf() ) {
 			setEtape(2);
 			miseEnMain();
 			
@@ -346,6 +347,7 @@ public class Partie {
 	 */
 	public void cliqueDeclin() {
 		// TODO Vérifier que etape == 0 et que le joueur n'a encore rien conquis
+		
 		
 	}
 	
