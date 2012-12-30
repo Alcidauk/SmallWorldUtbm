@@ -523,7 +523,7 @@ public class Game extends JFrame {
 		
 		try {
     		do {
-    			nbPion = Prompt.askInt("Choissiez le nombre de pions à replacer sur ce territoire. Pour l'abandonner, choisissez 0.");
+    			nbPion = Prompt.askInt("Nombre de pions à replacer sur ce territoire. Pour l'abandonner, choisir 0.");
     			
     		} while(nbPion > (enMain + t.getNbUnite()));
 		}

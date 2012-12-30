@@ -157,7 +157,7 @@ public abstract class Peuple implements Bonusable {
 		
 		/* Recherche dans les bonus s'il faut défausser une unité ou non */
 		if (unite > 1) {
-			if (this.bonusDefausseUnite() || (hasPower() && pouvoir.bonusDefausseUnite())) {
+			if( !( this.bonusDefausseUnite() || (hasPower() && pouvoir.bonusDefausseUnite()) ) ){
 				unite--;
 			}
 		}

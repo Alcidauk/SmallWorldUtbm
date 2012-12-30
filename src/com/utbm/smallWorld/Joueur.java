@@ -28,7 +28,6 @@ public class Joueur {
 	
 	/** Points de victoire du joueur */
 	private int ptsVictoire = 0;
-
 	
 	/**
 	 * Constructeur par défaut
@@ -134,8 +133,9 @@ public class Joueur {
 	
 	/**
 	 * Calcule le nombre de pts de victoire gagnés à la fin d'un tour
+	 * @return
 	 */
-	public void calculePtsVictoire(){
+	public int calculePtsVictoireTour(){
 		
 		int pts = 0;
 		
@@ -182,7 +182,15 @@ public class Joueur {
 			}
 		}catch(NullPointerException e){}
 		
-		ptsVictoire += pts;
+		return pts;
+	}
+	
+	
+	/**
+	 * Ajoute aux points de victoire ceux du tour
+	 */
+	public void majPtsVictoire(){
+		ptsVictoire += calculePtsVictoireTour();
 	}
 	
 	

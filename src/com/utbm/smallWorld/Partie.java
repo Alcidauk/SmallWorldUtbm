@@ -231,7 +231,7 @@ public class Partie {
 			
 			Game.getInstance().majInfos();
 			
-    		Game.getInstance().showTemp("Redéploiement " + joueurEnCours.getNom());
+    		Game.getInstance().showTemp(joueurEnCours.getNom() + " se redéploie.");
 		}
 	}
 	
@@ -266,8 +266,8 @@ public class Partie {
 		setEtape(0);
 		
 		/* on calcule les gains du tour et on met à jour les pts de victoire */
-		joueurEnCours.calculePtsVictoire();
-		Game.getInstance().showTemp("Tu as gagné " + joueurEnCours.getPtsVictoire() + " points durant ce tour !");
+		Game.getInstance().showTemp(joueurEnCours.calculePtsVictoireTour() + " point(s) gagné(s) durant ce tour !");
+		joueurEnCours.majPtsVictoire();
 		
 		if (indexJoueurEnCours == lstJoueurs.size() - 1) {
 			nouveauTour();
