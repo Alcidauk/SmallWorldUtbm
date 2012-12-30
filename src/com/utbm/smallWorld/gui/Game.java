@@ -494,6 +494,7 @@ public class Game extends JFrame {
 	 * Affiche la fenêtre de demande pour un lancé de dé lors du clic sur "fin tour"
 	 */
 	public boolean askConf() {
+		
 		// Création de la fenêtre de choix
 		WinMenu confMenu = new WinMenu("Confirmer la fin du tour ?");
 

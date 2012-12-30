@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.utbm.smallWorld.gui.Game;
+import com.utbm.smallWorld.gui.WinWarn;
 import com.utbm.smallWorld.peuples.*;
 import com.utbm.smallWorld.pouvoirs.*;
 
@@ -222,7 +223,9 @@ public class Partie {
 	 */
 	public void cliqueFinTour() {
 		/* en mode conquete, confirmé, et possède au moins un territoire (sinon il ne peut pas redéployer...) */
-		if ( (etape == 0 || etape == 1) && !joueurEnCours.getPeuple().territoiresOccupes.isEmpty() && Game.getInstance().askConf() ) {
+		if( joueurEnCours.getPeuple().getTerritoiresOccupes().isEmpty() ){
+			new WinWarn("Veuillez tout d'abord prendre au moins un territoire");
+		}else if((etape == 0 || etape == 1) && Game.getInstance().askConf() ) {
 			setEtape(2);
 			miseEnMain();
 			

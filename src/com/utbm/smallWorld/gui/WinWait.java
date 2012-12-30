@@ -10,9 +10,16 @@ import java.awt.event.MouseListener;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 public class WinWait extends JDialog implements MouseListener {
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	public WinWait(String mess) {
 		setModal(true);
 		setBounds(Game.getInstance().getBounds());
