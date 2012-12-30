@@ -21,7 +21,7 @@ public class PouvoirAvare extends Pouvoir {
 	 * @return
 	 */
 	public int bonusGain(Territoire t) {
-		List<Peuple> lstTmp = t.getPrisesDuTerritoire()[Partie.getInstance().getTourEnCours()];
+		List<Peuple> lstTmp = t.getPrisesDuTerritoire(Partie.getInstance().getTourEnCours());
 		
 		Iterator<Peuple> it = lstTmp.iterator();
 			

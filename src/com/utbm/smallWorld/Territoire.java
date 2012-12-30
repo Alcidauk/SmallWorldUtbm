@@ -1,5 +1,6 @@
 package com.utbm.smallWorld;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -29,7 +30,7 @@ public class Territoire {
 	private List<Element> elements;
 	
 	/** Historique des prises du territoire */
-	private List<Peuple> prisesDuTerritoire[];
+	private List<List<Peuple>> prisesDuTerritoire;
 	
 	
 	
@@ -39,6 +40,7 @@ public class Territoire {
 	 */
 	public Territoire() {
 		territoiresAdjacents = new LinkedList<Territoire>();
+		prisesDuTerritoire = new ArrayList<List<Peuple>>();
 		elements = new LinkedList<Element>();
 	}
 	
@@ -161,8 +163,22 @@ public class Territoire {
 	 * 
 	 * @return List prisesDuTerritoire
 	 */
-	public List<Peuple>[] getPrisesDuTerritoire() {
+	public List<List<Peuple>> getPrisesDuTerritoire() {
 		return prisesDuTerritoire;
+	}
+	
+	
+	/**
+	 * 
+	 * @return List prisesDuTerritoire
+	 */
+	public List<Peuple> getPrisesDuTerritoire(int tour) {
+		if (tour < this.prisesDuTerritoire.size()) {
+			return this.prisesDuTerritoire.get(tour);
+		}
+		//else
+		
+		return new LinkedList<Peuple>();
 	}
 	
 	
@@ -233,6 +249,26 @@ public class Territoire {
 	 */
 	public void setOccupant(Peuple occupant) {
 		this.occupant = occupant;
+		
+		int tour = Partie.getInstance().getTourEnCours();
+		List<Peuple> ls;
+		
+		if (tour < this.prisesDuTerritoire.size()) {
+			ls = this.prisesDuTerritoire.get(tour);
+		}
+		else {
+			ls = new ArrayList<Peuple>();
+			
+			int s = this.prisesDuTerritoire.size();
+			
+			for (; s < tour; s++) {
+				this.prisesDuTerritoire.add(null);
+			}
+			
+			this.prisesDuTerritoire.add(ls);
+		}
+		
+		ls.add(occupant);
 	}
 
 	/**
@@ -262,14 +298,6 @@ public class Territoire {
 	 */
 	public void ajouterElement(Element e) {
 		//TODO
-	}
-	
-	
-	/**
-	 * @param prisesDuTerritoire
-	 */
-	public void setPrisesDuTerritoire(List<Peuple>[] prisesDuTerritoire) {
-		this.prisesDuTerritoire = prisesDuTerritoire;
 	}
 	
 	

@@ -172,7 +172,9 @@ public class Partie {
 			// Phase d'attaque
 			
 			if ( joueurEnCours.getPeuple().equals(territoire.getOccupant()) ) {
-				if (Game.getInstance().askAbandon(territoire)) {
+				List<Peuple> ls = territoire.getPrisesDuTerritoire(tourEnCours);
+				
+				if (! ls.contains(getJoueurEnCours().getPeuple()) && Game.getInstance().askAbandon(territoire)) {
 					getJoueurEnCours().getPeuple().abandonTerritoire(territoire);
 				}
 			}
