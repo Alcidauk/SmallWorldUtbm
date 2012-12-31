@@ -19,16 +19,99 @@
 	
 	\newpage
 	
-	\section{Introduction}
+	\section*{Introduction}
 	
-	Dans le cadre de l’Unité de Valeur LO43, il est demandé aux étudiants de réaliser un projet afin de mettre en application les connaissances acquises durant le semestre. L'objectif de ce projet est de créer un jeu de rôle dans le langage Java. Pour cela, il faut s'inspirer d'un jeu de société existant: SmallWorld. Ce dernier a été renommé pour l'occasion SmallWorldUtbm.\\
-	Dans un premier temps nous présenterons donc le cahier des charges qui a été développé à partir du sujet proposé. Puis nous détaillerons les spécifications ainsi que les choix de conception de notre projet. Ensuite, nous donnerons un petit aperçu du fonctionnement de l'application SmallWorldUtbm pour terminer en abordant les différentes difficultés rencontrées.
+	Dans le cadre de l'Unité de Valeur LO43, il a été demandé aux étudiants de réaliser un projet de fin de semestre. Ce projet a pour but de mettre en application les différentes notions acquises en programmation orientée objet ainsi que de pratiquer un langage de programmation: le Java. L'objectif de ce projet est de créer un jeu de rôle à partir d'un jeu de société existant.
+	\paragraph{} SmallWorld est un jeu de stratégie se rapportant à l'univers fantastique. A partir d'un peuple légendaire choisi, il s'agit d'effectuer des conquêtes sur un plateau de jeu comportant des territoires. L'occupation de ces territoires permet alors de remporter des points de victoire à chaque tour pour ensuite gagner la partie. 
+	\paragraph{}A l'occasion de ce projet, le jeu a été renommé SmallWorldUtbm et il a été demandé d'appliquer les grands principes du jeu d'origine tout en l'adaptant à la vie Utbohémienne. \\
+	Cette adaptation a donc demandé une organisation en plusieurs étapes qui seront présentées dans une première partie. Sera ensuite abordée la mise en œuvre de ce projet comprenant des détails sur la conception et le développement de l'application. Enfin, les problèmes rencontrés et un bilan succin seront dressés.
+	
 	
 	\newpage
 	
 	\section{Cahier des charges}
 	
-	SmallWorldUtbm est l'adaptation du jeu de société SmallWorld au contexte de l'Université de Technologies de Belfort-Montbéliard. Les règles du jeu doivent donc rester proches de ce jeu sans pour autant en faire la copie conforme. Le but reste donc le même c'est-à-dire diriger la destinée de peuples dans un monde où chacun doit donc lutter pour sa survie. Pour ce faire, nous aurons comme exemple:
+	Le cahier des charges impliquait plusieurs parties. En effet, le sujet portant sur une jeu existant, une première étape consiste à découvrir les règles du jeu et les entités liées à celui-ci puis à les adapter au projet. Suite à cela, une seconde étape porte sur la réalisation d'une modélisation dans le langage UML. Le cahier des charges concernant l'application concerne la troisième partie du travail.
+	
+		\subsection{Étude de l'existant et adaptation}
+		
+		L'étude de l'existant doit permettre de réaliser plusieurs choses. Tout d'abord, elle doit permettre de comprendre les différentes règles du jeu. Elle doit ensuite aider à dissocier les différentes entités relatives à celui-ci. Cela doit avancer une première fois la réflexion sur la réalisation de l'application. \\
+		L'adaptation au sujet proposé est en lien direct avec l'existant. Elle doit en effet reprendre les grandes idées de l'existant tout en calquant les entités de l'UTBM. Cette adaptation doit être en réalité une sorte de première étape de conception puisqu'elle met déjà en jeu les différentes entités qui seront rassemblées lors de la conception proprement dite.
+			
+		\subsection{Conception}
+		
+		Pour la conception, le cahier des charges est en grande partie donné et la marge de manœuvre est faible. On doit donc réaliser:
+		\begin{itemize}
+			\item des diagrammes de cas d'utilisation;
+			\item des diagrammes de séquence;
+			\item un diagramme de classes.
+		\end{itemize}
+		Cette étape de conception s'appuie grandement sur l'adaptation faite lors de l'étude de l'existant. Les entités doivent en effet déjà avoir été isolées pour réaliser l'adaptation à notre contexte. L'étape de conception doit donc simplement transférer ces idées en respectant la syntaxe et les normes UML. Le diagramme de classes doit aussi permettre de développer plus facilement par la suite les classes Java en étant donc assez précis. \\ \ \\
+		Suite à cela est réalisé le cahier des charges dit fonctionnel de l'application. Il permettra le développement de celle-ci.
+		
+		\subsection{Application}
+		
+		Le cahier des charges de l'application indique ce que devra faire celle-ci en développant son comportement. Un certain nombre de choses à faire sont donc déjà énoncées par le sujet ou par l'existant mais d'autres sont à indiquer.
+		
+			\paragraph{Début de partie}
+			
+			L'application doit répondre à un certain nombre de besoins en début de partie. \\
+			
+			Tout d'abord, un certain nombre de règles générales ont été établies :
+			\begin{itemize}
+				\item l'application doit permettre d'effectuer des parties avec un nombre de joueur variables (de 2 à 5 joueurs);
+				\item différents plateaux de jeu doivent être disponibles en fonction du nombre de joueurs dans une partie;
+				\item on doit pouvoir choisir le nom des joueurs;
+				\item l'application doit permettre au joueur de choisir un couple Peuple/Pouvoir; \\
+			\end{itemize}
+			
+			Pour cette application, un grand nombre de traitements se font de façon transparente par rapport au joueur. Ceux-ci sont traduits par les besoins suivants:
+			\begin{itemize}
+				\item l'application doit initialiser tous les peuples disponibles ainsi que les pouvoirs;
+				\item elle doit générer des couples aléatoires peuple/pouvoir afin que le joueur en choisisse une;
+				\item les territoires doivent être générés ainsi que les éléments potentiellement présents sur chacun d'eux;
+				\item l'application doit gérer l'argent liée à chaque couple peuple/pouvoir puisqu'un joueur peut payer pour prendre un couple.
+			\end{itemize}
+			
+			\paragraph{Cours de partie}
+			
+			Du coté de l'utilisateur, on a les besoins suivants:
+			\begin{itemize}
+				\item Pour la phase de conquête de territoires:
+				\begin{itemize}
+					\item il doit pouvoir tant qu'il n'a encore rien pris durant le tour cliquer sur un bouton de passage en déclin du peuple. Le joueur finit alors son tour directement.
+					\item il doit pouvoir cliquer sur les territoires qu'il peut prendre (géographiquement);
+					\item l'application dans dans ces deux cas demander confirmation au joueur;
+					\item l'application doit proposer lorsque le joueur n'a pas assez de pions pour attaquer un territoire de lancer un dé: si il accepte, on doit alors passer à la phase suivante.
+					\item le joueur doit pouvoir cliquer sur un bouton de fin de tour pour passer à la phase suivante. \\
+				\end{itemize}
+				\item Pour la phase de redéploiement:
+				\begin{itemize}
+					\item le joueur doit pouvoir cliquer sur tous ses territoires;
+					\item l'application doit alors proposer le nombre de pions à placer sur celui-ci;
+					\item le joueur doit pouvoir cliquer sur un bouton de fin de redéploiement lorsqu'il a fini;
+					\item l'application ne doit pas proposer de bouton de fin tant que le joueur a des pions dans les mains.
+				\end{itemize}
+				\item Pour la phase de redéploiement des autres joueurs, les besoins sont les même que pour celle du joueur qui vient d'effectuer son tour.	 \\	
+			\end{itemize}
+
+			En arrière-plan, l'application doit:
+			\begin{itemize}
+				\item ne permettre au joueur que de cliquer sur les territoires auxquels il peut accéder;
+				\item calculer à chaque changement le nombre d'unités en main;
+				\item effectuer les changements d'occupant pour les territoires abandonnés ou conquis;
+				\item en fin de tour, calculer les points de victoire gagnés par le joueur.
+			\end{itemize}
+		
+			\paragraph{Apparence et mise en page générale}
+			
+			La réalisation de cette application doit intégrer une interface graphique. Un certain nombre de règles sont donc à énoncer:
+			\begin{itemize}
+				\item 
+			\end{itemize}
+		
+	
+	SmallWorldUtbm est l'adaptation du jeu de société SmallWorld au contexte de l'Université de Technologies de Belfort-Montbéliard. Les règles du jeu doivent donc rester proches de ce jeu sans pour autant en faire la copie conforme. Le but reste donc le même c'est-à-dire diriger la destinée de peuples dans un monde où chacun doit donc lutter pour sa survie. 
 De peuples de substitution: 
 Étudiants TC, Étudiants branche, Professeur de connaissances scientifiques, Professeur d’humanités, Chercheurs, le CRI, les Thésards les Rats etc.. Sont un exemple ceux que les différents joueurs devront choisir pendant les différentes parties qu'ils disputeront.
 De pouvoirs associés aux peuples qui les accompagneront dans leurs différentes conquêtes de nouveaux territoires: 
