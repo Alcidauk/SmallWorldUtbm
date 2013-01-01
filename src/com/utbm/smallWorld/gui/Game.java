@@ -18,9 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
 
-import com.utbm.smallWorld.Element;
 import com.utbm.smallWorld.Joueur;
 import com.utbm.smallWorld.Partie;
 import com.utbm.smallWorld.Peuple;

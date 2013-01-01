@@ -126,8 +126,6 @@ public class TerritoireCase extends JPanel implements MouseListener {
 	public void mouseEntered(MouseEvent arg0) {
 		setBorder(bigBord);
 		
-		Rectangle r = this.getBounds();
-		
 		double coutAttaque =  Partie.getInstance().coutAttaque(territoire);
 		List<Element> elements = territoire.getElements();
 		
