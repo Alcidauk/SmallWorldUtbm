@@ -615,10 +615,11 @@ public class Game extends JFrame {
 			// MAJ
 			playerInfo.setText("");
 			playerInfo.append("\n");
-			playerInfo.append("UVs.............. " + argent + "\n");
+			playerInfo.append("$................ " + argent + "\n");
 			playerInfo.append("Territoires...... " + nbTerritoire + (nbTerritoireDeclin > 0 ? " (+ " + nbTerritoireDeclin + ")" : "") + "\n");
 			playerInfo.append("Unités totales... " + nbUnite + "\n");
 			playerInfo.append("Unités en main... " + nbUniteEnMain + "\n");
+			playerInfo.append("Tour............. " + (partieEnCours.getTourEnCours() + 1) + " / " + partieEnCours.getNbTours() + "\n");
 			
 			// Mise à jour des couleurs
 			headerAction.setBackground(JOUEUR_BACKGROUND[i]);

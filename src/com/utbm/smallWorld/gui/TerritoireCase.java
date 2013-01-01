@@ -19,6 +19,7 @@ import javax.swing.border.LineBorder;
 
 import com.utbm.smallWorld.Element;
 import com.utbm.smallWorld.Partie;
+import com.utbm.smallWorld.Peuple;
 import com.utbm.smallWorld.Territoire;
 
 /**
@@ -129,11 +130,37 @@ public class TerritoireCase extends JPanel implements MouseListener {
 		double coutAttaque =  Partie.getInstance().coutAttaque(territoire);
 		List<Element> elements = territoire.getElements();
 		
-		String txt = "Coût de l'attaque..." + coutAttaque + "\nEléments contenus...";
+		String txt = "";
 		
-		Iterator<Element> it = elements.iterator();
-		while (it.hasNext()) {
-			txt += it.next().getNom() + "\n";
+		String occupantName;
+		Peuple occupant = this.territoire.getOccupant();
+		int nbUnite = this.territoire.getNbUnite();
+		
+		if (occupant != null) {
+			occupantName = occupant.getNom() + " (" + occupant.getJoueur().getNom() + ")";
+		}
+		else if (nbUnite > 0) {
+			occupantName = "Thésard";
+		}
+		else {
+			occupantName = "Aucun";
+		}
+		
+		txt += "Occupant : " + occupantName + "\n\n";
+		txt += "Nombre d'unité...... " + nbUnite + "\n";
+		txt += "Coût de l'attaque... " + Math.round(coutAttaque) + " unité(s)\n\n";
+		
+		txt += "Eléments contenus :\n";
+		
+		if (elements.isEmpty()) {
+			txt += "\tAucun.";
+		}
+		else {
+    		Iterator<Element> it = elements.iterator();
+    		
+    		while (it.hasNext()) {
+    			txt += "\t" + it.next().getNom() + "\n";
+    		}
 		}
 		
 		Game.getInstance().showInfo(txt);
