@@ -532,6 +532,26 @@ public class Game extends JFrame {
 	}
 	
 	
+
+	public int lancerDe(int bonusDe) {
+		showTemp("Lancement du dé...");
+		
+		int value = (int) Math.round(Math.random() * (3.0 - 1.0)) + 1;
+		
+		if (bonusDe == 0) {
+			showTemp("Résultat: " + value);
+		}
+		else if (bonusDe > 0) {
+			showTemp("Résultat: " + value + " (+ " + bonusDe + ")");
+		}
+		else {
+			showTemp("Résultat: " + value + " (- " + bonusDe + ")");
+		}
+		
+		return value + bonusDe;
+	}
+	
+	
 	/* ### Panel d'information ### */
 
 	

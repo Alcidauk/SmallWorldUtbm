@@ -3,6 +3,8 @@ package com.utbm.smallWorld;
 import java.util.Iterator;
 import java.util.List;
 
+import com.utbm.smallWorld.gui.Game;
+
 /**
  * Représentation d'un Joueur
  * Gestion des peuples, de l'argent
@@ -109,16 +111,56 @@ public class Joueur {
 			bonus = 0;
 		}
 		
+		// Regarde si le joueur a un bonus lancé de dé
+		boolean lanceDe = false;
+		int bonusDe = this.peuple.bonusValeurDe() + (this.peuple.hasPower() ? this.peuple.getPouvoir().bonusValeurDe() : 0);
+		
+		if (this.peuple.bonusLanceDe() || (this.peuple.hasPower() && this.peuple.getPouvoir().bonusLanceDe())) {
+			lanceDe = true;
+			
+			int valeurDe = Game.getInstance().lancerDe(bonusDe);
+			
+			cout -= valeurDe;
+			
+			if (cout < 1.0) {
+				cout = 1.0;
+			}
+		}
+		
 		// Etude de la faisabilité de l'attaque
-		if (cout > this.peuple.getNbUniteEnMain() + this.peuple.getNbUniteBonus() + bonus) {
-			// TODO lancé de dé ?
-			return false;
+		double forceAttaque = this.peuple.getNbUniteEnMain() + this.peuple.getNbUniteBonus() + bonus;
+		
+		boolean redeploiement = false;
+		
+		if (cout > forceAttaque && ! lanceDe) {
+			// Lancé de dé possible ?
+			if (cout <= forceAttaque + (bonusDe + 3)) {
+				if (! Game.getInstance().askConf("Unités insuffisantes, voulez-vous lancer le dé ?")) {
+					return false;
+				}
+				else {
+					// Lancé de dé
+					int valeurDe = Game.getInstance().lancerDe(bonusDe);
+					
+					cout -= valeurDe;
+					
+					if (cout < 1.0) {
+						cout = 1.0;
+					}
+					
+					redeploiement = true;
+				}
+			}
 		}
 		
 		// Prise du territoire
 		to.priseTerritoire();
 		
 		this.peuple.priseTerritoire(to, (int) cout);
+		
+		if (redeploiement) {
+			Partie.getInstance().redeploiement();
+		}
 		
 		return true;
 	}

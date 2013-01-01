@@ -225,14 +225,23 @@ public class Partie {
 		if( joueurEnCours.getPeuple().getTerritoiresOccupes().isEmpty() ){
 			new WinWarn("Veuillez tout d'abord prendre au moins un territoire");
 		}else if((etape == 0 || etape == 1) && Game.getInstance().askConf("Confirmer la fin du tour ?") ) {
-			setEtape(2);
-			miseEnMain();
-			joueurEnCours.getPeuple().calcBonusUnite();
-			
-			Game.getInstance().majInfos();
-			
-    		Game.getInstance().showTemp(joueurEnCours.getNom() + " se redéploie.");
+			redeploiement();
 		}
+	}
+	
+	
+
+	
+	
+	// TODO: Commentaire
+	public void redeploiement() {
+		setEtape(2);
+		miseEnMain();
+		joueurEnCours.getPeuple().calcBonusUnite();
+		
+		Game.getInstance().majInfos();
+		
+		Game.getInstance().showTemp(joueurEnCours.getNom() + " se redéploie.");
 	}
 	
 	
@@ -286,6 +295,7 @@ public class Partie {
 		}
 		
 	}
+	
 	
 	/**
 	 * Traitement lors d'un clic sur le bouton fin redéploiement
