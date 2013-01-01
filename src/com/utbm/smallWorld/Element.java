@@ -1,5 +1,16 @@
 package com.utbm.smallWorld;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.utbm.smallWorld.elements.EspacePleinAir;
+import com.utbm.smallWorld.elements.Laboratoire;
+import com.utbm.smallWorld.elements.MachineACafe;
+import com.utbm.smallWorld.elements.Nourriture;
+import com.utbm.smallWorld.elements.Photocopieuse;
+import com.utbm.smallWorld.elements.SalleInfo;
+import com.utbm.smallWorld.elements.SallePartiel;
+
 /**
  * Représentation des éléments se trouvant sur les territoires
  * 
@@ -7,11 +18,27 @@ package com.utbm.smallWorld;
  * @version 1.0
  */
 public abstract class Element implements Comparable<Element> {
+	/** Liste des différents éléments de territoire du jeu */
+	public static Map<String, Class<?>> ELEMENTS;
+	
 	/** Territoire sur lequel se trouve l'élément */
 	protected Territoire territoire;
 	
 	/** Nom de l'élément */
 	protected String nom;
+	
+	
+	static {
+		Class<?>[] classes = { EspacePleinAir.class, Laboratoire.class, MachineACafe.class, Nourriture.class, Photocopieuse.class, SalleInfo.class, SallePartiel.class };
+		String[] noms = { "espacepleinair", "laboratoire", "machineacafe", "nourriture", "photocopieuse", "salleinfo", "sallepartiel" };
+		
+		ELEMENTS = new HashMap<String, Class<?>>();
+		
+		for (int i = 0; i < classes.length; i++) {
+			ELEMENTS.put(noms[i], classes[i]);
+		}
+	};
+	
 	
 	/**
 	 * Constructeur

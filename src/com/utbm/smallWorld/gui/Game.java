@@ -48,7 +48,6 @@ public class Game extends JFrame {
 	/** Couleur de background des différents joueurs pour leur peuple en déclin */
 	public static final Color[] JOUEUR_BACKGROUND_DECLIN = {new Color(255, 255, 153), new Color(255, 204, 255), 
 		new Color(204, 255, 255), new Color(153, 255, 153), new Color(204, 204, 204)};
-
 	
 	/** Fenêtre en cours */
 	private static Game instance;

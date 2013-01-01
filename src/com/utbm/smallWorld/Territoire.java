@@ -296,8 +296,8 @@ public class Territoire {
 	/**
 	 * 
 	 */
-	public void ajouterElement(Element e) {
-		//TODO
+	public void addElement(Element e) {
+		this.elements.add(e);
 	}
 	
 	

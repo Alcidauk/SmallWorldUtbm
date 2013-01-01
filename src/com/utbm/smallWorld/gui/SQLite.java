@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.utbm.smallWorld.Element;
 import com.utbm.smallWorld.Territoire;
 
 /**
@@ -117,7 +118,28 @@ public class SQLite {
 				t2.addTerritoireAdjacent(t1);
 			}
 			
+			rs.close();
+			ps.close();
+			
 			// TODO éléments
+			ps = conn.prepareStatement("SELECT * FROM elements WHERE plateau = ?");
+			ps.setInt(1, nbPlayer);
+			
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Territoire t = territoires.get(rs.getInt("territoire"));
+				String elm = rs.getString("nom");
+				
+				Class<?> elmClass = Element.ELEMENTS.get(elm);
+				
+				if (elmClass != null) {
+					t.addElement((Element) elmClass.getConstructor(Territoire.class).newInstance(t)); // TODO : Simplifier en supprimant l'argument du constructeur ?
+				}
+			}
+			
+			rs.close();
+			ps.close();
 		}
 		catch (Exception e) {
 			e.printStackTrace();

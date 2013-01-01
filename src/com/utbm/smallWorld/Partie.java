@@ -152,10 +152,7 @@ public class Partie {
 		try {
 			return t.coutAttaque(joueurEnCours.getPeuple());
 		}
-		catch (Exception e) {
-			System.out.println(t);
-			System.out.println(joueurEnCours);
-		}
+		catch (Exception e) {}
 		
 		return 0.0;
 	}

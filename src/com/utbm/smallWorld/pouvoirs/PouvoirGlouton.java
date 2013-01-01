@@ -16,7 +16,7 @@ public class PouvoirGlouton extends Pouvoir {
 	 * 
 	 */
 	public void actionPriseTerritoire(Territoire t) {
-		t.ajouterElement(new Nourriture(t));
+		t.addElement(new Nourriture(t));
 	}
 	
 	
