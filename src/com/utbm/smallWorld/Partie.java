@@ -279,7 +279,7 @@ public class Partie {
 			indexJoueurEnCours++;
 			joueurEnCours = lstJoueurs.get(indexJoueurEnCours);
 			
-			if (joueurEnCours.getPeuple() == null) {
+			if (joueurEnCours.getPeuple() == null || joueurEnCours.getPeuple().getNbUnite() == 0) { // TODO : 2ème partie du if OK ?
 				Game.getInstance().selectionPeuple();
     		}
     		
