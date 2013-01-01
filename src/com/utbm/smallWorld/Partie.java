@@ -230,6 +230,7 @@ public class Partie {
 		}else if((etape == 0 || etape == 1) && Game.getInstance().askConf("Confirmer la fin du tour ?") ) {
 			setEtape(2);
 			miseEnMain();
+			joueurEnCours.getPeuple().calcBonusUnite();
 			
 			Game.getInstance().majInfos();
 			

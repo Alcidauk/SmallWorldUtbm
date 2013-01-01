@@ -14,7 +14,7 @@ public class PeupleRats extends Peuple {
 		nom = "Rat";
 		description = "";
 		nbUniteDepart = 15;
-		nbUniteMax = 20;
+		nbUniteMax = 25;
 	}
 	
 	public int bonusUnite() {

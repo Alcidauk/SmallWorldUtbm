@@ -156,11 +156,13 @@ public abstract class Peuple implements Bonusable {
 		int unite = t.getNbUnite();
 		
 		/* Recherche dans les bonus s'il faut défausser une unité ou non */
-		if (unite > 1) {
+		//if (unite > 1) { << TODO: Utilité du if ?
 			if( !( this.bonusDefausseUnite() || (hasPower() && pouvoir.bonusDefausseUnite()) ) ){
 				unite--;
+				
+				this.nbUnite--;
 			}
-		}
+		//}
 		
 		this.nbUniteEnMain += unite;
 
@@ -196,6 +198,20 @@ public abstract class Peuple implements Bonusable {
 		}
 		
 		return gains;
+	}
+	
+	
+	/**
+	 * Calcule les gains en unité du peuple
+	 */
+	public void calcBonusUnite() {
+
+		// Calcul des gains d'unités si pouvoir spécial
+		int bonusUnite = this.bonusUnite() + (hasPower() ? this.pouvoir.bonusUnite() : 0);
+		bonusUnite = Math.min(this.nbUniteMax - this.nbUnite, bonusUnite);
+		
+		this.nbUnite += bonusUnite;
+		this.nbUniteEnMain += bonusUnite;
 	}
 	
 	
