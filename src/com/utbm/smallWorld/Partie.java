@@ -321,7 +321,7 @@ public class Partie {
 	 * Traitement lors d'un clic sur le bouton passer en déclin
 	 */
 	public void cliqueDeclin() {
-		if( etape == 0 && Game.getInstance().askConf("Confirmer le passage en déclin ?") ){
+		if( etape == 0 && joueurEnCours.getPeupleDeclin() == null && Game.getInstance().askConf("Confirmer le passage en déclin ?") ){
 			joueurEnCours.getPeuple().decliner();
 			joueurSuivant();
 		}	
