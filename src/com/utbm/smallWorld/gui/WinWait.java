@@ -53,6 +53,7 @@ public class WinWait extends JDialog implements MouseListener {
 		setContentPane(background);
 		
 		getContentPane().add(infoTemp);
+		getContentPane().addMouseListener(this);
 		
 		final JDialog that = this;
 		
