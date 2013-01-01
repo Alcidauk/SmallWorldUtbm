@@ -14,7 +14,7 @@ public class SallePartiel extends Element {
 		super(t);
 		// TODO Auto-generated constructor stub
 		
-		nom = "Salle partiel";
+		nom = "Salle de partiel";
 	}
 	
 	

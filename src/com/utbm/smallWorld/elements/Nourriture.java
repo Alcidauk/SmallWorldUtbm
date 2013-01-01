@@ -12,7 +12,6 @@ public class Nourriture extends Element {
 
 	public Nourriture(Territoire t) {
 		super(t);
-		// TODO Auto-generated constructor stub
 		
 		nom = "Nourriture";
 	}

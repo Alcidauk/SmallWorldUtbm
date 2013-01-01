@@ -297,7 +297,9 @@ public class Territoire {
 	 * 
 	 */
 	public void addElement(Element e) {
-		this.elements.add(e);
+		if (! this.elements.contains(e)) { // TODO: Ne marche pas : Pourquoi ?!
+			this.elements.add(e);
+		}
 	}
 	
 	

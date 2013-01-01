@@ -110,6 +110,12 @@ public abstract class Peuple implements Bonusable {
 		
 		this.territoiresOccupes.add(t);
 		
+		this.actionPriseTerritoire(t);
+		
+		if (hasPower()) {
+			this.pouvoir.actionPriseTerritoire(t);
+		}
+		
 		return nbUnite;
 	}
 	
