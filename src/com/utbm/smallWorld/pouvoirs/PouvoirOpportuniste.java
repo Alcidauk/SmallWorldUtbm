@@ -7,7 +7,7 @@ public class PouvoirOpportuniste extends Pouvoir {
 	public PouvoirOpportuniste(){
 		nom = "Opportuniste";
 		desc = "";
-		nbUniteApporte = 5;
+		nbUniteApporte = -5;
 	}
 	
 	/**

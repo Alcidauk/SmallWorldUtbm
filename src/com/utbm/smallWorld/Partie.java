@@ -64,6 +64,8 @@ public class Partie {
 	
 	/** Plateau de la partie */
 	protected Plateau plateau;
+
+	private boolean tempEnDeclin = false;
 	
 	
 	
@@ -304,6 +306,14 @@ public class Partie {
 		if ((etape == 2 || etape == 3) && joueurEnCours.getPeuple().getNbUniteEnMain() == 0) {
 			if (Game.getInstance().askConf("Confirmer la fin du redéploiement ?")) {
 				if (etape == 2) {
+					
+					if (tempEnDeclin) {
+						joueurEnCours.getPeuple().decliner();
+						
+						tempEnDeclin = false;
+					}
+					
+					
 					/* on passe à l'étape redéploiement des autres joueurs */
 					setEtape(3);
 					
@@ -329,9 +339,17 @@ public class Partie {
 	 */
 	public void cliqueDeclin() {
 		if( etape == 0 && joueurEnCours.getPeupleDeclin() == null && Game.getInstance().askConf("Confirmer le passage en déclin ?") ){
-			joueurEnCours.getPeuple().decliner();
-			joueurSuivant();
+			
+			//joueurEnCours.getPeuple().decliner();
+			//joueurSuivant();
+			tempEnDeclin = true;
+			
+			setEtape(2);
+			miseEnMain();
+			
+			Game.getInstance().showTemp(joueurEnCours.getNom() + " se redéploie.");
 		}	
+		
 		Game.getInstance().majInfos();
 	}
 	
