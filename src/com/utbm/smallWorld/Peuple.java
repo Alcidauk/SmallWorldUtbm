@@ -197,11 +197,9 @@ public abstract class Peuple implements Bonusable {
 			Territoire t = it.next();
 			
 			gains += 1 + this.bonusGain(t) + t.bonusGain();
-			System.out.println(">> " + gains + " " + this.bonusGain(t) + " " + t.bonusGain());
 			
 			if (hasPower()) {
 				gains += this.pouvoir.bonusGain(t);
-				System.out.println("> " + gains);
 			}
 		}
 		
