@@ -132,9 +132,9 @@ public class Joueur {
 		
 		boolean redeploiement = false;
 		
-		if (cout > forceAttaque && ! lanceDe) {
+		if (cout > forceAttaque) {
 			// Lancé de dé possible ?
-			if (cout <= forceAttaque + (bonusDe + 3)) {
+			if (! lanceDe && cout <= forceAttaque + (bonusDe + 3)) {
 				if (! Game.getInstance().askConf("Unités insuffisantes, voulez-vous lancer le dé ?")) {
 					return false;
 				}
@@ -150,6 +150,9 @@ public class Joueur {
 					
 					redeploiement = true;
 				}
+			}
+			else {
+				return false;
 			}
 		}
 		
