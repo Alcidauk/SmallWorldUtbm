@@ -148,7 +148,13 @@ public class TerritoireCase extends JPanel implements MouseListener {
 		
 		txt += "Occupant : " + occupantName + "\n\n";
 		txt += "Nombre d'unité...... " + nbUnite + "\n";
-		txt += "Coût de l'attaque... " + Math.round(coutAttaque) + " unité(s)\n\n";
+		
+		if (Double.isInfinite(coutAttaque)) {
+			txt += "Coût de l'attaque... Imprenable !\n\n";
+		}
+		else {
+			txt += "Coût de l'attaque... " + Math.round(coutAttaque) + " unité(s)\n\n";
+		}
 		
 		txt += "Eléments contenus :\n";
 		

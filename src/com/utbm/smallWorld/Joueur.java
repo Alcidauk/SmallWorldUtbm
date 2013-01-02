@@ -180,62 +180,18 @@ public class Joueur {
 	 * Calcule le nombre de pts de victoire gagnés à la fin d'un tour
 	 * @return
 	 */
-	public int calculePtsVictoireTour(){
-		
+	public int calcArgentTour(){
 		int pts = 0;
 		
-		try{
-			pts = peuple.getTerritoiresOccupes().size();
-		}catch(NullPointerException e){}
+		if (this.peuple != null) {
+			pts += this.peuple.calculerGain();
+		}
 		
-		try{
-			pts += peupleDeclin.getTerritoiresOccupes().size();
-		}catch(NullPointerException e){}
-				
-		Territoire t = null;
-		
-		try{
-			for(int i = 0; i < peuple.getTerritoiresOccupes().size(); i++){
-				t = peuple.getTerritoiresOccupes().get(i);
-				pts +=  peuple.getPouvoir().bonusGain(t);
-				
-				Element e = null;
-				
-				try{
-					for(int j = 0; j < t.getElements().size(); j++){
-						e = t.getElements().get(j);
-						pts +=  e.bonusGain();
-					}
-				}catch(NullPointerException ex){}
-				
-			}
-		}catch(NullPointerException e){}
-		
-		try{
-			for(int i = 0; i < peupleDeclin.getTerritoiresOccupes().size(); i++){
-				t = peupleDeclin.getTerritoiresOccupes().get(i);
-				pts +=  peupleDeclin.getPouvoir().bonusGain(t);
-	
-				Element e = null;
-				
-				try{
-					for(int j = 0; j < t.getElements().size(); j++){
-						e = t.getElements().get(j);
-						pts +=  e.bonusGain();
-					}
-				}catch(NullPointerException ex){}
-			}
-		}catch(NullPointerException e){}
+		if (this.peupleDeclin != null) {
+			pts += this.peupleDeclin.calculerGain();
+		}
 		
 		return pts;
-	}
-	
-	
-	/**
-	 * Ajoute aux points de victoire ceux du tour
-	 */
-	public void majPtsVictoire(){
-		ptsVictoire += calculePtsVictoireTour();
 	}
 	
 	
@@ -321,6 +277,13 @@ public class Joueur {
 	 */
 	public void setArgent(int argent) {
 		this.argent = argent;
+	}
+
+	/**
+	 * @param argent the argent to set
+	 */
+	public void addArgent(int argent) {
+		this.argent += argent;
 	}
 
 	/**

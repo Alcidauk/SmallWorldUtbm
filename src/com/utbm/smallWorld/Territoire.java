@@ -107,7 +107,7 @@ public class Territoire {
 	 * @return Nombre de point victoire bonus sans compter le point normal
 	 */
 	public int bonusGain() {
-		int bonus = this.nbUnite;
+		int bonus = 0;
 		
 		Iterator<Element> it = this.elements.iterator();
 		

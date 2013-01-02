@@ -277,8 +277,10 @@ public class Partie {
 		setEtape(0);
 		
 		/* on calcule les gains du tour et on met à jour les pts de victoire */
-		Game.getInstance().showTemp(joueurEnCours.calculePtsVictoireTour() + " point(s) gagné(s) durant ce tour !");
-		joueurEnCours.majPtsVictoire();
+		int argent = joueurEnCours.calcArgentTour();
+		
+		Game.getInstance().showTemp(argent + " point(s) gagné(s) durant ce tour !");
+		joueurEnCours.addArgent(argent);
 		
 		if (indexJoueurEnCours == lstJoueurs.size() - 1) {
 			nouveauTour();
