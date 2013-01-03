@@ -16,9 +16,6 @@ public abstract class Pouvoir implements Bonusable {
 	/** peuple auquel est lié le pouvoir spécial, null si lié à aucun. */
 	protected Peuple peupleLie;
 	
-	/** indique si le pouvoir est encore comptabilisé si son peuple associé est en déclin */
-	protected boolean actifEnDeclin;
-	
 	/** nom du pouvoir */
 	protected String nom;
 	
@@ -32,7 +29,6 @@ public abstract class Pouvoir implements Bonusable {
 	public Pouvoir() {
 		nom = "";
 		desc = "";
-		actifEnDeclin = false;
 		nbUniteApporte = 0;
 		peupleLie = null;
 	}
@@ -54,14 +50,6 @@ public abstract class Pouvoir implements Bonusable {
 	 */
 	public Peuple getPeupleLie() {
 		return peupleLie;
-	}
-
-
-	/**
-	 * @return the actifEnDeclin
-	 */
-	public boolean isActifEnDeclin() {
-		return actifEnDeclin;
 	}
 
 
@@ -98,14 +86,6 @@ public abstract class Pouvoir implements Bonusable {
 	 */
 	public void setPeupleLie(Peuple peupleLie) {
 		this.peupleLie = peupleLie;
-	}
-
-
-	/**
-	 * @param actifEnDeclin the actifEnDeclin to set
-	 */
-	public void setActifEnDeclin(boolean actifEnDeclin) {
-		this.actifEnDeclin = actifEnDeclin;
 	}
 
 	
