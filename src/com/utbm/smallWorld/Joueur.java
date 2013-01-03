@@ -28,9 +28,6 @@ public class Joueur {
 	/** Peuple en déclin du joueur */
 	private Peuple peupleDeclin = null;
 	
-	/** Points de victoire du joueur */
-	private int ptsVictoire = 0;
-	
 	/**
 	 * Constructeur par défaut
 	 */
@@ -91,6 +88,12 @@ public class Joueur {
 			try {
 				if (! this.peuple.peutAttaquer(null, to)) {
 					return false;
+				}
+				else {
+					try {
+						bonus = this.peuple.calcBonusAttaque(null, to);
+					}
+					catch (Exception e) {};
 				}
 			}
 			catch (Exception e) {
@@ -237,15 +240,6 @@ public class Joueur {
 		return indice;
 	}
 	
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public int getPtsVictoire(){
-		return ptsVictoire;
-	}
-	
 
 
 	
@@ -298,13 +292,6 @@ public class Joueur {
 	 */
 	public void setPeuplesDeclin(Peuple peuplesDeclin) {
 		this.peupleDeclin = peuplesDeclin;
-	}
-	
-	/**
-	 * @param ptsVictoire
-	 */
-	public void setPtsVictoire(int ptsVictoire){
-		this.ptsVictoire = ptsVictoire;
 	}
 	
 	/**
