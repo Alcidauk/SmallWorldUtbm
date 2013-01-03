@@ -51,9 +51,9 @@
 		
 		\subsection{Application}
 		
-		Le cahier des charges de l'application indique ce que devra faire celle-ci en développant son comportement. Un certain nombre de choses à faire sont donc déjà énoncées par le sujet ou par l'existant mais d'autres sont à indiquer.
+		Le cahier des charges de l'application indique ce que devra faire celle-ci en développant son comportement. Un certain nombre de choses à faire sont donc déjà énoncées par le sujet ou par l'existant mais d'autres sont à indiquer. Ces besoins sont énumérés ci-dessous en quatre parties: tout d'abord ceux relatifs à un début de partie, ensuite d'autres en liens avec le cours de la partie, puis les besoins intervenant en fin de partie. Une dernière partie traitera des besoins liés à l'interface.
 		
-			\paragraph{Début de partie}
+			\paragraph{Début de partie\\}
 			
 			L'application doit répondre à un certain nombre de besoins en début de partie. \\
 			
@@ -73,13 +73,14 @@
 				\item l'application doit gérer l'argent liée à chaque couple peuple/pouvoir puisqu'un joueur peut payer pour prendre un couple.
 			\end{itemize}
 			
-			\paragraph{Cours de partie}
+			\paragraph{Cours de partie\\}
 			
-			Du coté de l'utilisateur, on a les besoins suivants:
+			Du coté de l'utilisateur, on a les besoins suivants:\\
 			\begin{itemize}
 				\item Pour la phase de conquête de territoires:
 				\begin{itemize}
-					\item il doit pouvoir tant qu'il n'a encore rien pris durant le tour cliquer sur un bouton de passage en déclin du peuple. Le joueur finit alors son tour directement.
+					\item il doit pouvoir tant qu'il n'a encore rien pris durant le tour cliquer sur un bouton de passage en déclin du peuple. Le joueur finit alors son tour directement;
+					\item si le joueur a passé son peuple en déclin au tour précédent, l'application doit lui proposer de choisir un nouveau peuple lorsqu'il joue à nouveau;
 					\item il doit pouvoir cliquer sur les territoires qu'il peut prendre (géographiquement);
 					\item l'application dans dans ces deux cas demander confirmation au joueur;
 					\item l'application doit proposer lorsque le joueur n'a pas assez de pions pour attaquer un territoire de lancer un dé: si il accepte, on doit alors passer à la phase suivante.
@@ -90,7 +91,7 @@
 					\item le joueur doit pouvoir cliquer sur tous ses territoires;
 					\item l'application doit alors proposer le nombre de pions à placer sur celui-ci;
 					\item le joueur doit pouvoir cliquer sur un bouton de fin de redéploiement lorsqu'il a fini;
-					\item l'application ne doit pas proposer de bouton de fin tant que le joueur a des pions dans les mains.
+					\item l'application ne doit pas proposer de bouton de fin tant que le joueur a des pions dans les mains. \\
 				\end{itemize}
 				\item Pour la phase de redéploiement des autres joueurs, les besoins sont les même que pour celle du joueur qui vient d'effectuer son tour.	 \\	
 			\end{itemize}
@@ -100,15 +101,81 @@
 				\item ne permettre au joueur que de cliquer sur les territoires auxquels il peut accéder;
 				\item calculer à chaque changement le nombre d'unités en main;
 				\item effectuer les changements d'occupant pour les territoires abandonnés ou conquis;
-				\item en fin de tour, calculer les points de victoire gagnés par le joueur.
+				\item vérifier dans le cas où des joueurs ont des peuples en déclin que ceux-ci ont toujours des territoires. S'ils n'en n'ont plus, l'application doit supprimer le peuple en déclin du joueur et le remettre dans la liste des peuples libres;
+				\item en fin de tour, calculer les points de victoire gagnés par le joueur. Ceux-ci sont calculés à partir des territoires occupés par son peuple mais aussi par ceux occupés par son peuple en déclin et en fonction de ses éventuels bonus.
 			\end{itemize}
-		
-			\paragraph{Apparence et mise en page générale}
 			
-			La réalisation de cette application doit intégrer une interface graphique. Un certain nombre de règles sont donc à énoncer:
+			\paragraph{Fin de partie\\}
+			
+			Pour l'utilisateur, l'application doit simplement indiquer quel est le gagnant de la partie. Le joueur doit pouvoir ensuite soit rejouer une partie, soit quitter le jeu. \\
+			En arrière-plan, pour indiquer quel est le gagnant, l'application doit calculer quel joueur a le plus de points de victoire accumulés.
+		
+			\paragraph{Apparence et mise en page générale\\}
+			
+			La réalisation de cette application doit intégrer une interface graphique. Un certain nombre de règles sont donc à énoncer:\\
+			
 			\begin{itemize}
-				\item 
+				\item l'interface doit fournir les informations suivantes au joueur lors de son tour dans un cadre d'informations sur le joueur dans un coin de la fenêtre de jeu. Les informations suivantes seront mises en évidence dans un liseret de la couleur décernée au joueur:
+				\begin{itemize}
+					\item le nom du joueur;
+					\item son peuple actif ainsi que le pouvoir associé;
+				\end{itemize}
+				D'autres informations complétant les premières seront indiquées dans le cadre hors du liseret:
+				\begin{itemize}
+					\item le nombre de points de victoire en cours;
+					\item le nombre d'unités totales qu'il possède;
+					\item le nombre de territoires occupés à l'instant où il joue;
+					\item le nombre d'unités qu'il a en main à l'instant où il joue;
+					\item l'éventuel peuple en déclin qu'il possède. \\
+				\end{itemize}
+				
+				\item elle doit aussi comprendre des informations sur les territoires mises à jour en fonction du territoire pointé par la souris. Ces informations, contenues dans un cadre d'information du territoire dans un coin de la fenêtre, sont:
+				\begin{itemize}
+					\item l'occupant du territoire;
+					\item le nombre d'unités présentes sur celui-ci;
+					\item le coût de l'attaque pour le joueur en train de jouer;
+					\item les éventuels éléments que contient le territoire.
+				\end{itemize}
+				Le titre du cadre doit avoir pour fond la couleur décernée au joueur.
+				\item les territoires doivent de plus indiquer sur leur espace le nombre d'unités contenues sur celui-ci. Ce chiffre doit être accompagné d'une couleur en arrière-plan correspondant à la couleur décernée au joueur. Si le peuple occupant est en déclin, la couleur sera adoucie; \\
+				
+				\item un dernier cadre dont le titre a aussi pour fond la couleur du joueur doit contenir les boutons suivants:
+				\begin{itemize}
+					\item fin du tour;
+					\item passage en déclin du peuple;
+					\item fin du redéploiement.
+				\end{itemize}
+				Ces boutons doivent être disponibles en fonction de l'étape de jeu du joueur. \\
+				
+				\item un cadre temporaire doit apparaître pour expliquer au joueur les différents choix impossibles lorsque celui-ci les tente. Ce cadre doit être bien visible et aura une couleur de police rouge. Il doit servir par exemple lorsque l'on clique sur un territoire impossible à attaquer à l'indiquer au joueur. \\
 			\end{itemize}
+			
+			Des informations entre les étapes et les tours doivent aussi apparaître pour situer le joueur. Ces informations sont:
+			\begin{itemize}
+				\item une page temporaire indiquant l'étape de conquête du joueur en cours avant que celui-ci attaque des régions;
+				\item une page temporaire affichant le redéploiement du joueur en cours;
+				\item une page temporaire affichant le redéploiement des éventuels joueurs qui ont des unités en main suite à des pertes de territoires;
+				\item enfin en fin de tour, une page temporaire indiquant le nombre de points de victoire durement acquéris lors du tour du joueur.
+			\end{itemize}
+			
+		\subsection{Contraintes et choix techniques}
+		
+		Le cahier des charges comprend différentes contraintes qui ont été imposées par le propos du sujet. D'autres contraintes ont été rajoutées par l'équipe. Ces différentes contraintes sont de différents types. \\
+		
+		De type temporel: 
+		\begin{itemize}
+			\item le rapport du projet doit être rendu pour le 4 janvier et le projet doit donc être terminé pour cette même date;
+			\item les emplois du temps des différents membres du projet étant différents, des créneaux horaires en commun doivent être trouvés pour les réunions de projet. \\
+		\end{itemize}
+		
+		De type technique:
+		\begin{itemize}
+			\item le langage de programmation est imposé: le Java;
+			\item de plus, la bibliothèque graphique présentée en cours est Swing. C'est donc cette dernière qui doit être utilisée;
+			\item afin d'éviter les problèmes de compatibilité, un environnement de développement est imposé: Eclipse. Il a l'avantage d'être largement utilisé et d'être disponible sur les systèmes d'exploitations les plus utilisés (Linux, Windows, MacOs);
+			\item afin de pouvoir travailler chacun chez soi entre les différentes réunions, un gestionnaire de version est mis en place: Git. Ce dernier a été choisi car lié au site Github.com, il a l'avantage d'être simple à utiliser et de proposer des informations pratiques sur le développement. Le choix se justifie aussi du fait qu'un plugin liant Git à Eclipse est disponible. Ce dernier permet d'utiliser les deux en lien étroit et facilement;
+			\item pour regrouper les éléments et les territoires du jeu, une base de données doit être utilisée: il a été choisi SQLite pour représenter cette base de données. SQLite présente l'intérêt de ne pas nécessiter de serveur et d'avoir une interface graphique pour créer la base de données. C'est aussi un système léger puisque ne générant qu'un fichier pour une base de données, il est portable et très répandu.
+		\end{itemize}
 		
 	
 	SmallWorldUtbm est l'adaptation du jeu de société SmallWorld au contexte de l'Université de Technologies de Belfort-Montbéliard. Les règles du jeu doivent donc rester proches de ce jeu sans pour autant en faire la copie conforme. Le but reste donc le même c'est-à-dire diriger la destinée de peuples dans un monde où chacun doit donc lutter pour sa survie. 
