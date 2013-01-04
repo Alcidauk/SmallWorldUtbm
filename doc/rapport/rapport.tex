@@ -1,13 +1,19 @@
 \documentclass[a4paper, 11pt]{article}
 
+
+
 \input{modele}
 
 	\title{\vspace{5cm}SmallWorldUtbm \\ rapport de projet \\ \ \\}
-	\date{automne 2012\\ \ \\}
+	\date{automne 2012\\ \ \\ \vspace*{3cm}
+	\includegraphics[width=4cm]{logo_utbm.png}
+	}
 	\author{Amani Younes - Michael Longo - Gabriel Notong - Pierre Rognon \\ \ \\ \ \\ Université de Technologies de Belfort-Montbéliard\\ \ \\}
+	
+\renewcommand{\appendixtocname}{Annexes}
+\renewcommand{\appendixpage}{\huge \textbf{Annexes} \normalsize}
+\renewcommand{\appendixname}{{\sffamily Annexe}} 	
 
-	
-	
 \begin{document}
 
 	
@@ -15,7 +21,7 @@
 	
 	\newpage
 	
-	\tableofcontents
+	\shorttoc{Sommaire}{1}
 	
 	\newpage
 	
@@ -347,13 +353,17 @@
 		
 		
 	\newpage	
-	\section*{Annexes}
 	
-		\subsection*{Annexe 1}
+	\begin{appendix} 
+	\appendixpage
+	\addappheadtotoc
+	
+	\vspace*{1cm}
+		\chapter{\textbf{Annexe 1}}
 		
 		\begin{center}
 			\vspace*{3cm}
-			\includegraphics[width=18cm]{DiagrammeDeCasDUtilisation.png}\\
+			\includegraphics[width=16cm]{DiagrammeDeCasDUtilisation.png}\\
 			\emph{Diagramme de cas d'utilisation}		
 		\end{center}
 		
@@ -372,38 +382,46 @@
 		\subsection*{Annexe 3}
 		
 		\begin{center}
-			\includegraphics[width=12cm]{DSSAttaque.png}\\
+			\includegraphics[width=15.7cm]{DSSAttaque2.png}\\
 			\emph{Diagramme de séquences de l'attaque d'un territoire}
 		\end{center}
+		
+		\newpage
+		
 		
 		\subsection*{Annexe 4}
 		
 		\begin{center}
-			\includegraphics[width=16cm]{DSSPriseTerritoireSansExistant.png}\\
+			\includegraphics[width=18cm]{DSSPriseTerritoireSansExistant.png}\\
 			\emph{Diagramme de séquences de la prise d'un territoire sans occupant}
 		\end{center}
+		
+		\newpage
+
 
 		\subsection*{Annexe 5}
 		
 		\begin{center}
 		\vspace*{3cm}
-			\includegraphics[width=8cm]{DSSAbandon.png}\\
+			\includegraphics[width=9cm]{DSSAbandon.png}\\
 			\emph{Diagramme de séquences de l'abandon d'un territoire}
 		\end{center}
+		
+		\newpage
+
 
 		\subsection*{Annexe 6}
 		
 		\begin{center}
-			\includegraphics[width=8.5cm]{DSSCalculGain.png}\\
+			\includegraphics[width=9.5cm]{DSSCalculGain2.png}\\
 			\emph{Diagramme de séquences du calcul du gain d'un joueur}
 		\end{center}
-		
+
+		\newpage
 
 		
+	\end{appendix}
 		
-
-
-
-
-	
+	\tableofcontents
+		
 \end{document}
