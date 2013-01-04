@@ -79,8 +79,12 @@ public abstract class Element implements Comparable<Element> {
 	 * @param e Element à comparer à this
 	 * @return true si égalité
 	 */
-	public boolean equals(Element e) {
-		return nom.equals(e.nom);
+	public boolean equals(Object e) {
+		if (! (e instanceof Element)) {
+			return false;
+		}
+		
+		return nom.equals(((Element) e).nom);
 	}
 	
 	/**

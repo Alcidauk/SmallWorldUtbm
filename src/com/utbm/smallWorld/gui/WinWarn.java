@@ -20,7 +20,8 @@ public class WinWarn extends JDialog implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	
 	public WinWarn(String mess) {
-		setModal(true);
+		super(Game.getInstance(), false);
+		//setModal(true);
 		setBounds(Game.getInstance().getBounds().x+(1274-500), Game.getInstance().getBounds().y+33, 500, 30);
 		setResizable(false);
 		setUndecorated(true);

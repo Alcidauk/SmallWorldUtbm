@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class WinWait extends JDialog implements MouseListener {
 	
@@ -21,7 +22,8 @@ public class WinWait extends JDialog implements MouseListener {
 	
 	
 	public WinWait(String mess) {
-		setModal(true);
+		super(Game.getInstance(), true);
+		//setModal(true);
 		setBounds(Game.getInstance().getBounds());
 		setResizable(false);
 		setUndecorated(true);
@@ -57,6 +59,17 @@ public class WinWait extends JDialog implements MouseListener {
 		
 		final JDialog that = this;
 		
+		/*SwingUtilities.invokeLater(new Runnable(){
+			public void run() {
+				try {
+					Thread.sleep(2000);
+				}
+				catch (Exception e) {}
+				
+				that.setVisible(false);
+			}
+		});*/
+		
 		new Thread(new Runnable(){
 			public void run() {
 				try {
@@ -68,6 +81,7 @@ public class WinWait extends JDialog implements MouseListener {
 			}
 		}).start();
 		
+		
 		setVisible(true);
 	}
 
@@ -75,7 +89,10 @@ public class WinWait extends JDialog implements MouseListener {
 		setVisible(false);
 	}
 	
-	public void mouseClicked(MouseEvent arg0) {}
+	public void mouseClicked(MouseEvent arg0) {
+		setVisible(false);
+	}
+	
 	public void mouseEntered(MouseEvent arg0) {}
 	public void mouseExited(MouseEvent arg0) {}
 	public void mouseReleased(MouseEvent arg0) {}

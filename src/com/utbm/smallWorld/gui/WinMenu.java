@@ -40,10 +40,10 @@ public class WinMenu extends JDialog {
 	 * @param title Titre de la fenêtre / menu
 	 */
 	public WinMenu(String title) {
-		setModal(true);
+		super(Game.getInstance(), true);
 		setTitle("SmallWorld UTBM - " + title);
 		setSize(1280, 768);
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(Game.getInstance());
 		setResizable(false);
 		//setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
