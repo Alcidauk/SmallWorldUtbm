@@ -118,7 +118,7 @@ public class Joueur {
 		boolean lanceDe = false;
 		int bonusDe = this.peuple.bonusValeurDe() + (this.peuple.hasPower() ? this.peuple.getPouvoir().bonusValeurDe() : 0);
 		
-		if (this.peuple.bonusLanceDe() || (this.peuple.hasPower() && this.peuple.getPouvoir().bonusLanceDe())) {
+		if (this.peuple.bonusLanceDe(cout - bonus) || (this.peuple.hasPower() && this.peuple.getPouvoir().bonusLanceDe(cout - bonus))) {
 			lanceDe = true;
 			
 			int valeurDe = Game.getInstance().lancerDe(bonusDe);

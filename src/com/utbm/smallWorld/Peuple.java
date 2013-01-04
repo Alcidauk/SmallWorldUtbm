@@ -509,7 +509,7 @@ public abstract class Peuple implements Bonusable {
 	/**
 	 * @return
 	 */
-	public boolean bonusLanceDe() {
+	public boolean bonusLanceDe(double cout) {
 		return false;
 	}
 	

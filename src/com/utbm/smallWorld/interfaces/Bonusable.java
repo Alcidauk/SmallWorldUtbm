@@ -16,7 +16,7 @@ public interface Bonusable {
 
 	public int bonusValeurDe();
 
-	public boolean bonusLanceDe();
+	public boolean bonusLanceDe(double cout);
 
 	public boolean bonusPeutAttaquer(Territoire from, Territoire to);
 

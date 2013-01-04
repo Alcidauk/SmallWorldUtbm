@@ -157,7 +157,7 @@ public abstract class Pouvoir implements Bonusable {
 	/**
 	 * @return boolean est-ce que le dé peut être lancé à chaque conquête
 	 */
-	public boolean bonusLanceDe() {
+	public boolean bonusLanceDe(double cout) {
 		return false;
 	}
 	
