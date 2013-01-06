@@ -3,6 +3,10 @@
  */
 package com.utbm.smallWorld.peuples;
 
+import java.util.Iterator;
+import java.util.List;
+
+import com.utbm.smallWorld.Partie;
 import com.utbm.smallWorld.Peuple;
 import com.utbm.smallWorld.Territoire;
 
@@ -19,7 +23,18 @@ public class PeupleDirecteur extends Peuple {
 	}
 	
 	public int bonusGain(Territoire t) {
-		// TODO Historique
-		return 1;
+		List<Peuple> lstTmp = t.getPrisesDuTerritoire(Partie.getInstance().getTourEnCours());
+		
+		Iterator<Peuple> it = lstTmp.iterator();
+			
+		while( it.hasNext() ){
+			Peuple p = it.next();
+				
+			if( p == this){
+				return 1;
+			}
+		}
+		
+		return 0;
 	}
 }
