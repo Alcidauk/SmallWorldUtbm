@@ -367,7 +367,10 @@ public class Game extends JFrame {
     			Pouvoir insPov = clPov.newInstance();
     			
     			// TODO Description
-    			JLabel it = choixPeuple.newItem(arg + "$ - " + insPpl.getNom() + " (" + insPpl.getNbUniteDepart() + " unit.) + " + insPov.getNom() + " (" + insPov.getNbUniteApporte() + " unit.)", i);
+    			String tx = arg + "$ - " + insPpl.getNom() + " (" + insPpl.getNbUniteDepart() + " unit.) + " + insPov.getNom() + " (" + insPov.getNbUniteApporte() + " unit.)";
+    			String desc = insPpl.getNom() + " : " + insPpl.getDescription() + "\n" + insPov.getNom() + " : " + insPov.getDesc();
+    			
+    			JLabel it = choixPeuple.newItem(tx, desc, i);
     			it.setHorizontalAlignment(JLabel.LEFT);
     		}
     		

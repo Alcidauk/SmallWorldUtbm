@@ -14,6 +14,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  * Fenêtre permettant d'offrir un choix à l'utilisateur
@@ -33,6 +34,10 @@ public class WinMenu extends JDialog {
 	
 	/** Header de la fenêtre */
 	private JLabel labMenu;
+
+	private JTextArea txInfo;
+
+	private JPanel panBottom;
 	
 	
 	/**
@@ -62,7 +67,7 @@ public class WinMenu extends JDialog {
 		FlowLayout layBack = new FlowLayout();
 		layBack.setVgap(0);
 		background.setLayout(layBack);
-		
+
 		// Background du titre du haut
 		JPanel panTitle = new JPanel(new FlowLayout());
 		panTitle.setPreferredSize(new Dimension(1274, 105));
@@ -75,12 +80,30 @@ public class WinMenu extends JDialog {
 		
 		// Conteneur des items du menu
 		panContent = new JPanel(new FlowLayout());
-		panContent.setPreferredSize(new Dimension(1274, 635));
+		panContent.setPreferredSize(new Dimension(1274, 435));
 		panContent.setBackground(new Color(0, 0, 0, 0));
 		
+		//
+
+		// Background du panel du bas
+		panBottom = new JPanel(new FlowLayout());
+		panBottom.setPreferredSize(new Dimension(1274, 200));
+		panBottom.setBackground(new Color(14, 14, 14));
+		panBottom.setVisible(false);
+		
+		// Contenu du bas
+		txInfo = new JTextArea();
+		txInfo.setPreferredSize(new Dimension(1200, 190));
+		txInfo.setBackground(new Color(14, 14, 14));
+		txInfo.setForeground(Color.WHITE);
+		txInfo.setFont(new Font("sherif", 0, 24));
+		txInfo.setEditable(false);
+
 		panTitle.add(labMenu);
+		panBottom.add(txInfo);
 		background.add(panTitle);
 		background.add(panContent);
+		background.add(panBottom);
 		getContentPane().add(background);
 	}
 	
@@ -100,7 +123,21 @@ public class WinMenu extends JDialog {
 	 * @return 
 	 */
 	public JLabel newItem(String text, int index) {
-		JLabel it = menuItem(text, index);
+		JLabel it = menuItem(text, null, index);
+		panContent.add(it);
+		
+		return it;
+	}
+	
+	
+	/**
+	 * Ajout d'un élément au menu
+	 * @param text Texte de l'option
+	 * @param index Numero renvoyé lors du clique
+	 * @return 
+	 */
+	public JLabel newItem(String text, String desc, int index) {
+		JLabel it = menuItem(text, desc, index);
 		panContent.add(it);
 		
 		return it;
@@ -112,7 +149,7 @@ public class WinMenu extends JDialog {
 	 * @param text Texte de l'option
 	 * @param index Numero renvoyé lors du clique
 	 */
-	private JLabel menuItem(String title, final int index) {
+	private JLabel menuItem(String title, final String desc, final int index) {
 		final JLabel btn = new JLabel(title);
 		
 		btn.setHorizontalAlignment(JLabel.CENTER);
@@ -131,12 +168,21 @@ public class WinMenu extends JDialog {
 			}
 			
 			public void mouseEntered(MouseEvent arg0) {
+				if (desc != null && desc.length() > 0) {
+					txInfo.setText("\n" + desc);
+					panBottom.setVisible(true);
+				}
+				
 				btn.setOpaque(true);
 				btn.setBackground(new Color(0, 0, 0, 140));
 				that.repaint();
 			}
 			
 			public void mouseExited(MouseEvent arg0) {
+				if (desc != null && desc.length() > 0) {
+					panBottom.setVisible(false);
+				}
+				
 				btn.setBackground(new Color(0, 0, 0, 0));
 				that.repaint();
 			}
