@@ -16,7 +16,7 @@ import com.utbm.smallWorld.elements.SalleInfo;
 public class PeupleCRI extends Peuple {
 	public PeupleCRI() {
 		nom = "CRI";
-		description = "";
+		description = "Chaque territoire occupé étant une salle informatique rapporte +1 pour chaque attaque depuis celui-ci";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}

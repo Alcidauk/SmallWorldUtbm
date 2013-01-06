@@ -12,7 +12,7 @@ import com.utbm.smallWorld.Peuple;
 public class PeupleRats extends Peuple {
 	public PeupleRats() {
 		nom = "Rat";
-		description = "";
+		description = "Fidèles à leur réputation, ils gagnent +1 unité par tour";
 		nbUniteDepart = 15;
 		nbUniteMax = 25;
 	}

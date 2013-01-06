@@ -14,7 +14,7 @@ import com.utbm.smallWorld.elements.Laboratoire;
 public class PeupleChercheur extends Peuple {
 	public PeupleChercheur() {
 		nom = "Chercheur";
-		description = "";
+		description = "Chaque territoire occupé contenant un laboratoire se voit attribuer +1 de défense";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}

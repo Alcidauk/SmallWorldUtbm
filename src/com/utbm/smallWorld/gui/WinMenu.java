@@ -98,7 +98,8 @@ public class WinMenu extends JDialog {
 		txInfo.setForeground(Color.WHITE);
 		txInfo.setFont(new Font("sherif", 0, 24));
 		txInfo.setEditable(false);
-
+		txInfo.setLineWrap(true);
+		
 		panTitle.add(labMenu);
 		panBottom.add(txInfo);
 		background.add(panTitle);

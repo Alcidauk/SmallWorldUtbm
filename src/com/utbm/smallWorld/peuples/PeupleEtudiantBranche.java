@@ -12,7 +12,7 @@ import com.utbm.smallWorld.Peuple;
 public class PeupleEtudiantBranche extends Peuple {
 	public PeupleEtudiantBranche() {
 		nom = "Etudiant branche";
-		description = "";
+		description = "Lors de la perte d'un territoire, ils ne défaussent pas d'unité";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}

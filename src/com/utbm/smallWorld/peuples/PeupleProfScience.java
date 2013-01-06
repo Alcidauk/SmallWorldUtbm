@@ -12,7 +12,7 @@ import com.utbm.smallWorld.Peuple;
 public class PeupleProfScience extends Peuple {
 	public PeupleProfScience() {
 		nom = "Professeur scientifique";
-		description = "";
+		description = "Leurs connaissances leurs ont permis de trafiquer le dé, bonus de valeur +2 à chaque lancé de dé";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}

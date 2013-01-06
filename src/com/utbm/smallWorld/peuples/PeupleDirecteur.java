@@ -13,12 +13,13 @@ import com.utbm.smallWorld.Territoire;
 public class PeupleDirecteur extends Peuple {
 	public PeupleDirecteur() {
 		nom = "Directeur de département";
-		description = "";
+		description = "Rapporte 1$ de plus par territoire conquis durant le tour";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}
 	
 	public int bonusGain(Territoire t) {
+		// TODO Historique
 		return 1;
 	}
 }

@@ -12,7 +12,7 @@ import com.utbm.smallWorld.Peuple;
 public class PeupleEtudiantTC extends Peuple {
 	public PeupleEtudiantTC() {
 		nom = "Etudiant TC";
-		description = "";
+		description = "Leur nombre est leur force";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}

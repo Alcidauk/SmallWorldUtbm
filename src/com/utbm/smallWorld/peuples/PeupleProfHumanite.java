@@ -14,7 +14,7 @@ import com.utbm.smallWorld.elements.SallePartiel;
 public class PeupleProfHumanite extends Peuple {
 	public PeupleProfHumanite() {
 		nom = "Professeur d\'humanité";
-		description = "";
+		description = "Chaque territoire conquis étant une salle de partiel devient imprenable";
 		nbUniteDepart = 15;
 		nbUniteMax = 20;
 	}
