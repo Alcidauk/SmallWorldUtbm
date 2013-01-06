@@ -7,7 +7,7 @@ public class PouvoirFauxCul extends Pouvoir {
 	
 	public PouvoirFauxCul(){
 		nom = "Faux-cul";
-		desc = "";
+		desc = "Peu importe leurs territoires, ils peuvent toujours attaquer les territoires se trouvant en bordure";
 		nbUniteApporte = 5;
 	}
 

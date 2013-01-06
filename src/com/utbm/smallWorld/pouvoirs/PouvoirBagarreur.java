@@ -6,7 +6,7 @@ public class PouvoirBagarreur extends Pouvoir {
 	
 	public PouvoirBagarreur(){
 		nom = "Bagarreur";
-		desc = "";
+		desc = "Toujours prêts à se battre, ils rapportent +1 unité d'attaque bonus par tour";
 		nbUniteApporte = 5;
 	}
 	

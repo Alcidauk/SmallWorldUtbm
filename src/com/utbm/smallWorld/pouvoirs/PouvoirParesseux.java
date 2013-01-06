@@ -9,7 +9,7 @@ public class PouvoirParesseux extends Pouvoir {
 	public PouvoirParesseux(){ 
 		nbUniteApporte = 5; 
 		nom = "Paresseux";
-		desc = "";
+		desc = "Il est tellement difficile de les faire se déplacer qu'ils gagnent +1 de bonus défense";
 	}
 	
 	@Override

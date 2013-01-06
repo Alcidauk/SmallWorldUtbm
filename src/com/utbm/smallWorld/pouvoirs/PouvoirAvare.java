@@ -13,7 +13,7 @@ public class PouvoirAvare extends Pouvoir {
 	public PouvoirAvare(){ 
 		nbUniteApporte = 5;
 		nom = "Avare";
-		desc = "";
+		desc = "Chaque territoire conquis dans le tour rapport +1$";
 	}
 
 	

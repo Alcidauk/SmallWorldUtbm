@@ -8,7 +8,7 @@ public class PouvoirFumeur extends Pouvoir {
 	
 	public PouvoirFumeur(){
 		nom = "Fumeur";
-		desc = "";
+		desc = "Chaque territoire occupé étant un espace plein air rapporte +2$";
 		nbUniteApporte = 5;
 	}
 	

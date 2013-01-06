@@ -10,7 +10,7 @@ public class PouvoirOpportuniste extends Pouvoir {
 	
 	public PouvoirOpportuniste(){
 		nom = "Opportuniste";
-		desc = "";
+		desc = "Toujours à l'affut de la bonne occasion, ils peuvent lancer le dé une fois de plus à chaque tour";
 		nbUniteApporte = -5;
 	}
 	

@@ -9,7 +9,7 @@ public class PouvoirNerveux extends Pouvoir {
 	
 	public PouvoirNerveux(){
 		nom = "Nerveux";
-		desc = "";
+		desc = "Chaque territoire occupé contenant une machine café se voit attribuer +1 de bonus défense";
 		nbUniteApporte = 5;
 	}
 
