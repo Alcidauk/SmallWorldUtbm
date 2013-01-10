@@ -533,6 +533,18 @@ public abstract class Peuple implements Bonusable {
 	public void actionPriseTerritoire(Territoire t) {
 		
 	}
+	
+	
+	/**
+	 * 
+	 */
+	public boolean equals(Object o) {
+		if (! (o instanceof Peuple)) {
+			return false;
+		}
+		
+		return this.nom.equals(((Peuple) o).nom);
+	}
 
 }
 

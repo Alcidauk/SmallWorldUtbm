@@ -18,7 +18,7 @@ public class PeupleAlternance extends Peuple {
 	public PeupleAlternance() {
 		nom = "Alternance";
 		description = "";
-		nbUniteDepart = 15;
+		nbUniteDepart = 10;
 		nbUniteMax = 20;
 	}
 	
@@ -28,10 +28,10 @@ public class PeupleAlternance extends Peuple {
 		
 		for (Territoire t : this.territoiresOccupes) {
 			boolean vide = true;
-			
+
     		for (int i = 0; i < Partie.getInstance().getTourEnCours(); i++) {
         		lstTmp = t.getPrisesDuTerritoire(i);
-        		
+
         		if (lstTmp.size() > 0) {
         			if (! lstTmp.contains(this) || lstTmp.size() > 1) {
         				vide = false;

@@ -470,7 +470,7 @@ public class Partie {
 		argentPeuple.add(0);
 		
 		/* pour randomizer le choix peuple/pouvoir */
-		Collections.shuffle(peuplesDispo);
+		//Collections.shuffle(peuplesDispo);
 	}
 	
 	
