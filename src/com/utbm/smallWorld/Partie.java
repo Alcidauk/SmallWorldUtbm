@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.utbm.smallWorld.gui.Game;
+import com.utbm.smallWorld.gui.WinMenu;
 import com.utbm.smallWorld.gui.WinWarn;
 import com.utbm.smallWorld.peuples.*;
 import com.utbm.smallWorld.pouvoirs.*;
@@ -182,11 +183,19 @@ public class Partie {
 			}
 			else {
 				//if(coutAttaque(territoire) > joueurEnCours.getPeuple().)
-				if (Game.getInstance().askAttaque(territoire)) {
+				if( getJoueurEnCours().peutAttaquerUnTerritoire(territoire) || territoire.estEnBordure() ){
+					
+					if (Game.getInstance().askAttaque(territoire)) {
 
-					if (getJoueurEnCours().attaquer(territoire) && etape == 0) {
-						etape = 1;
+						if (getJoueurEnCours().attaquer(territoire) && etape == 0) {
+							etape = 1;
+						}
+						
 					}
+					
+				}else{
+					new WinWarn("Vous ne pouvez pas attaquer ce territoire.");
+					return;
 				}
 			}
 			

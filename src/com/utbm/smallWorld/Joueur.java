@@ -46,6 +46,32 @@ public class Joueur {
 	}
 	
 	/**
+	 * utilisé pour voir si un territoire peut être attaqué
+	 * pour les infos à afficher de l'interface
+	 * @param to Territoire à attaquer
+	 * @return
+	 */
+	public boolean peutAttaquerUnTerritoire(Territoire to){
+		List<Territoire> occupes = this.peuple.getTerritoiresOccupes();
+		
+		// Recherche d'un territoire pouvant attaquer
+		if (occupes.size() > 0) {
+			Iterator<Territoire> it = occupes.iterator();
+			
+			while (it.hasNext()) {
+				Territoire tmp = it.next();
+				
+				if (this.peuple.peutAttaquer(tmp, to))
+					return true;
+			}
+		}
+			
+		return false;
+		
+	}
+	
+	
+	/**
 	 * Lance l'attaque d'un territoire
 	 * La méthode analyse les différentes possibilités d'attaque,
 	 * et sélectionne la meilleure. Une fois sélectionnée,
