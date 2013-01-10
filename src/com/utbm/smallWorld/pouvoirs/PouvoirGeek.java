@@ -10,7 +10,7 @@ public class PouvoirGeek extends Pouvoir {
 	public PouvoirGeek(){ 
 		nbUniteApporte = 5;
 		nom = "Geek";
-		desc = "Chaque territoire occupé étant une salle informatique se voit attribuer +1 en défense. L'attaque depuis ces territoires se voit attribuer +2 de bonus";
+		desc = "Chaque territoire occupé étant une salle informatique se voit attribuer +1 en défense. L'attaque vers ces territoires se voit attribuer +2 de bonus";
 	}
 
 	@Override

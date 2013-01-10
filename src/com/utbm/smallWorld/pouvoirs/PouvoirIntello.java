@@ -10,7 +10,7 @@ public class PouvoirIntello extends Pouvoir {
 	public PouvoirIntello(){ 
 		nbUniteApporte = 5;
 		nom = "Intello";
-		desc = "Chaque territoire occupé étant une salle de partiel se voit attribuer +1 en défense. L'attaque depuis ces territoires se voit attribuer +2 de bonus";
+		desc = "Chaque territoire occupé étant une salle de partiel se voit attribuer +1 en défense. L'attaque vers ces territoires se voit attribuer +2 de bonus";
 	}
 	
 	@Override
