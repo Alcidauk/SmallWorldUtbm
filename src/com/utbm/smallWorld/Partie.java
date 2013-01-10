@@ -319,33 +319,37 @@ public class Partie {
 	 * Traitement lors d'un clic sur le bouton fin redéploiement
 	 */
 	public void cliqueFinRedeploiement() {
-		if ((etape == 2 || etape == 3) && joueurEnCours.getPeuple().getNbUniteEnMain() == 0) {
-			if (Game.getInstance().askConf("Confirmer la fin du redéploiement ?")) {
-				if (etape == 2) {
-					
-					if (tempEnDeclin) {
-						joueurEnCours.getPeuple().decliner();
+		if( joueurEnCours.getPeuple().getNbUniteEnMain() == 0 ){
+			if ((etape == 2 || etape == 3)) {
+				if (Game.getInstance().askConf("Confirmer la fin du redéploiement ?")) {
+					if (etape == 2) {
 						
-						tempEnDeclin = false;
+						if (tempEnDeclin) {
+							joueurEnCours.getPeuple().decliner();
+							
+							tempEnDeclin = false;
+						}
+						
+						
+						/* on passe à l'étape redéploiement des autres joueurs */
+						setEtape(3);
+						
+						/* et on indique que le joueur passe au tour suivant pour après ne pas le faire rejouer */
+						indexSauvJoueurEnCours = indexJoueurEnCours;
+						
+						indexJoueurEnCours = 0;
+	
 					}
 					
+					if (! deploiementSuivant()) {
+						joueurSuivant();
+					}
 					
-					/* on passe à l'étape redéploiement des autres joueurs */
-					setEtape(3);
-					
-					/* et on indique que le joueur passe au tour suivant pour après ne pas le faire rejouer */
-					indexSauvJoueurEnCours = indexJoueurEnCours;
-					
-					indexJoueurEnCours = 0;
-
+					Game.getInstance().majInfos();
 				}
-				
-				if (! deploiementSuivant()) {
-					joueurSuivant();
-				}
-				
-				Game.getInstance().majInfos();
 			}
+		}else{
+			new WinWarn("Il vous reste des unités en main, placez-les !");
 		}
 	}
 	
