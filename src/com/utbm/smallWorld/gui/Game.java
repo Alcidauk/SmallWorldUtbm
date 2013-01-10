@@ -734,7 +734,6 @@ public class Game extends JFrame {
 	
 	/**
 	 * Lance le jeu
-	 * @param args useless
 	 */
 	public static void main(String[] args) {
 		new Game();
