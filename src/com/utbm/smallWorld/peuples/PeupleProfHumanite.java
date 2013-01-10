@@ -15,8 +15,8 @@ public class PeupleProfHumanite extends Peuple {
 	public PeupleProfHumanite() {
 		nom = "Professeur d\'humanité";
 		description = "Chaque territoire conquis étant une salle de partiel devient imprenable";
-		nbUniteDepart = 15;
-		nbUniteMax = 20;
+		nbUniteDepart = 5;
+		nbUniteMax = 12;
 	}
 	
 	public double bonusDefense(Territoire t, Peuple attaquant) {

@@ -8,7 +8,7 @@ public class PouvoirVoyageur extends Pouvoir {
 	public PouvoirVoyageur(){
 		nom = "Voyageur";
 		desc = "Ayant explosé leurs crédits SMILE, ils peuvent à présent attaquer n'importe quel territoire";
-		nbUniteApporte = 5;
+		nbUniteApporte = 2;
 	}
 
 	/**

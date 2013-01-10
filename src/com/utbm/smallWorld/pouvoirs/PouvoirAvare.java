@@ -11,7 +11,7 @@ import com.utbm.smallWorld.Territoire;
 public class PouvoirAvare extends Pouvoir {
 	
 	public PouvoirAvare(){ 
-		nbUniteApporte = 5;
+		nbUniteApporte = 4;
 		nom = "Avare";
 		desc = "Chaque territoire conquis dans le tour rapport +1$";
 	}

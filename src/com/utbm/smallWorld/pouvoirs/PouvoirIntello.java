@@ -8,7 +8,7 @@ import com.utbm.smallWorld.elements.SallePartiel;
 public class PouvoirIntello extends Pouvoir {
 	
 	public PouvoirIntello(){ 
-		nbUniteApporte = 5;
+		nbUniteApporte = 4;
 		nom = "Intello";
 		desc = "Chaque territoire occupé étant une salle de partiel se voit attribuer +1 en défense. L'attaque vers ces territoires se voit attribuer +2 de bonus";
 	}

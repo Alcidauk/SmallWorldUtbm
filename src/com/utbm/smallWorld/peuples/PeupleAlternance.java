@@ -16,9 +16,9 @@ import com.utbm.smallWorld.Territoire;
 public class PeupleAlternance extends Peuple {
 	public PeupleAlternance() {
 		nom = "Alternance";
-		description = "";
-		nbUniteDepart = 10;
-		nbUniteMax = 20;
+		description = "Gagne une unité par paire de territoire non-vide conquis durant le tour";
+		nbUniteDepart = 6;
+		nbUniteMax = 18;
 	}
 	
 	public int bonusUnite() {

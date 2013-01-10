@@ -18,8 +18,8 @@ public class PeupleDirecteur extends Peuple {
 	public PeupleDirecteur() {
 		nom = "Directeur de département";
 		description = "Rapporte 1$ de plus par territoire conquis durant le tour";
-		nbUniteDepart = 15;
-		nbUniteMax = 20;
+		nbUniteDepart = 7;
+		nbUniteMax = 15;
 	}
 	
 	public int bonusGain(Territoire t) {

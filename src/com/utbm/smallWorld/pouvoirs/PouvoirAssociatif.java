@@ -8,13 +8,13 @@ public class PouvoirAssociatif extends Pouvoir {
 	public PouvoirAssociatif(){
 		nom = "Associatif";
 		desc = "Tels une secte, ils gagnent +1 unité par tour";
-		nbUniteApporte = 5;		
+		nbUniteApporte = 1;		
 	}
 	
 	/**
 	 * @return
 	 */
-	public int bonusGainUnite(Territoire t) {
+	public int bonusUnite(Territoire t) {
 		return 1;
 	}
 	

@@ -8,7 +8,7 @@ import com.utbm.smallWorld.elements.SalleInfo;
 public class PouvoirGeek extends Pouvoir {
 	
 	public PouvoirGeek(){ 
-		nbUniteApporte = 5;
+		nbUniteApporte = 4;
 		nom = "Geek";
 		desc = "Chaque territoire occupé étant une salle informatique se voit attribuer +1 en défense. L'attaque vers ces territoires se voit attribuer +2 de bonus";
 	}

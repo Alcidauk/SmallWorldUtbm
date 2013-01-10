@@ -14,7 +14,7 @@ public class PeupleServiceTechnique extends Peuple {
 	public PeupleServiceTechnique() {
 		nom = "Service technique";
 		description = "Possédant les clés de l'établissement, ils peuvent attaquer partout, même sur les territoires imprenables";
-		nbUniteDepart = 15;
+		nbUniteDepart = 5;
 		nbUniteMax = 20;
 	}
 	

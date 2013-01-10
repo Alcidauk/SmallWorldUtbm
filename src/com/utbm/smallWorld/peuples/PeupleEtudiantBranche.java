@@ -13,7 +13,7 @@ public class PeupleEtudiantBranche extends Peuple {
 	public PeupleEtudiantBranche() {
 		nom = "Etudiant branche";
 		description = "Lors de la perte d'un territoire, ils ne défaussent pas d'unité";
-		nbUniteDepart = 15;
+		nbUniteDepart = 8;
 		nbUniteMax = 20;
 	}
 	

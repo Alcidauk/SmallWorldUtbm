@@ -12,8 +12,8 @@ public class PouvoirFetard extends Pouvoir {
 	}
 	
 	@Override
-	public double bonusAttaque(Territoire from, Territoire to){
-		return 2.0;
+	public int bonusUniteAttaque(){
+		return 1;
 	}
 
 }

@@ -16,8 +16,8 @@ public class PeupleAdministration extends Peuple {
 	public PeupleAdministration() {
 		nom = "Administration";
 		description = "Chaque territoire occupé contenant une photocopieuse ou une machine à café se voit attribuer +1 de défense";
-		nbUniteDepart = 15;
-		nbUniteMax = 20;
+		nbUniteDepart = 6;
+		nbUniteMax = 15;
 	}
 	
 	public double bonusDefense(Territoire t, Peuple attaquant) {

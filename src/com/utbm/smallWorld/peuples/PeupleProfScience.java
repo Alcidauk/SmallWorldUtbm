@@ -13,7 +13,7 @@ public class PeupleProfScience extends Peuple {
 	public PeupleProfScience() {
 		nom = "Professeur scientifique";
 		description = "Leurs connaissances leurs ont permis de trafiquer le dé, bonus de valeur +2 à chaque lancé de dé";
-		nbUniteDepart = 15;
+		nbUniteDepart = 5;
 		nbUniteMax = 20;
 	}
 	

@@ -9,7 +9,7 @@ public class PouvoirGlouton extends Pouvoir {
 	public PouvoirGlouton(){
 		nom = "Glouton";
 		desc = "Aucun respect, sur chaque territoire qu'ils capturent, ils laissent de la nourriture";
-		nbUniteApporte = 5;
+		nbUniteApporte = 7;
 	}
 
 	/**

@@ -7,9 +7,9 @@ import com.utbm.smallWorld.Territoire;
 public class PouvoirParesseux extends Pouvoir {
 	
 	public PouvoirParesseux(){ 
-		nbUniteApporte = 5; 
+		nbUniteApporte = 2; 
 		nom = "Paresseux";
-		desc = "Il est tellement difficile de les faire se déplacer qu'ils gagnent +1 de bonus défense";
+		desc = "Il est tellement difficile de les faire se déplacer qu'ils gagnent +1 de bonus défense partout";
 	}
 	
 	@Override

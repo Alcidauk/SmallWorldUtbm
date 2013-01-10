@@ -13,7 +13,7 @@ public class PeupleRats extends Peuple {
 	public PeupleRats() {
 		nom = "Rat";
 		description = "Fidèles à leur réputation, ils gagnent +1 unité par tour";
-		nbUniteDepart = 15;
+		nbUniteDepart = 6;
 		nbUniteMax = 25;
 	}
 	

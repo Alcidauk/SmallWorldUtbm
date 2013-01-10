@@ -13,7 +13,7 @@ public class PeupleEtudiantTC extends Peuple {
 	public PeupleEtudiantTC() {
 		nom = "Etudiant TC";
 		description = "Leur nombre est leur force";
-		nbUniteDepart = 15;
+		nbUniteDepart = 11;
 		nbUniteMax = 20;
 	}
 }
