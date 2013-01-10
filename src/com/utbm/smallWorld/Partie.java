@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.utbm.smallWorld.gui.Game;
-import com.utbm.smallWorld.gui.WinMenu;
 import com.utbm.smallWorld.gui.WinWarn;
 import com.utbm.smallWorld.peuples.*;
 import com.utbm.smallWorld.pouvoirs.*;
@@ -73,7 +72,7 @@ public class Partie {
 	/**
 	 * Constructeur par défaut, initialise les listes
 	 */
-	private Partie() {
+	public Partie() {
 		lstJoueurs = new LinkedList<Joueur>();
 		peuplesPris = new LinkedList<Class<? extends Peuple>>();
 		peuplesDispo = new LinkedList<Class<? extends Peuple>>();
@@ -97,7 +96,8 @@ public class Partie {
 	public void nouveauTour() {
 		tourEnCours++;
 		
-		if (tourEnCours > nbTours) {
+		if (tourEnCours >= nbTours) {
+			Game.gameOver();
 			
 		}
 		else {
@@ -629,6 +629,13 @@ public class Partie {
 	 */
 	public Joueur getJoueur(int i) {
 		return lstJoueurs.get(i);
+	}
+	
+	/**
+	 * @return Joueurs
+	 */
+	public List<Joueur> getJoueurs() {
+		return lstJoueurs;
 	}
 	
 	

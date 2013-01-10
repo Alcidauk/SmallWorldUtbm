@@ -21,8 +21,9 @@ public class WinWait extends JDialog implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	
 	
-	public WinWait(String mess) {
+	public WinWait(String mess, final int time) {
 		super(Game.getInstance(), true);
+		
 		//setModal(true);
 		setBounds(Game.getInstance().getBounds());
 		setResizable(false);
@@ -42,7 +43,7 @@ public class WinWait extends JDialog implements MouseListener {
 		infoTemp.setPreferredSize(new Dimension(1274, 740));
 		infoTemp.setOpaque(false);
 		
-		JLabel labInfoTemp = new JLabel(mess);
+		JLabel labInfoTemp = new JLabel("<html>" + mess.replaceAll("\n", "<br>") + "</html>");
 		labInfoTemp.setForeground(Color.WHITE);
 		labInfoTemp.setFont(new Font("sherif", 0, 60));
 		labInfoTemp.setVerticalAlignment(JLabel.CENTER);
@@ -73,7 +74,7 @@ public class WinWait extends JDialog implements MouseListener {
 		new Thread(new Runnable(){
 			public void run() {
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(time);
 				}
 				catch (Exception e) {}
 				

@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -366,7 +368,6 @@ public class Game extends JFrame {
     			Peuple insPpl = clPpl.newInstance();
     			Pouvoir insPov = clPov.newInstance();
     			
-    			// TODO Description
     			String tx = arg + "$ - " + insPpl.getNom() + " (" + insPpl.getNbUniteDepart() + " unit.) + " + insPov.getNom() + " (" + insPov.getNbUniteApporte() + " unit.)";
     			String desc = insPpl.getNom() + " : " + insPpl.getDescription() + "\n" + insPov.getNom() + " : " + insPov.getDesc();
     			
@@ -563,26 +564,20 @@ public class Game extends JFrame {
 	 * 
 	 */
 	public void showTemp(String message) {
-		new WinWait(message);
-		/*labInfoTemp.setText(message);
-		infoTemp.setVisible(true);
-		
-		try {
-			SwingUtilities.invokeAndWait(new Runnable(){
-				public void run() {
-					try {
-						Thread.sleep(2000);
-					}
-					catch (Exception e) {}
-					
-					return;
-				}
-			});
-		}
-		catch (Exception e) {}
-		
-		infoTemp.setVisible(false);*/
+		new WinWait(message, 2000);
 	}
+	
+	
+	
+	/**
+	 * 
+	 */
+	public void showTemp(String message, int time) {
+		new WinWait(message, time);
+	}
+	
+	
+	
 	
 	/**
 	 * Mise à jours des informations affichées sur la fenêtre
@@ -721,6 +716,40 @@ public class Game extends JFrame {
 	
 	
 	
+	/**
+	 * La partie est finie
+	 */
+	public static void gameOver() {
+		List<Joueur> joueurs = Partie.getInstance().getJoueurs();
+		
+		Collections.sort(joueurs, new Comparator<Joueur>() {
+			public int compare(Joueur o1, Joueur o2) {
+				return o2.getArgent() - o1.getArgent();
+			}
+		});
+		
+		String res = "Résultats :\n";
+		
+		for (int i = 0; i < joueurs.size(); i++) {
+			Joueur j = joueurs.get(i);
+			
+			res += (i + 1) + ". " + j.getNom() + " (" + j.getArgent() + " $)\n";
+		}
+		
+		getInstance().showTemp(res, 10000);
+		
+		if (getInstance().askConf("Voulez-vous rejouer ?")) {
+			Partie.setPart(new Partie());
+			
+			new Game();
+		}
+		else {
+			System.exit(0);
+		}
+	}
+	
+	
+	
 	
 	
 	/**
@@ -738,5 +767,9 @@ public class Game extends JFrame {
 	public static void main(String[] args) {
 		new Game();
 	}
+
+
+
+
 
 }
