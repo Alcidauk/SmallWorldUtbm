@@ -151,7 +151,6 @@ public class Partie {
 	 * @return
 	 */
 	public double coutAttaque(Territoire t){
-		// TODO Temp
 		try {
 			return t.coutAttaque(joueurEnCours.getPeuple());
 		}
@@ -244,7 +243,9 @@ public class Partie {
 
 	
 	
-	// TODO: Commentaire
+	/**
+	 * Phase de redeploiement
+	 */
 	public void redeploiement() {
 		setEtape(2);
 		miseEnMain();
@@ -256,6 +257,10 @@ public class Partie {
 	}
 	
 	
+	
+	/**
+	 * Demande aux joueurs ayant des unités en main de les placer
+	 */
 	public boolean deploiementSuivant() {
 		int nextJoueur = (indexSauvJoueurEnCours + 1) == lstJoueurs.size() ? 0 : (indexSauvJoueurEnCours + 1);
 		
@@ -282,6 +287,9 @@ public class Partie {
 	}
 	
 	
+	/**
+	 * Changement de joueur dans le tour donné
+	 */
 	public void joueurSuivant() {
 		setEtape(0);
 		

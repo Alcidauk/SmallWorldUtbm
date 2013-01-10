@@ -95,15 +95,6 @@ public class Territoire {
 	
 	
 	/**
-	 * Abandon du territoire par le joueur actuel
-	 */
-	public void abandon() {
-		//TODO ?
-	}
-	
-	
-	
-	/**
 	 * @return Nombre de point victoire bonus sans compter le point normal
 	 */
 	public int bonusGain() {

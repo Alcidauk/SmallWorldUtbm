@@ -10,7 +10,6 @@ import java.awt.event.MouseListener;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 public class WinWait extends JDialog implements MouseListener {
 	
